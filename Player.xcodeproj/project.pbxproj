@@ -17,7 +17,6 @@
 		49F272801BF2330700FCC767 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49F2727F1BF2330700FCC767 /* Info.plist */; };
 		CC113C0E1C8C4E5D0044FEEB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC113C0D1C8C4E5D0044FEEB /* MainViewController.m */; };
 		CC2CC63B1CA24D4B0028BBDD /* ZFBrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */; };
-		CC2CC63C1CA24D4B0028BBDD /* ZFPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CC2CC6331CA24D4B0028BBDD /* ZFPlayer.bundle */; };
 		CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */; };
 		CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */; };
 		CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */; };
@@ -32,6 +31,7 @@
 		CCE1C13B1C9AA11F004C95AC /* ZFPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE1C13A1C9AA11F004C95AC /* ZFPlayerModel.m */; };
 		CCE1C13E1C9AA128004C95AC /* ZFTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE1C13D1C9AA128004C95AC /* ZFTableViewController.m */; };
 		CCE1C1401C9AA131004C95AC /* videoData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCE1C13F1C9AA131004C95AC /* videoData.json */; };
+		D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */; };
 		D9B558B36CCC488962F548FA /* libPods-Player.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0AF4757901EAD2A137190E /* libPods-Player.a */; };
 /* End PBXBuildFile section */
 
@@ -74,7 +74,6 @@
 		CC113C0D1C8C4E5D0044FEEB /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		CC2CC6311CA24D4B0028BBDD /* ZFBrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFBrightnessView.h; sourceTree = "<group>"; };
 		CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFBrightnessView.m; sourceTree = "<group>"; };
-		CC2CC6331CA24D4B0028BBDD /* ZFPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZFPlayer.bundle; sourceTree = "<group>"; };
 		CC2CC6351CA24D4B0028BBDD /* ZFPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerControlView.h; sourceTree = "<group>"; };
 		CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerControlView.m; sourceTree = "<group>"; };
 		CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFPlayerControlView.xib; sourceTree = "<group>"; };
@@ -99,6 +98,7 @@
 		CCE1C13C1C9AA128004C95AC /* ZFTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFTableViewController.h; sourceTree = "<group>"; };
 		CCE1C13D1C9AA128004C95AC /* ZFTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTableViewController.m; sourceTree = "<group>"; };
 		CCE1C13F1C9AA131004C95AC /* videoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoData.json; sourceTree = "<group>"; };
+		D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZFPlayer.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,7 +219,6 @@
 		CC2CC6301CA24D4B0028BBDD /* ZFPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				CC2CC6331CA24D4B0028BBDD /* ZFPlayer.bundle */,
 				CC2CC6541CA38A710028BBDD /* ZFPlayer.h */,
 				CC2CC6511CA388800028BBDD /* ZFPlayerSingleton.h */,
 				CC2CC6521CA388800028BBDD /* ZFPlayerSingleton.m */,
@@ -231,6 +230,7 @@
 				CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */,
 				CC2CC6311CA24D4B0028BBDD /* ZFBrightnessView.h */,
 				CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */,
+				D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */,
 			);
 			path = ZFPlayer;
 			sourceTree = SOURCE_ROOT;
@@ -406,7 +406,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC2CC63C1CA24D4B0028BBDD /* ZFPlayer.bundle in Resources */,
 				CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */,
 				CC2CC6401CA24D4B0028BBDD /* ZFPlayerView.xib in Resources */,
 				CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */,
@@ -414,6 +413,7 @@
 				4947F79A1BE996AC003093C8 /* Assets.xcassets in Resources */,
 				49F272801BF2330700FCC767 /* Info.plist in Resources */,
 				CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */,
+				D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */,
 				CCE1C1401C9AA131004C95AC /* videoData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

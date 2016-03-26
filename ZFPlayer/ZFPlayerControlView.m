@@ -48,7 +48,7 @@
     // 默认隐藏锁定按钮
     self.lockBtn.hidden = YES;
     // 设置slider
-    [self.videoSlider setThumbImage:[UIImage imageNamed:ZFPlayerSrcName(@"slider")] forState:UIControlStateNormal];
+    [self.videoSlider setThumbImage:[UIImage imageNamed:@"ZFPlayer.slider"] forState:UIControlStateNormal];
     
     [self insertSubview:self.progressView belowSubview:self.videoSlider];
     self.videoSlider.minimumTrackTintColor = [UIColor whiteColor];

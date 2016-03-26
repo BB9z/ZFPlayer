@@ -117,9 +117,8 @@ static ZFPlayerView* playerView = nil;
 }
 
 - (void)awakeFromNib {
-    self.backgroundColor                 = [UIColor blackColor];
     // 设置快进快退label
-    self.horizontalLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:ZFPlayerSrcName(@"Management_Mask")]];
+    self.horizontalLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ZFPlayer.mask"]];
     // 亮度调节
     [ZFBrightnessView sharedBrightnesView];
     [self.activity stopAnimating];
@@ -133,10 +132,8 @@ static ZFPlayerView* playerView = nil;
 - (void)dealloc {
     NSLog(@"%@释放了",self.class);
 
-    // 移除通知
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.playerItem = nil;
-
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeTableViewObserver];
 }
 
@@ -216,9 +213,9 @@ static ZFPlayerView* playerView = nil;
     [self.controlView.startBtn addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
     // cell上播放视频的话，该返回按钮为×
     if (self.isCellVideo) {
-        [self.backBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"kr-video-player-close")] forState:UIControlStateNormal];
+        [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.close"] forState:UIControlStateNormal];
     }else {
-        [self.backBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"play_back_full")] forState:UIControlStateNormal];
+        [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
     }
     // 返回按钮点击事件
     [self.backBtn addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
@@ -239,7 +236,7 @@ static ZFPlayerView* playerView = nil;
 - (void)addTableViewObserver {
     if (self.tableView) {
         // 监听tab偏移量
-        [self.tableView addObserver:self forKeyPath:kZFPlayerViewContentOffset options:NSKeyValueObservingOptionNew context:nil];
+        [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     }
 }
 /**
@@ -247,7 +244,7 @@ static ZFPlayerView* playerView = nil;
  */
 - (void)removeTableViewObserver {
     if (self.tableView) {
-        [self.tableView removeObserver:self forKeyPath:kZFPlayerViewContentOffset];
+        [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     }
 }
 
@@ -318,13 +315,7 @@ static ZFPlayerView* playerView = nil;
     [self setVideoURL:videoURL];
 }
 
-/**
- *  videoURL的setter方法
- *
- *  @param videoURL videoURL
- */
-- (void)setVideoURL:(NSURL *)videoURL
-{
+- (void)setVideoURL:(NSURL *)videoURL {
     if ([self.videoURL isEqual:videoURL]) return;
     if (self.playerItem) {
         [self resetPlayer];
@@ -528,7 +519,7 @@ static ZFPlayerView* playerView = nil;
         }
     }
     else if (object == self.tableView) {
-        if ([keyPath isEqualToString:kZFPlayerViewContentOffset]) {
+        if ([keyPath isEqualToString:@"contentOffset"]) {
             if (([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft) || ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight)) { return; }
             // 当tableview滚动时处理playerView的位置
             [self handleScrollOffsetWithDict:change];
@@ -571,16 +562,6 @@ static ZFPlayerView* playerView = nil;
         return;
     }
     [[UIApplication sharedApplication].keyWindow addSubview:self];
-    // 解决4s，屏幕宽高比不是16：9的问题
-//    if (iPhone4s) {
-//        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            CGFloat width = ScreenWidth*0.5-20;
-//            make.width.mas_equalTo(width);
-//            make.trailing.mas_equalTo(-10);
-//            make.bottom.mas_equalTo(-self.tableView.contentInset.bottom-10);
-//            make.height.mas_equalTo(width*320/480).with.priority(750);
-//        }];
-//    }else {
 //        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
 //            CGFloat width = ScreenWidth*0.5-20;
 //            make.width.mas_equalTo(width);
@@ -725,7 +706,7 @@ static ZFPlayerView* playerView = nil;
     }
     // 在cell上播放视频 && 不允许横屏（此时为竖屏状态）
     if (self.isCellVideo && !ZFPlayerShared.isAllowLandscape) {
-        [self.backBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"kr-video-player-close")] forState:UIControlStateNormal];
+        [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.close"] forState:UIControlStateNormal];
         self.isFullScreen = NO;
         return;
     }
@@ -733,37 +714,37 @@ static ZFPlayerView* playerView = nil;
     UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
     switch (interfaceOrientation) {
         case UIInterfaceOrientationPortraitUpsideDown:{
-            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"kr-video-player-shrinkscreen")] forState:UIControlStateNormal];
+            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:@"ZFPlayer.shrinkscreen"] forState:UIControlStateNormal];
             if (self.isCellVideo) {
-                [self.backBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"play_back_full")] forState:UIControlStateNormal];
+                [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
             }
             self.isFullScreen = YES;
         }
             break;
         case UIInterfaceOrientationPortrait:{
-            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"kr-video-player-fullscreen")] forState:UIControlStateNormal];
+            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:@"ZFPlayer.fullscreen"] forState:UIControlStateNormal];
             if (self.isCellVideo) {
                 // 当设备转到竖屏时候，设置为竖屏约束
                 [self setOrientationPortrait];
                 // 改为只允许竖屏播放
                 ZFPlayerShared.isAllowLandscape = NO;
-                [self.backBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"kr-video-player-close")] forState:UIControlStateNormal];
+                [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.close"] forState:UIControlStateNormal];
             }
             self.isFullScreen = NO;
         }
             break;
         case UIInterfaceOrientationLandscapeLeft:{
-            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"kr-video-player-shrinkscreen")] forState:UIControlStateNormal];
+            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:@"ZFPlayer.shrinkscreen"] forState:UIControlStateNormal];
             if (self.isCellVideo) {
-                [self.backBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"play_back_full")] forState:UIControlStateNormal];
+                [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
             }
             self.isFullScreen = YES;
         }
             break;
         case UIInterfaceOrientationLandscapeRight:{
-            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"kr-video-player-shrinkscreen")] forState:UIControlStateNormal];
+            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:@"ZFPlayer.shrinkscreen"] forState:UIControlStateNormal];
             if (self.isCellVideo) {
-                [self.backBtn setImage:[UIImage imageNamed:ZFPlayerSrcName(@"play_back_full")] forState:UIControlStateNormal];
+                [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
             }
             self.isFullScreen = YES;
         }

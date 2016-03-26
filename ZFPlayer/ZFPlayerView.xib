@@ -26,16 +26,17 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUJ-Pv-GeU">
                     <rect key="frame" x="15" y="10" width="30" height="30"/>
-                    <state key="normal" image="ZFPlayer.bundle/repeat_video"/>
+                    <state key="normal" image="ZFPlayer.back"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-7i-uQI">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-7i-uQI">
                     <rect key="frame" x="165" y="56" width="40" height="60"/>
-                    <state key="normal" image="ZFPlayer.bundle/repeat_video"/>
+                    <state key="normal" image="ZFPlayer.repeat_video"/>
                     <connections>
                         <action selector="repeatPlay:" destination="iN0-l3-epB" eventType="touchUpInside" id="9IS-4Z-vjI"/>
                     </connections>
                 </button>
             </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="gUJ-Pv-GeU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" priority="750" constant="15" placeholder="YES" id="D4g-dh-sxT"/>
                 <constraint firstItem="cfx-7i-uQI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="PT5-ee-n8x"/>
@@ -57,6 +58,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ZFPlayer.bundle/repeat_video" width="1136" height="640"/>
+        <image name="ZFPlayer.back" width="15" height="15"/>
+        <image name="ZFPlayer.repeat_video" width="40" height="60"/>
     </resources>
 </document>

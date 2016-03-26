@@ -49,16 +49,16 @@
 
 - (instancetype)init {
 	if (self = [super init]) {
-		self.frame = CGRectMake(ScreenWidth * 0.5, ScreenHeight * 0.5, 155, 155);
+		self.frame = CGRectMake(0, 0, 155, 155);
 		
 		self.layer.cornerRadius = 10;
 		self.layer.masksToBounds = YES;
 		
-		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:ZFPlayerSrcName(@"brightness_bg.png")]];
+		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ZFPlayer.brightness_bg.png"]];
         
 		self.backImage = ({
 			UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 79, 76)];
-			imgView.image = [UIImage imageNamed:ZFPlayerSrcName(@"playgesture_BrightnessSun6")];
+			imgView.image = [UIImage imageNamed:@"ZFPlayer.brightness"];
 			[self addSubview:imgView];
 			imgView;
 		});
@@ -216,23 +216,23 @@
 	
 	if (self.orientationDidChange) {
 		[UIView animateWithDuration:0.25 animations:^{
+            CGPoint center = self.window.center;
 			if ([UIDevice currentDevice].orientation == UIDeviceOrientationPortrait
 				|| [UIDevice currentDevice].orientation == UIDeviceOrientationFaceUp) {
-				self.center = CGPointMake(ScreenWidth * 0.5, (ScreenHeight - 10) * 0.5);
-			} else {
-				self.center = CGPointMake(ScreenWidth * 0.5, ScreenHeight * 0.5);
+                center.y -= 10;
 			}
+            self.center = center;
 		} completion:^(BOOL finished) {
 			self.orientationDidChange = NO;
 		}];
 	} else {
+        CGPoint center = self.window.center;
 		if ([UIDevice currentDevice].orientation == UIDeviceOrientationPortrait) {
-			self.center = CGPointMake(ScreenWidth * 0.5, (ScreenHeight - 10) * 0.5);
-		} else {
-			self.center = CGPointMake(ScreenWidth * 0.5, ScreenHeight * 0.5);
+            center.y -= 10;
 		}
+        self.center = center;
 	}
-	
+
 	self.backImage.center = CGPointMake(155 * 0.5, 155 * 0.5);
 }
 
