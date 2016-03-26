@@ -40,6 +40,7 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /** 是否在cell上播放video */
 @property (nonatomic, assign) BOOL                isCellVideo;
 
+
 /**
  *  取消延时隐藏controlView的方法,在ViewController的delloc方法中调用
  *  用于解决：刚打开视频播放器，就关闭该页面，maskView的延时隐藏还未执行。
@@ -93,5 +94,16 @@ typedef void(^ZFPlayerGoBackBlock)(void);
       withTableView:(UITableView *)tableView
         AtIndexPath:(NSIndexPath *)indexPath
    withImageViewTag:(NSInteger)tag;
+
+#pragma mark - UI
+
+/** 快进快退label */
+@property (nonatomic, weak) IBOutlet UILabel *horizontalLabel;
+/** 系统菊花 */
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
+/** 返回按钮*/
+@property (nonatomic, weak) IBOutlet UIButton *backBtn;
+/** 重播按钮 */
+@property (nonatomic, weak) IBOutlet UIButton *repeatBtn;
 
 @end
