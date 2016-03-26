@@ -25,7 +25,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "ZFPlayer.h"
-#import <Masonry/Masonry.h>
 
 @interface MoviePlayerViewController ()
 
@@ -67,13 +66,26 @@
      }];
     */
     
-    self.playerView.videoURL     = self.videoURL;
+//    self.playerView.videoURL     = self.videoURL;
     __weak typeof(self) weakSelf = self;
     self.playerView.goBackBlock  = ^{
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
     
 
+}
+
+- (IBAction)onV1:(id)sender {
+    NSURL *videoURL                  = [[NSBundle mainBundle] URLForResource:@"150511_JiveBike" withExtension:@"mov"];
+    self.playerView.videoURL = videoURL;
+}
+
+- (IBAction)onV2:(id)sender {
+    self.playerView.videoURL = [NSURL URLWithString:@"http://baobab.wdjcdn.com/1456480115661mtl.mp4"];
+}
+
+- (IBAction)onV3:(id)sender {
+    self.playerView.videoURL = [NSURL URLWithString:@"http://baobab.wdjcdn.com/1456665467509qingshu.mp4"];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
