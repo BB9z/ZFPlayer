@@ -24,7 +24,6 @@
 #import "ZFTableViewController.h"
 #import "ZFPlayerCell.h"
 #import "ZFPlayerModel.h"
-#import <Masonry/Masonry.h>
 
 @interface ZFTableViewController ()
 

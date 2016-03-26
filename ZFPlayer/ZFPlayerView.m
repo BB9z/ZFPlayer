@@ -24,7 +24,7 @@
 #import "ZFPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
-#import <Masonry/Masonry.h>
+//#import <Masonry/Masonry.h>
 #import <XXNibBridge/XXNibBridge.h>
 #import "ZFPlayerControlView.h"
 #import "ZFBrightnessView.h"
@@ -140,11 +140,13 @@ static ZFPlayerView* playerView = nil;
     self.repeatBtn.hidden = YES;
     // 每次播放视频都解锁屏幕锁定
     [self unLockTheScreen];
+    self.backBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
 }
 
 - (void)dealloc
 {
-    //NSLog(@"%@释放了",self.class);
+    NSLog(@"%@释放了",self.class);
+
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     // 移除观察者
@@ -298,12 +300,12 @@ static ZFPlayerView* playerView = nil;
     [self animateShow];
     
     // 解决4s，屏幕宽高比不是16：9的问题,player加到控制器上时候
-    if (iPhone4s && !self.isCellVideo) {
-        [self mas_updateConstraints:^(MASConstraintMaker *make) {
-            CGFloat width = [UIScreen mainScreen].bounds.size.width;
-            make.height.mas_equalTo(width*320/480);
-        }];
-    }
+//    if (iPhone4s && !self.isCellVideo) {
+//        [self mas_updateConstraints:^(MASConstraintMaker *make) {
+//            CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//            make.height.mas_equalTo(width*320/480);
+//        }];
+//    }
 }
 
 #pragma mark - 设置视频URL
@@ -601,23 +603,23 @@ static ZFPlayerView* playerView = nil;
     }
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     // 解决4s，屏幕宽高比不是16：9的问题
-    if (iPhone4s) {
-        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-            CGFloat width = ScreenWidth*0.5-20;
-            make.width.mas_equalTo(width);
-            make.trailing.mas_equalTo(-10);
-            make.bottom.mas_equalTo(-self.tableView.contentInset.bottom-10);
-            make.height.mas_equalTo(width*320/480).with.priority(750);
-        }];
-    }else {
-        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-            CGFloat width = ScreenWidth*0.5-20;
-            make.width.mas_equalTo(width);
-            make.trailing.mas_equalTo(-10);
-            make.bottom.mas_equalTo(-self.tableView.contentInset.bottom-10);
-            make.height.equalTo(self.mas_width).multipliedBy(9.0f/16.0f).with.priority(750);
-        }];
-    }
+//    if (iPhone4s) {
+//        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            CGFloat width = ScreenWidth*0.5-20;
+//            make.width.mas_equalTo(width);
+//            make.trailing.mas_equalTo(-10);
+//            make.bottom.mas_equalTo(-self.tableView.contentInset.bottom-10);
+//            make.height.mas_equalTo(width*320/480).with.priority(750);
+//        }];
+//    }else {
+//        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            CGFloat width = ScreenWidth*0.5-20;
+//            make.width.mas_equalTo(width);
+//            make.trailing.mas_equalTo(-10);
+//            make.bottom.mas_equalTo(-self.tableView.contentInset.bottom-10);
+//            make.height.equalTo(self.mas_width).multipliedBy(9.0f/16.0f).with.priority(750);
+//        }];
+//    }
     self.isBottomVideo = YES;
     // 不显示控制层
     self.controlView.alpha = 0;
@@ -643,18 +645,11 @@ static ZFPlayerView* playerView = nil;
 - (void)setOrientationLandscape
 {
     if (self.tableView) {
-        [self.backBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.leading.mas_equalTo(15);
-            make.width.height.mas_equalTo(30);
-            make.top.mas_equalTo(20);
-        }];
+        self.backBtn.center = CGPointMake(15 + 15, 20 + 15);
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
         // 亮度view加到window最上层
         ZFBrightnessView *brightnessView = [ZFBrightnessView sharedBrightnesView];
         [[UIApplication sharedApplication].keyWindow insertSubview:self belowSubview:brightnessView];
-        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.edges.insets(UIEdgeInsetsMake(0, 0, 0, 0));
-        }];
     }
 }
 
@@ -664,11 +659,7 @@ static ZFPlayerView* playerView = nil;
 - (void)setOrientationPortrait
 {
     if (self.tableView) {
-        [self.backBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.leading.mas_equalTo(5);
-            make.width.height.mas_equalTo(30);
-            make.top.mas_equalTo(5);
-        }];
+        self.backBtn.center = CGPointMake(5 +15, 5 +15);
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
         [self removeFromSuperview];
         UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
@@ -712,18 +703,6 @@ static ZFPlayerView* playerView = nil;
         [self setOrientationPortrait];
         
     }
-    
-    /*
-     // 非arc下
-     if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-     [[UIDevice currentDevice] performSelector:@selector(setOrientation:)
-     withObject:@(orientation)];
-     }
-     
-     // 直接调用这个方法通不过apple上架审核
-     [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
-     
-     */
 }
 
 /**
@@ -859,12 +838,8 @@ static ZFPlayerView* playerView = nil;
  *
  *  @param cell 添加player的cellImageView
  */
-- (void)addPlayerToCellImageView:(UIImageView *)imageView
-{
+- (void)addPlayerToCellImageView:(UIImageView *)imageView {
     [imageView addSubview:self];
-    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.leading.trailing.bottom.mas_equalTo(0);
-    }];
 }
 
 #pragma mark - 缓冲较差时候
@@ -1444,11 +1419,9 @@ static ZFPlayerView* playerView = nil;
 {
     if (!_controlView) {
         _controlView = [ZFPlayerControlView setupPlayerControlView];
+        _controlView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        _controlView.frame = self.bounds;
         [self insertSubview:_controlView belowSubview:_backBtn];
-        
-        [_controlView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.insets(UIEdgeInsetsMake(0, 0, 0, 0));
-        }];
     }
     return _controlView;
 }

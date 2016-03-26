@@ -24,7 +24,7 @@
 #import "ZFPlayerCell.h"
 #import <AVFoundation/AVFoundation.h>
 #import "UIImageView+WebCache.h"
-#import <Masonry/Masonry.h>
+//#import <Masonry/Masonry.h>
 
 @interface ZFPlayerCell ()
 
@@ -45,9 +45,9 @@
     [self.playBtn setImage:[UIImage imageNamed:@"video_list_cell_big_icon"] forState:UIControlStateNormal];
     [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     [self.picView addSubview:self.playBtn];
-    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.picView);
-    }];
+    [self.playBtn sizeToFit];
+    self.playBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
+    self.playBtn.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
 // 切圆角
