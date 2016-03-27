@@ -449,15 +449,19 @@ static ZFPlayerView* playerView = nil;
     if (!self.isMaskShowing) {
         return;
     }
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideControlView) object:nil];
-    [self performSelector:@selector(hideControlView) withObject:nil afterDelay:ZFPlayerAnimationTimeInterval];
+    __weak __typeof(&*self)weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ZFPlayerAnimationTimeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        __strong __typeof(&*weakSelf)strongSelf = weakSelf;
+        if (strongSelf.isMaskShowing) {
+            [strongSelf hideControlView];
+        }
+    });
 }
 
 /**
  *  取消延时隐藏controlView的方法
  */
 - (void)cancelAutoFadeOutControlBar {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 /**
