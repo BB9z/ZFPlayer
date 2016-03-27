@@ -594,14 +594,18 @@ static ZFPlayerView* playerView = nil;
         return;
     }
     [[UIApplication sharedApplication].keyWindow addSubview:self];
-//        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            CGFloat width = ScreenWidth*0.5-20;
-//            make.width.mas_equalTo(width);
-//            make.trailing.mas_equalTo(-10);
-//            make.bottom.mas_equalTo(-self.tableView.contentInset.bottom-10);
-//            make.height.equalTo(self.mas_width).multipliedBy(9.0f/16.0f).with.priority(750);
-//        }];
-//    }
+
+    //
+    self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
+    self.frame = ({
+        CGRect refrenceFrame = self.tableView? self.tableView.frame : [UIScreen mainScreen].bounds;
+        CGFloat superWidth = CGRectGetWidth(refrenceFrame)?: 320;
+        CGFloat width = superWidth *0.5 - 20;
+        CGFloat height = width / 16 * 9;
+        CGFloat y = CGRectGetHeight(refrenceFrame) - height - 10 - self.tableView.contentInset.bottom;
+        CGRectMake(superWidth - width - 20, y, width, height);
+    });
+
     self.isBottomVideo = YES;
     // 不显示控制层
     self.controlView.alpha = 0;

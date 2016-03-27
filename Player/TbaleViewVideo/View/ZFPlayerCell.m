@@ -47,7 +47,8 @@
     [self.picView addSubview:self.playBtn];
     [self.playBtn sizeToFit];
     self.playBtn.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin;
-    self.playBtn.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    CGRect playButtonRefFrame = [self.picView convertRect:self.picView.bounds toView:self.playBtn.superview];
+    self.playBtn.center = CGPointMake(CGRectGetMidX(playButtonRefFrame), CGRectGetMidY(playButtonRefFrame));
 }
 
 // 切圆角
