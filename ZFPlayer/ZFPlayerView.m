@@ -131,27 +131,10 @@ static ZFPlayerView* playerView = nil;
 - (void)dealloc {
     NSLog(@"%@释放了",self.class);
     self.playerItem = nil;
-    [self removeNotifications];
-}
+    self.tableView = nil;
 
-- (void)setPlayerItem:(AVPlayerItem *)playerItem {
-    if (_playerItem != playerItem) {
-        if (_playerItem) {
-            [_playerItem removeObserver:self forKeyPath:@"status"];
-            [_playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
-            [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
-            [_playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
-        }
-        _playerItem = playerItem;
-        if (playerItem) {
-            [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-            [playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
-            [playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
-            [playerItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
-        }
-    }
+    // 移除所有通知
+    [self removeNotifications];
 }
 
 /**
@@ -247,40 +230,17 @@ static ZFPlayerView* playerView = nil;
     [self.controlView.fullScreenBtn addTarget:self action:@selector(fullScreenAction:) forControlEvents:UIControlEventTouchUpInside];
     // 锁定屏幕方向点击事件
     [self.controlView.lockBtn addTarget:self action:@selector(lockScreenAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // 添加Tableview观察者
-    [self addTableViewObserver];
+
     // 监测设备方向
     [self listeningRotating];
 }
 
 /**
- *  移除所有通知、观察者
+ *  移除所有通知
  */
 - (void)removeNotifications {
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    // 移除观察者
-    [self removeTableViewObserver];
-}
-
-/**
- *  添加Tableview观察者
- */
-- (void)addTableViewObserver {
-    if (self.tableView) {
-        // 监听tab偏移量
-        [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
-    }
-}
-
-/**
- *  移除TableView观察者
- */
-- (void)removeTableViewObserver {
-    if (self.tableView) {
-        [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
-    }
 }
 
 /**
@@ -1376,6 +1336,40 @@ static ZFPlayerView* playerView = nil;
     _state = state;
     if (state != ZFPlayerStateBuffering) {
         [self.activity stopAnimating];
+    }
+}
+
+- (void)setPlayerItem:(AVPlayerItem *)playerItem {
+    if (_playerItem == playerItem) return;
+
+    if (_playerItem) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
+        [_playerItem removeObserver:self forKeyPath:@"status"];
+        [_playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
+        [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
+        [_playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+    }
+    _playerItem = playerItem;
+    if (playerItem) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
+        [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+        [playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+        // 缓冲区空了，需要等待数据
+        [playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
+        // 缓冲区有足够数据可以播放了
+        [playerItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
+- (void)setTableView:(UITableView *)tableView {
+    if (_tableView == tableView) return;
+
+    if (_tableView) {
+        [_tableView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset))];
+    }
+    _tableView = tableView;
+    if (tableView) {
+        [tableView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset)) options:NSKeyValueObservingOptionNew context:nil];
     }
 }
 
