@@ -82,6 +82,10 @@ typedef void(^ZFPlayerGoBackBlock)(void);
  */
 - (void)pause;
 
+@property (nonatomic) BOOL fullscreenMode;
+
+- (void)setFullscreenMode:(BOOL)fullscreen animated:(BOOL)animated;
+
 #pragma mark - Table view 模式
 
 /** 是否在cell上播放video */

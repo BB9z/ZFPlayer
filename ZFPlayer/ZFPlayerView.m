@@ -48,6 +48,9 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     ZFPlayerStatePause       //暂停播放
 };
 
+@interface UIDevice (Fake)
+- (void)setOrientation:(int)orientation animated:(BOOL)animated;
+@end
 
 @interface ZFPlayerView () <XXNibBridge, UIGestureRecognizerDelegate>
 
@@ -206,26 +209,26 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
         [self unLockTheScreen];
         return;
     }
-    else {
-        if (!self.isFullScreen) {
-            // 在cell上播放视频
-            if (self.isCellVideo) {
-                // 关闭player
-                [self resetPlayer];
-                [self removeFromSuperview];
-                return;
-            }
-            // player加到控制器上，只有一个player时候
-            [self.timer invalidate];
-            self.timer = nil;
-            [self pause];
-            if (self.goBackBlock) {
-                self.goBackBlock();
-            }
-        }
-        else {
-            [self interfaceOrientation:UIInterfaceOrientationPortrait];
-        }
+
+    if (self.fullscreenMode) {
+        [self setFullscreenMode:NO animated:YES];
+        return;
+    }
+
+    // 在cell上播放视频
+    if (self.isCellVideo) {
+        // 关闭player
+        [self resetPlayer];
+        [self removeFromSuperview];
+        return;
+    }
+
+    // player加到控制器上，只有一个player时候
+    [self.timer invalidate];
+    self.timer = nil;
+    [self pause];
+    if (self.goBackBlock) {
+        self.goBackBlock();
     }
 }
 
@@ -984,28 +987,36 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 
 #pragma mark 屏幕旋转
 
-- (void)interfaceOrientation:(UIInterfaceOrientation)orientation {
-    //    [UIApplication sharedApplication] setStatusBarOrientation:<#(UIInterfaceOrientation)#> animated:<#(BOOL)#>
+- (void)setFullscreenMode:(BOOL)fullscreenMode {
+    [self setFullscreenMode:fullscreenMode animated:NO];
+}
 
-    // arc下
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        SEL selector             = NSSelectorFromString(@"setOrientation:");
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-        [invocation setTarget:[UIDevice currentDevice]];
-        int val                  = orientation;
-        [invocation setArgument:&val atIndex:2];
-        [invocation invoke];
-    }
-    if (orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationLandscapeLeft) {
-        // 设置横屏
+- (void)setFullscreenMode:(BOOL)fullscreen animated:(BOOL)animated {
+    _fullscreenMode = fullscreen;
+    ZFPlayerShared.isAllowLandscape = fullscreen;
+    [self setDeviceOrientationToLandscape:fullscreen animated:animated];
+    if (fullscreen) {
         [self setOrientationLandscape];
-
-    }else if (orientation == UIInterfaceOrientationPortrait) {
-        // 设置竖屏
-        [self setOrientationPortrait];
-
     }
+    else {
+        [self setOrientationPortrait];
+    }
+}
+
+- (void)setDeviceOrientationToLandscape:(BOOL)isLandscape animated:(BOOL)animated {
+    UIInterfaceOrientation orientation = (UIInterfaceOrientation)[UIDevice currentDevice].orientation;
+    if (isLandscape) {
+        if (!UIInterfaceOrientationIsLandscape(orientation)) {
+            orientation = UIInterfaceOrientationLandscapeLeft;
+        }
+    }
+    else {
+        if (!UIInterfaceOrientationIsPortrait(orientation)) {
+            orientation = UIInterfaceOrientationPortrait;
+        }
+    }
+    [[UIDevice currentDevice] setOrientation:orientation animated:animated];
+//    [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:animated];
 }
 
 /**
@@ -1026,28 +1037,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
         [self unLockTheScreen];
         return;
     }
-    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
-    switch (interfaceOrientation) {
-        case UIInterfaceOrientationPortraitUpsideDown:{
-            ZFPlayerShared.isAllowLandscape = NO;
-            [self interfaceOrientation:UIInterfaceOrientationPortrait];
-            break;
-        }
-        case UIInterfaceOrientationPortrait:{
-            ZFPlayerShared.isAllowLandscape = YES;
-            [self interfaceOrientation:UIInterfaceOrientationLandscapeRight];
-            break;
-        }
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight: {
-            ZFPlayerShared.isAllowLandscape = NO;
-            [self interfaceOrientation:UIInterfaceOrientationPortrait];
-            break;
-        }
-        default:
-            break;
-    }
+    [self setFullscreenMode:!self.fullscreenMode animated:YES];
 }
 
 /**
@@ -1128,13 +1118,10 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
  *  解锁屏幕方向锁定
  */
 - (void)unLockTheScreen {
-    // 调用AppDelegate单例记录播放状态是否锁屏
-    ZFPlayerShared.isLockScreen       = NO;
     self.controlView.lockBtn.selected = NO;
     self.isLocked = NO;
-    [self interfaceOrientation:UIInterfaceOrientationPortrait];
+    [self setFullscreenMode:NO animated:YES];
 }
-
 
 #pragma mark - 列表模式
 
