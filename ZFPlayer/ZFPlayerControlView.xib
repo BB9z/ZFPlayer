@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="471" height="230"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ngr-ji-6Se" userLabel="bottomView">
+                <imageView alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ZFPlayer.gradient_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="ngr-ji-6Se" userLabel="bottomView">
                     <rect key="frame" x="0.0" y="185" width="471" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="gfd-xY-SbZ"/>
@@ -52,7 +52,7 @@
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="pHD-mY-c8M">
                     <rect key="frame" x="86" y="210" width="299" height="2"/>
                 </progressView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1aH-Q2-nW0">
+                <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ZFPlayer.gradient_top" translatesAutoresizingMaskIntoConstraints="NO" id="1aH-Q2-nW0">
                     <rect key="frame" x="0.0" y="0.0" width="471" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="lQg-1d-jEY"/>
@@ -68,7 +68,7 @@
                     <state key="selected" image="ZFPlayer.lock-nor"/>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="vvY-b6-dD6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="3Qe-o2-quc"/>
                 <constraint firstItem="AEI-I4-hWP" firstAttribute="leading" secondItem="3mh-1N-825" secondAttribute="trailing" constant="2" id="69I-NL-ymO"/>
@@ -96,6 +96,9 @@
                 <constraint firstAttribute="trailing" secondItem="1aH-Q2-nW0" secondAttribute="trailing" id="xt3-zD-UVX"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="nil" keyPath="backgroundColor"/>
+            </userDefinedRuntimeAttributes>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="3Qe-o2-quc"/>
@@ -126,6 +129,8 @@
     </objects>
     <resources>
         <image name="ZFPlayer.fullscreen" width="15" height="15"/>
+        <image name="ZFPlayer.gradient_bottom" width="1" height="1"/>
+        <image name="ZFPlayer.gradient_top" width="1" height="1"/>
         <image name="ZFPlayer.lock-nor" width="27" height="27"/>
         <image name="ZFPlayer.pause" width="12" height="19"/>
         <image name="ZFPlayer.play" width="18" height="20"/>

@@ -58,7 +58,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ZFPlayer.back" width="15" height="15"/>
+        <image name="ZFPlayer.back" width="39" height="39"/>
         <image name="ZFPlayer.repeat_video" width="40" height="60"/>
     </resources>
 </document>

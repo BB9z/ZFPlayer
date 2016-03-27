@@ -543,10 +543,11 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 
 - (ZFPlayerControlView *)controlView {
     if (!_controlView) {
-        _controlView = [ZFPlayerControlView setupPlayerControlView];
-        _controlView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        _controlView.frame = self.bounds;
-        [self insertSubview:_controlView belowSubview:_backBtn];
+        ZFPlayerControlView *cv = [ZFPlayerControlView setupPlayerControlView];
+        cv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        cv.frame = self.bounds;
+        [self insertSubview:cv belowSubview:self.backBtn];
+        _controlView = cv;
     }
     return _controlView;
 }

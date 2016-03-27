@@ -73,7 +73,7 @@
 }
 
 - (IBAction)onV1:(id)sender {
-    NSURL *videoURL                  = [[NSBundle mainBundle] URLForResource:@"150511_JiveBike" withExtension:@"mov"];
+    NSURL *videoURL = [[NSBundle mainBundle] URLForResource:@"150511_JiveBike" withExtension:@"mov"];
     self.playerView.videoURL = videoURL;
 }
 

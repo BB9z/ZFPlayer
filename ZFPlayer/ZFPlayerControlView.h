@@ -23,25 +23,34 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ZFPlayerControlView : UIView
+@class ZFPlayerView;
 
-/** 开始播放按钮 */
-@property (weak, nonatomic) IBOutlet UIButton       *startBtn;
-/** 当前播放时长label */
-@property (weak, nonatomic) IBOutlet UILabel        *currentTimeLabel;
-/** 视频总时长label */
-@property (weak, nonatomic) IBOutlet UILabel        *totalTimeLabel;
-/** 缓冲进度条 */
-@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
-/** 滑杆 */
-@property (weak, nonatomic) IBOutlet UISlider       *videoSlider;
-/** 全屏按钮 */
-@property (weak, nonatomic) IBOutlet UIButton       *fullScreenBtn;
-/** 锁定屏幕方向按钮 */
-@property (weak, nonatomic) IBOutlet UIButton       *lockBtn;
+@interface ZFPlayerControlView : UIView
 
 /** 类方法创建 */
 + (instancetype)setupPlayerControlView;
+
+@property (nonatomic, weak) IBOutlet ZFPlayerView *playerView;
+
+/** 开始播放按钮 */
+@property (nonatomic, weak) IBOutlet UIButton *startBtn;
+/** 当前播放时长label */
+@property (nonatomic, weak) IBOutlet UILabel *currentTimeLabel;
+/** 视频总时长label */
+@property (nonatomic, weak) IBOutlet UILabel *totalTimeLabel;
+/** 缓冲进度条 */
+@property (nonatomic, weak) IBOutlet UIProgressView *progressView;
+/** 滑杆 */
+@property (nonatomic, weak) IBOutlet UISlider *videoSlider;
+/** 全屏按钮 */
+@property (nonatomic, weak) IBOutlet UIButton *fullScreenBtn;
+/** 锁定屏幕方向按钮 */
+@property (nonatomic, weak) IBOutlet UIButton *lockBtn;
+
+@property (nonatomic, weak) IBOutlet UIImageView *bottomImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *topImageView;
+
 /** 重置ControlView */
 - (void)resetControlView;
+
 @end
