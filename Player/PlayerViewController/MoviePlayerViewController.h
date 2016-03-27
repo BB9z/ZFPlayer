@@ -23,8 +23,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class ZFPlayerView;
+
 @interface MoviePlayerViewController : UIViewController
-/** 视频URL */
+@property (weak, nonatomic) IBOutlet ZFPlayerView *playerView;
+
 @property (nonatomic, strong) NSURL *videoURL;
 @property (nonatomic) BOOL autoPlay;
+@property (nonatomic) BOOL shouldHideNavigationBar;
 @end

@@ -30,27 +30,17 @@
 
 @implementation FirstViewController
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = NO;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
     MoviePlayerViewController *movie = (MoviePlayerViewController *)segue.destinationViewController;
-    NSURL *videoURL                  = [[NSBundle mainBundle] URLForResource:@"150511_JiveBike" withExtension:@"mov"];
-    movie.videoURL                   = videoURL;
-    movie.autoPlay = YES;
-}
+    if ([segue.identifier isEqualToString:@"S1"]) {
+        NSURL *videoURL = [[NSBundle mainBundle] URLForResource:@"150511_JiveBike" withExtension:@"mov"];
+        movie.videoURL = videoURL;
+        movie.autoPlay = YES;
+        movie.shouldHideNavigationBar = YES;
+    }
+    else if ([segue.identifier isEqualToString:@"S2"]) {
 
+    }
+}
 
 @end

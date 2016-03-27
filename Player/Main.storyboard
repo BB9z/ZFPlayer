@@ -322,6 +322,13 @@
                                     <action selector="onV3:" destination="Dif-MC-umB" eventType="touchUpInside" id="PbT-bX-OOS"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5Z-bu-P1r">
+                                <rect key="frame" x="47" y="388" width="34" height="30"/>
+                                <state key="normal" title="back"/>
+                                <connections>
+                                    <action selector="onBack:" destination="Dif-MC-umB" eventType="touchUpInside" id="C72-L7-wx2"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JCd-dg-hvU" userLabel="statusView">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -374,6 +381,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="Qks-Jk-elf"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="playerView" destination="CJd-vt-Xpq" id="xOQ-Pg-sc2"/>
@@ -396,18 +404,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMx-tP-nAh">
-                                <rect key="frame" x="142" y="147" width="90" height="30"/>
-                                <state key="normal" title="播放本地视频"/>
+                                <rect key="frame" x="20" y="84" width="135" height="30"/>
+                                <state key="normal" title="自动播放，隐藏导航"/>
                                 <connections>
-                                    <segue destination="Dif-MC-umB" kind="show" id="fZL-fR-HYJ"/>
+                                    <segue destination="Dif-MC-umB" kind="show" identifier="S1" id="fZL-fR-HYJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqW-s2-mPG">
+                                <rect key="frame" x="20" y="122" width="60" height="30"/>
+                                <state key="normal" title="手动播放"/>
+                                <connections>
+                                    <segue destination="Dif-MC-umB" kind="show" identifier="S2" id="66e-pv-wLu"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pMx-tP-nAh" firstAttribute="top" secondItem="fw9-3d-SkH" secondAttribute="bottom" constant="83" id="27y-G1-80w"/>
+                            <constraint firstItem="pMx-tP-nAh" firstAttribute="top" secondItem="fw9-3d-SkH" secondAttribute="bottom" constant="20" id="T1E-IR-HiX"/>
+                            <constraint firstItem="pMx-tP-nAh" firstAttribute="leading" secondItem="55d-QJ-m8x" secondAttribute="leading" constant="20" id="Zni-sV-DKa"/>
+                            <constraint firstItem="qqW-s2-mPG" firstAttribute="top" secondItem="pMx-tP-nAh" secondAttribute="bottom" constant="8" id="cVm-pu-W8w"/>
+                            <constraint firstItem="qqW-s2-mPG" firstAttribute="leading" secondItem="pMx-tP-nAh" secondAttribute="leading" id="iFm-eJ-23j"/>
                             <constraint firstItem="pMx-tP-nAh" firstAttribute="centerX" secondItem="55d-QJ-m8x" secondAttribute="centerX" id="zr4-IX-n2o"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="zr4-IX-n2o"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="本地视频" id="ICO-w0-Zak"/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -491,6 +514,6 @@
         <image name="mainCellShareClick" width="23" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8B8-xC-tWR"/>
+        <segue reference="fZL-fR-HYJ"/>
     </inferredMetricsTieBreakers>
 </document>
