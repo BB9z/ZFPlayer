@@ -121,7 +121,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     self.horizontalLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ZFPlayer.mask"]];
     // 亮度调节
     [ZFBrightnessView sharedBrightnesView];
-    [self.activity stopAnimating];
     self.horizontalLabel.hidden = YES;
     self.repeatBtn.hidden = YES;
     // 每次播放视频都解锁屏幕锁定
@@ -272,8 +271,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     [self play];
     self.controlView.startBtn.selected = YES;
     self.isPauseByUser = NO;
-    [self.activity startAnimating];
-
 
     //强制让系统调用layoutSubviews 两个方法必须同时写
     [self setNeedsLayout]; //是标记 异步刷新 会调但是慢
@@ -331,6 +328,9 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     _state = state;
     if (state != ZFPlayerStateBuffering) {
         [self.activity stopAnimating];
+    }
+    else {
+        [self.activity startAnimating];
     }
 }
 
@@ -416,29 +416,30 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 
 /// 缓冲较差时候回调这里
 - (void)bufferingSomeSecond {
-    [self.activity startAnimating];
     // playbackBufferEmpty会反复进入，因此在bufferingOneSecond延时播放执行完之前再调用bufferingSomeSecond都忽略
     __block BOOL isBuffering = NO;
-    if (isBuffering) {
-        return;
-    }
+    if (isBuffering) return;
     isBuffering = YES;
 
     // 需要先暂停一小会之后再播放，否则网络状况不好的时候时间在走，声音播放不出来
     [self pause];
+
+    __weak __typeof(&*self)weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        __strong __typeof(&*weakSelf)strongSelf = weakSelf;
+        if (!strongSelf) return;
 
         // 如果此时用户已经暂停了，则不再需要开启播放了
-        if (self.isPauseByUser) {
+        if (strongSelf.isPauseByUser) {
             isBuffering = NO;
             return;
         }
 
-        [self play];
+        [strongSelf play];
         // 如果执行了play还是没有播放则说明还没有缓存好，则再次缓存一段时间
         isBuffering = NO;
-        if (!self.playerItem.isPlaybackLikelyToKeepUp) {
-            [self bufferingSomeSecond];
+        if (!strongSelf.playerItem.isPlaybackLikelyToKeepUp) {
+            [strongSelf bufferingSomeSecond];
         }
     });
 }
@@ -495,9 +496,9 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
                 pan.delegate                = self;
                 [self addGestureRecognizer:pan];
 
-            } else if (self.player.status == AVPlayerStatusFailed){
-
-                [self.activity startAnimating];
+            }
+            else if (self.player.status == AVPlayerStatusFailed){
+//                [self.activity startAnimating];
             }
 
         }
@@ -776,8 +777,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
         [self play];
         if (!self.playerItem.isPlaybackLikelyToKeepUp && !self.isLocalVideo) {
             self.state = ZFPlayerStateBuffering;
-            //NSLog(@"显示菊花");
-            [self.activity startAnimating];
         }
     }];
 }
