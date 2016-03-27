@@ -176,6 +176,9 @@ static ZFPlayerView* playerView = nil;
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
     [super willMoveToWindow:newWindow];
+    // 列表模式走原有流程吧
+    if (self.tableView) return;
+
     if (newWindow) {
         if (self.state != ZFPlayerStateStopped) {
             // 如果播放中，恢复周期刷新
