@@ -101,7 +101,6 @@ static ZFPlayerView* playerView = nil;
     ZFPlayerView *pv = [super alloc];
     NSLog(@"Creat %p", pv);
     return pv;
-
 }
 
 + (instancetype)setupZFPlayer {
@@ -165,6 +164,7 @@ static ZFPlayerView* playerView = nil;
     [self removeNotifications];
     // 关闭定时器
     [self.timer invalidate];
+    self.timer = nil;
     // 暂停
     [self pause];
     // 移除原来的layer
@@ -184,6 +184,30 @@ static ZFPlayerView* playerView = nil;
         
         self.tableView = nil;
         self.indexPath = nil;
+    }
+}
+
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+    [super willMoveToWindow:newWindow];
+    if (newWindow) {
+        if (self.state != ZFPlayerStateStopped) {
+            // 如果播放中，恢复周期刷新
+            if (!self.timer
+                || !self.timer.isValid) {
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(playerTimerAction) userInfo:nil repeats:YES];
+            }
+        }
+    }
+    else {
+        // 从 view hierarchy 移除，需要暂停
+        if (self.playerItem) {
+            [self pause];
+        }
+        // 停止计时器以便自身可被释放
+        if (self.timer) {
+            [self.timer invalidate];
+            self.timer = nil;
+        }
     }
 }
 
@@ -360,8 +384,7 @@ static ZFPlayerView* playerView = nil;
     
     // 计时器
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(playerTimerAction) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-    
+
     // 根据屏幕的方向设置相关UI
     [self onDeviceOrientationChange];
     
@@ -1055,12 +1078,12 @@ static ZFPlayerView* playerView = nil;
 /**
  *  返回按钮事件
  */
-- (void)backButtonAction
-{
+- (void)backButtonAction {
     if (self.isLocked) {
         [self unLockTheScreen];
         return;
-    }else {
+    }
+    else {
         if (!self.isFullScreen) {
             // 在cell上播放视频
             if (self.isCellVideo) {
@@ -1071,15 +1094,18 @@ static ZFPlayerView* playerView = nil;
             }
             // player加到控制器上，只有一个player时候
             [self.timer invalidate];
+            self.timer = nil;
             [self pause];
             if (self.goBackBlock) {
                 self.goBackBlock();
             }
-        }else {
+        }
+        else {
             [self interfaceOrientation:UIInterfaceOrientationPortrait];
         }
     }
 }
+
 /**
  *  重播点击事件
  *
@@ -1092,7 +1118,6 @@ static ZFPlayerView* playerView = nil;
     // 重置Player
     [self resetPlayer];
     [self setVideoURL:self.videoURL];
-    
 }
 
 #pragma mark - NSNotification Action
@@ -1102,14 +1127,16 @@ static ZFPlayerView* playerView = nil;
  *
  *  @param notification 通知
  */
-- (void)moviePlayDidEnd:(NSNotification *)notification
-{
-    self.state            = ZFPlayerStateStopped;
-    if (self.isBottomVideo && !self.isFullScreen) { // 播放完了，如果是在小屏模式切在bottom位置，直接关闭播放器
+- (void)moviePlayDidEnd:(NSNotification *)notification {
+    self.state = ZFPlayerStateStopped;
+    if (self.isBottomVideo
+        && !self.isFullScreen) {
+        // 播放完了，如果是在小屏模式切在bottom位置，直接关闭播放器
         self.repeatToPlay = NO;
         self.playDidEnd   = NO;
         [self resetPlayer];
-    }else {
+    }
+    else {
         self.playDidEnd       = YES;
         self.repeatBtn.hidden = NO;
         // 初始化显示controlView为YES

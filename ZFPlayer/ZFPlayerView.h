@@ -53,6 +53,7 @@ typedef void(^ZFPlayerGoBackBlock)(void);
  *  @return ZFPlayer
  */
 + (instancetype)setupZFPlayer;
+
 /**
  *  单例，用于列表cell上多个视频
  *
