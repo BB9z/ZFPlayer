@@ -171,13 +171,17 @@ static ZFPlayerView* playerView = nil;
     [self.playerLayer removeFromSuperlayer];
     // 替换PlayerItem
     [self.player replaceCurrentItemWithPlayerItem:nil];
-    // 底部播放video改为NO
-    self.isBottomVideo = NO;
     // 重置控制层View
     [self.controlView resetControlView];
     // 隐藏重播按钮
     self.repeatBtn.hidden = YES;
-
+    // 列表中悬浮且非重播时，从 view hierarchy 中移除
+    if (self.isBottomVideo
+        && !self.repeatToPlay) {
+        [self removeFromSuperview];
+    }
+    // 底部播放video改为NO
+    self.isBottomVideo = NO;
     if (self.tableView && !self.repeatToPlay) {
         // vicontroller中页面消失
         self.viewDisappear = YES;
