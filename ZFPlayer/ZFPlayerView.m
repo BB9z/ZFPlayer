@@ -234,12 +234,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     [self.player replaceCurrentItemWithPlayerItem:self.playerItem];
     // 初始化playerLayer
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-
-    // AVLayerVideoGravityResize,       // 非均匀模式。两个维度完全填充至整个视图区域
-    // AVLayerVideoGravityResizeAspect,  // 等比例填充，直到一个维度到达区域边界
-    // AVLayerVideoGravityResizeAspectFill, // 等比例填充，直到填充满整个视图区域，其中一个维度的部分区域会被裁剪
-
-    // 此处根据视频填充模式设置
     self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
 
     // 添加playerLayer到self.layer
@@ -615,7 +609,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.playerLayer.frame = self.bounds;
 
     // 屏幕旋转时候判断palyer的状态，来显示菊花
     if (self.state == ZFPlayerStateBuffering) {
@@ -628,6 +621,13 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     self.isMaskShowing = NO;
     // 延迟隐藏controlView
     [self animateShow];
+}
+
+- (void)layoutSublayersOfLayer:(CALayer *)layer {
+    [super layoutSublayersOfLayer:layer];
+    if (layer == self.layer) {
+        self.playerLayer.frame = self.bounds;
+    }
 }
 
 #pragma mark 进度条
