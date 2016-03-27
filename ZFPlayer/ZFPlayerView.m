@@ -788,6 +788,8 @@ static ZFPlayerView* playerView = nil;
  */
 - (void)addPlayerToCellImageView:(UIImageView *)imageView {
     [imageView addSubview:self];
+    self.frame = imageView.bounds;
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 }
 
 #pragma mark - 缓冲较差时候
