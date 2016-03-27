@@ -27,7 +27,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GMP-fV-smq" id="5zH-w5-J9b">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击加载网络视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0f-9x-ixh">
@@ -90,7 +90,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="379"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kzk-rb-IGS" id="3dy-Pu-1jL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="378"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="378.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LT-yX-98V">
@@ -99,7 +99,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgn-A1-cKA">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgn-A1-cKA">
                                             <rect key="frame" x="0.0" y="339" width="94" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="nqE-tE-Mox"/>
@@ -112,7 +112,7 @@
                                             <state key="selected" image="mainCellDingClick"/>
                                             <state key="highlighted" image="mainCellCaiClick"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPf-zf-g0b">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPf-zf-g0b">
                                             <rect key="frame" x="94" y="339" width="93" height="40"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -122,14 +122,14 @@
                                             <state key="selected" image="mainCellCaiClick"/>
                                             <state key="highlighted" image="mainCellCaiClick"/>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="9uX-k6-yQS">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="9uX-k6-yQS">
                                             <rect key="frame" x="93" y="346" width="1" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="8Md-YJ-csE"/>
                                                 <constraint firstAttribute="width" constant="1" id="fx7-9R-BX7"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="gwZ-xX-AK6">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="gwZ-xX-AK6">
                                             <rect key="frame" x="187" y="346" width="1" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="Yfe-pS-EYQ"/>
@@ -142,7 +142,7 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="XIE-Iq-PKp">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="XIE-Iq-PKp">
                                             <rect key="frame" x="282" y="346" width="1" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="Xug-xM-CiY"/>
@@ -155,7 +155,7 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5m-ec-6ef">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5m-ec-6ef">
                                             <rect key="frame" x="188" y="339" width="94" height="40"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -165,7 +165,7 @@
                                             <state key="selected" image="mainCellShareClick"/>
                                             <state key="highlighted" image="mainCellCaiClick"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWC-FQ-jGF">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWC-FQ-jGF">
                                             <rect key="frame" x="282" y="339" width="93" height="40"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -194,7 +194,7 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="loading_bgView" translatesAutoresizingMaskIntoConstraints="NO" id="hXd-DO-bVF">
+                                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_bgView" translatesAutoresizingMaskIntoConstraints="NO" id="hXd-DO-bVF">
                                             <rect key="frame" x="0.0" y="88" width="375" height="251"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="hXd-DO-bVF" secondAttribute="height" multiplier="16:9" priority="750" id="6GF-Ut-zV7"/>
@@ -295,7 +295,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CJd-vt-Xpq" customClass="ZFPlayerView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="211"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="211"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="CJd-vt-Xpq" secondAttribute="height" multiplier="16:9" priority="750" id="lta-DY-OHb"/>
@@ -346,6 +346,7 @@
                             <constraint firstAttribute="trailing" secondItem="JCd-dg-hvU" secondAttribute="trailing" id="5BJ-6V-hu5"/>
                             <constraint firstAttribute="trailing" secondItem="CJd-vt-Xpq" secondAttribute="trailing" id="KYu-uX-7oq"/>
                             <constraint firstItem="JCd-dg-hvU" firstAttribute="top" secondItem="Fed-wT-5xN" secondAttribute="top" id="OjU-Ny-M7e"/>
+                            <constraint firstItem="CJd-vt-Xpq" firstAttribute="top" secondItem="5Zz-RQ-Ug6" secondAttribute="bottom" id="bS7-7v-6Ui"/>
                             <constraint firstItem="CJd-vt-Xpq" firstAttribute="leading" secondItem="Fed-wT-5xN" secondAttribute="leading" id="keh-Vz-KSI"/>
                             <constraint firstItem="CJd-vt-Xpq" firstAttribute="top" secondItem="Fed-wT-5xN" secondAttribute="top" id="rGc-os-Jy3">
                                 <variation key="heightClass=regular-widthClass=compact" constant="20"/>
@@ -359,6 +360,7 @@
                                 <exclude reference="4JE-R9-J8a"/>
                                 <exclude reference="5BJ-6V-hu5"/>
                                 <exclude reference="OjU-Ny-M7e"/>
+                                <exclude reference="rGc-os-Jy3"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">

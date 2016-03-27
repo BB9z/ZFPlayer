@@ -6,5 +6,6 @@
 target 'Player' do
 pod 'XXNibBridge'
 pod 'SDWebImage'
+pod 'FLEX'
 end
 

@@ -37,14 +37,13 @@
 -(void)dealloc
 {
     NSLog(@"%@释放了",self.class);
-    [self.playerView cancelAutoFadeOutControlBar];
+//    [self.playerView cancelAutoFadeOutControlBar];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -65,8 +64,11 @@
         make.height.equalTo(self.playerView.mas_width).multipliedBy(9.0f/16.0f).with.priority(750);
      }];
     */
-    
-//    self.playerView.videoURL     = self.videoURL;
+
+    if (self.autoPlay) {
+        self.playerView.videoURL = self.videoURL;
+    }
+
     __weak typeof(self) weakSelf = self;
     self.playerView.goBackBlock  = ^{
         [weakSelf.navigationController popViewControllerAnimated:YES];

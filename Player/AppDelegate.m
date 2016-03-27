@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import "AppDelegate.h"
+#import <FLEX/FLEXManager.h>
 
 @interface AppDelegate ()
 
@@ -30,7 +31,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [[FLEXManager sharedManager] showExplorer];
     return YES;
 }
 

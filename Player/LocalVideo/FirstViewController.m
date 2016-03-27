@@ -49,6 +49,7 @@
     MoviePlayerViewController *movie = (MoviePlayerViewController *)segue.destinationViewController;
     NSURL *videoURL                  = [[NSBundle mainBundle] URLForResource:@"150511_JiveBike" withExtension:@"mov"];
     movie.videoURL                   = videoURL;
+    movie.autoPlay = YES;
 }
 
 
