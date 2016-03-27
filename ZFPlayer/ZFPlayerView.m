@@ -459,12 +459,6 @@ static ZFPlayerView* playerView = nil;
 }
 
 /**
- *  取消延时隐藏controlView的方法
- */
-- (void)cancelAutoFadeOutControlBar {
-}
-
-/**
  *  隐藏控制层
  */
 - (void)hideControlView
@@ -1412,3 +1406,13 @@ static ZFPlayerView* playerView = nil;
 }
 
 @end
+
+
+@implementation ZFPlayerView (Deprecated)
+
+- (void)cancelAutoFadeOutControlBar {
+    // nothing
+}
+
+@end
+
