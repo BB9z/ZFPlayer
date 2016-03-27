@@ -27,39 +27,45 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 
 @interface ZFPlayerView : UIView
 
+#pragma mark - UI
+
+/** 快进快退label */
+@property (nonatomic, weak) IBOutlet UILabel *horizontalLabel;
+/** 系统菊花 */
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
+/** 返回按钮*/
+@property (nonatomic, weak) IBOutlet UIButton *backBtn;
+/** 重播按钮 */
+@property (nonatomic, weak) IBOutlet UIButton *repeatBtn;
+
+#pragma mark -
+
 /** 视频URL */
-@property (nonatomic, strong) NSURL               *videoURL;
+@property (nonatomic, nullable, copy) NSURL *videoURL;
+
 /** 返回按钮Block */
-@property (nonatomic, copy  ) ZFPlayerGoBackBlock goBackBlock;
-/** palyer加到tableView */
-@property (nonatomic, strong) UITableView         *tableView;
-/** player所在cell的indexPath */
-@property (nonatomic, strong) NSIndexPath         *indexPath;
-/** ViewController中页面是否消失 */
-@property (nonatomic, assign) BOOL                viewDisappear;
-/** 是否在cell上播放video */
-@property (nonatomic, assign) BOOL                isCellVideo;
+@property (nonatomic, nullable, copy) ZFPlayerGoBackBlock goBackBlock;
 
 /**
  *  类方法创建，该方法适用于代码创建View
  *
  *  @return ZFPlayer
  */
-+ (instancetype)setupZFPlayer;
++ (nonnull instancetype)setupZFPlayer;
 
 /**
  *  单例，用于列表cell上多个视频
  *
  *  @return ZFPlayer
  */
-+ (instancetype)playerView;
++ (nonnull instancetype)playerView;
 
 /**
  *  player添加到cell上
  *
  *  @param cell 添加player的cellImageView
  */
-- (void)addPlayerToCellImageView:(UIImageView *)imageView;
+- (void)addPlayerToCellImageView:(nonnull UIImageView *)imageView;
 
 /**
  *  重置player
@@ -76,6 +82,17 @@ typedef void(^ZFPlayerGoBackBlock)(void);
  */
 - (void)pause;
 
+#pragma mark - Table view 模式
+
+/** 是否在cell上播放video */
+@property (nonatomic) BOOL isCellVideo;
+
+/** palyer加到tableView */
+@property (nonatomic, nullable, strong) UITableView *tableView;
+
+/** player所在cell的indexPath */
+@property (nonatomic, nullable, strong) NSIndexPath *indexPath;
+
 /**
  *  用于cell上播放player
  *
@@ -84,21 +101,10 @@ typedef void(^ZFPlayerGoBackBlock)(void);
  *  @param indexPath indexPath 
  *  @param ImageViewTag ImageViewTag
  */
-- (void)setVideoURL:(NSURL *)videoURL
-      withTableView:(UITableView *)tableView
-        AtIndexPath:(NSIndexPath *)indexPath
+- (void)setVideoURL:(nonnull NSURL *)videoURL
+      withTableView:(nonnull UITableView *)tableView
+        AtIndexPath:(nonnull NSIndexPath *)indexPath
    withImageViewTag:(NSInteger)tag;
-
-#pragma mark - UI
-
-/** 快进快退label */
-@property (nonatomic, weak) IBOutlet UILabel *horizontalLabel;
-/** 系统菊花 */
-@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
-/** 返回按钮*/
-@property (nonatomic, weak) IBOutlet UIButton *backBtn;
-/** 重播按钮 */
-@property (nonatomic, weak) IBOutlet UIButton *repeatBtn;
 
 @end
 
