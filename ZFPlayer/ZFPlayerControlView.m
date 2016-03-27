@@ -34,27 +34,22 @@
     return [[NSBundle mainBundle] loadNibNamed:@"ZFPlayerControlView" owner:nil options:nil].lastObject;
 }
 
-- (void)dealloc {
-    //NSLog(@"%@释放了",self.class);
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    self.lockBtn.hidden = YES;
+    [self.videoSlider setThumbImage:[UIImage imageNamed:@"ZFPlayer.slider"] forState:UIControlStateNormal];
+    [self resetControlView];
 }
 
-- (void)awakeFromNib {
-    // 默认隐藏锁定按钮
-    self.lockBtn.hidden = YES;
-    // 设置slider
-    [self.videoSlider setThumbImage:[UIImage imageNamed:@"ZFPlayer.slider"] forState:UIControlStateNormal];
-    
-    [self insertSubview:self.progressView belowSubview:self.videoSlider];
-    self.videoSlider.minimumTrackTintColor = [UIColor whiteColor];
-    self.videoSlider.maximumTrackTintColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.6];
-
-    self.progressView.progressTintColor    = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.3];
-    self.progressView.trackTintColor       = [UIColor clearColor];
+- (void)dealloc {
+    //NSLog(@"%@释放了",self.class);
 }
 
 /** 重置ControlView */
 - (void)resetControlView {
     self.videoSlider.value = 0;
+    self.videoSlider.maximumValue = 1;
     self.progressView.progress = 0;
     self.currentTimeLabel.text = @"00:00";
     self.totalTimeLabel.text = @"00:00";

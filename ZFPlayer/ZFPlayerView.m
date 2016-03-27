@@ -116,12 +116,35 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     return playerView;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit {
+
+}
+
 - (void)awakeFromNib {
-    // 设置快进快退label
-    self.horizontalLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ZFPlayer.mask"]];
+    [super awakeFromNib];
     // 亮度调节
     [ZFBrightnessView sharedBrightnesView];
+
+    // 设置快进快退label
+    self.horizontalLabel.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"ZFPlayer.mask"]];
     self.horizontalLabel.hidden = YES;
+
     self.repeatBtn.hidden = YES;
     // 每次播放视频都解锁屏幕锁定
     [self unLockTheScreen];
@@ -635,7 +658,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 
 - (void)playerTimerAction {
     if (_playerItem.duration.timescale != 0) {
-        self.controlView.videoSlider.maximumValue = 1;//音乐总共时长
         self.controlView.videoSlider.value        = CMTimeGetSeconds([_playerItem currentTime]) / (_playerItem.duration.value / _playerItem.duration.timescale);//当前进度
 
         //当前时长进度progress
