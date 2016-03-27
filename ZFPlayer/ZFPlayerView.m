@@ -314,7 +314,6 @@ static ZFPlayerView* playerView = nil;
 }
 
 - (void)setVideoURL:(NSURL *)videoURL {
-    if ([self.videoURL isEqual:videoURL]) return;
     if (self.playerItem) {
         [self resetPlayer];
     }
