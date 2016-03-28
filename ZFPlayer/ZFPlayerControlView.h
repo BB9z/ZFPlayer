@@ -22,15 +22,16 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "ZFPlayer.h"
 
-@class ZFPlayerView;
-
-@interface ZFPlayerControlView : UIView
+@interface ZFPlayerControlView : UIView <
+    ZFPlayerDisplayDelegate
+>
 
 /** 类方法创建 */
 + (instancetype)setupPlayerControlView;
 
-@property (nonatomic, weak) IBOutlet ZFPlayerView *player;
+@property (nonatomic, weak) ZFPlayerView *player;
 
 /** 重置ControlView */
 - (void)resetControlView;

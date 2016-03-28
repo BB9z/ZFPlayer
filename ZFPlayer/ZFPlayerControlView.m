@@ -56,13 +56,19 @@
 }
 
 - (IBAction)onFullscreenButtonTapped:(UIButton *)sender {
-    sender.selected = !sender.selected;
-    [self.player setFullscreenMode:sender.selected animated:YES];
+    [self.player setFullscreenMode:!sender.selected animated:YES];
+}
+
+- (void)ZFPlayerDidChangedFullscreenMode:(ZFPlayerView *)player {
+    self.fullScreenBtn.selected = player.fullscreenMode;
 }
 
 - (IBAction)onOrientationLockButtonTapped:(UIButton *)sender {
-    sender.selected = !sender.selected;
-    self.player.lockOrientationWhenFullscreen = sender.selected;
+    self.player.lockOrientationWhenFullscreen = !sender.selected;
+}
+
+- (void)ZFPlayerDidChangedLockOrientationWhenFullscreen:(ZFPlayerView *)player {
+    self.lockBtn.selected = player.lockOrientationWhenFullscreen;
 }
 
 @end

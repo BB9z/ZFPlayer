@@ -60,12 +60,11 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @property (nonatomic, strong) AVPlayerItem        *playerItem;
 /** playerLayer */
 @property (nonatomic, strong) AVPlayerLayer       *playerLayer;
+@property (nonatomic, strong) NSHashTable<id<ZFPlayerDisplayDelegate>> *displayers;
 /** 滑杆 */
 @property (nonatomic, strong) UISlider            *volumeViewSlider;
 /** 计时器 */
 @property (nonatomic, strong) NSTimer             *timer;
-/** 控制层View */
-@property (nonatomic, strong) ZFPlayerControlView *controlView;
 /** 用来保存快进的总时长 */
 @property (nonatomic, assign) CGFloat             sumTime;
 /** 定义一个实例变量，保存枚举值 */
@@ -141,6 +140,15 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+
+    if (!self.controlView) {
+        ZFPlayerControlView *cv = [ZFPlayerControlView setupPlayerControlView];
+        cv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        cv.frame = self.bounds;
+        [self insertSubview:cv belowSubview:self.backBtn];
+        self.controlView = cv;
+    }
+
     // 亮度调节
     [ZFBrightnessView sharedBrightnesView];
 
@@ -553,16 +561,20 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 
 #pragma mark - UI 逻辑
 
-- (ZFPlayerControlView *)controlView {
-    if (!_controlView) {
-        ZFPlayerControlView *cv = [ZFPlayerControlView setupPlayerControlView];
-        cv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        cv.frame = self.bounds;
-        cv.player = self;
-        [self insertSubview:cv belowSubview:self.backBtn];
-        _controlView = cv;
+- (void)setControlView:(ZFPlayerControlView *)controlView {
+    if (_controlView != controlView) {
+        if (_controlView) {
+            [self removeDisplayer:_controlView];
+            if (_controlView.player == self) {
+                _controlView.player = nil;
+            }
+        }
+        _controlView = controlView;
+        if (controlView) {
+            [self addDisplayer:controlView];
+            controlView.player = self;
+        }
     }
-    return _controlView;
 }
 
 - (void)autoFadeOutControlBar {
@@ -990,6 +1002,12 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     ZFPlayerShared.isAllowLandscape = fullscreen;
     [self setDeviceOrientationToLandscape:fullscreen animated:animated];
     [self updateUIForFullscreenModeChanged];
+    [self noticeDisplayerFullscreenModeChanged];
+}
+
+- (void)setLockOrientationWhenFullscreen:(BOOL)lockOrientationWhenFullscreen {
+    _lockOrientationWhenFullscreen = lockOrientationWhenFullscreen;
+    [self noticeDisplayerLockOrientationWhenFullscreenChanged];
 }
 
 /// 供用户设置，旋转时是否切换全屏
@@ -1086,6 +1104,43 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     [[UIDevice currentDevice] setOrientation:orientation animated:animated];
     //    [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:animated];
 }
+
+#pragma mark - Delegtate 通知
+
+- (NSHashTable<id<ZFPlayerDisplayDelegate>> *)displayers {
+    if (!_displayers) {
+        _displayers = [NSHashTable weakObjectsHashTable];
+    }
+    return _displayers;
+}
+
+- (void)addDisplayer:(id<ZFPlayerDisplayDelegate>)displayer {
+    if (displayer) {
+        [self.displayers addObject:displayer];
+    }
+}
+
+- (void)removeDisplayer:(id<ZFPlayerDisplayDelegate>)displayer {
+    if (displayer) {
+        [self.displayers removeObject:displayer];
+    }
+}
+
+/**
+ 通知生成方法
+ */
+#define ZFPlayerDisplayerNoticeMethod(METHODNAME, PROTOCOL_SELECTOR) \
+    - (void)METHODNAME {\
+        NSArray *all = [self.displayers allObjects];\
+        for (id<ZFPlayerDisplayDelegate> displayer in all) {\
+            if ([displayer respondsToSelector:@selector(PROTOCOL_SELECTOR:)]) {\
+                [displayer PROTOCOL_SELECTOR:self];\
+            }\
+        }\
+    }
+
+ZFPlayerDisplayerNoticeMethod(noticeDisplayerFullscreenModeChanged, ZFPlayerDidChangedFullscreenMode)
+ZFPlayerDisplayerNoticeMethod(noticeDisplayerLockOrientationWhenFullscreenChanged, ZFPlayerDidChangedLockOrientationWhenFullscreen)
 
 #pragma mark - 列表模式
 

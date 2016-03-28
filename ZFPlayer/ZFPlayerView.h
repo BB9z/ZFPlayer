@@ -25,7 +25,16 @@
 
 typedef void(^ZFPlayerGoBackBlock)(void);
 
+@protocol ZFPlayerDisplayDelegate;
+@class ZFPlayerControlView;
+
 @interface ZFPlayerView : UIView
+
+/// 默认控制层，从 nib 里载入若不设置会自动创建一个
+@property (nonatomic, weak) IBOutlet ZFPlayerControlView *controlView;
+
+- (void)addDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
+- (void)removeDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
 
 #pragma mark - UI
 
@@ -119,6 +128,15 @@ typedef void(^ZFPlayerGoBackBlock)(void);
       withTableView:(nonnull UITableView *)tableView
         AtIndexPath:(nonnull NSIndexPath *)indexPath
    withImageViewTag:(NSInteger)tag;
+
+@end
+
+
+@protocol ZFPlayerDisplayDelegate <NSObject>
+@optional
+
+- (void)ZFPlayerDidChangedFullscreenMode:(nonnull ZFPlayerView *)player;
+- (void)ZFPlayerDidChangedLockOrientationWhenFullscreen:(nonnull ZFPlayerView *)player;
 
 @end
 
