@@ -55,4 +55,14 @@
     self.totalTimeLabel.text = @"00:00";
 }
 
+- (IBAction)onFullscreenButtonTapped:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    [self.player setFullscreenMode:sender.selected animated:YES];
+}
+
+- (IBAction)onOrientationLockButtonTapped:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    self.player.lockOrientationWhenFullscreen = sender.selected;
+}
+
 @end

@@ -23,16 +23,7 @@
                         <constraint firstAttribute="height" constant="45" id="gfd-xY-SbZ"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvY-b6-dD6">
-                    <rect key="frame" x="15" y="95" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="40" id="4M6-bo-khP"/>
-                        <constraint firstAttribute="height" constant="40" id="Fv8-wx-nfY"/>
-                    </constraints>
-                    <state key="normal" image="ZFPlayer.unlock-nor"/>
-                    <state key="selected" image="ZFPlayer.lock-nor"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIf-aw-BaL">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIf-aw-BaL">
                     <rect key="frame" x="10" y="195" width="30" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="dS8-2R-0d2"/>
@@ -42,7 +33,7 @@
                     <state key="selected" image="ZFPlayer.pause"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIE-vF-c8O">
-                    <rect key="frame" x="42" y="203" width="34" height="14.5"/>
+                    <rect key="frame" x="42" y="203" width="34" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -58,18 +49,34 @@
                     <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </slider>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mh-1N-825">
-                    <rect key="frame" x="395" y="203" width="34" height="14.5"/>
+                    <rect key="frame" x="395" y="203" width="34" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEI-I4-hWP">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEI-I4-hWP">
                     <rect key="frame" x="431" y="195" width="30" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="9ec-Rc-dgl"/>
                         <constraint firstAttribute="width" constant="30" id="Dx8-uX-6UA"/>
                     </constraints>
                     <state key="normal" image="ZFPlayer.fullscreen"/>
+                    <state key="selected" image="ZFPlayer.shrinkscreen"/>
+                    <connections>
+                        <action selector="onFullscreenButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ndh-Ey-luV"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvY-b6-dD6">
+                    <rect key="frame" x="15" y="95" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="4M6-bo-khP"/>
+                        <constraint firstAttribute="height" constant="40" id="Fv8-wx-nfY"/>
+                    </constraints>
+                    <state key="normal" image="ZFPlayer.unlock-nor"/>
+                    <state key="selected" image="ZFPlayer.lock-nor"/>
+                    <connections>
+                        <action selector="onOrientationLockButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="d1V-Em-4tZ"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
@@ -122,6 +129,7 @@
         <image name="ZFPlayer.lock-nor" width="27" height="27"/>
         <image name="ZFPlayer.pause" width="12" height="19"/>
         <image name="ZFPlayer.play" width="18" height="20"/>
+        <image name="ZFPlayer.shrinkscreen" width="15" height="15"/>
         <image name="ZFPlayer.unlock-nor" width="27" height="27"/>
     </resources>
 </document>

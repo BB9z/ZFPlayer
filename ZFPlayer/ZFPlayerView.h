@@ -38,13 +38,15 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /** 重播按钮 */
 @property (nonatomic, weak) IBOutlet UIButton *repeatBtn;
 
-#pragma mark -
+#pragma mark - config
 
 /** 视频URL */
 @property (nonatomic, nullable, copy) NSURL *videoURL;
 
 /** 返回按钮Block */
 @property (nonatomic, nullable, copy) ZFPlayerGoBackBlock goBackBlock;
+
+#pragma mark - method
 
 /**
  *  类方法创建，该方法适用于代码创建View
@@ -82,9 +84,17 @@ typedef void(^ZFPlayerGoBackBlock)(void);
  */
 - (void)pause;
 
+#pragma mark - 全屏模式
+
 @property (nonatomic) BOOL fullscreenMode;
 
 - (void)setFullscreenMode:(BOOL)fullscreen animated:(BOOL)animated;
+
+/// 全屏时锁定屏幕方向
+@property (nonatomic, getter=isLockOrientationWhenFullscreen) BOOL lockOrientationWhenFullscreen;
+
+/// 设备旋转时自动切换全屏模式，默认 YES
+@property (nonatomic) BOOL changeFullscreenModeWhenDeviceOrientationChanging;
 
 #pragma mark - Table view 模式
 

@@ -30,7 +30,13 @@
 /** 类方法创建 */
 + (instancetype)setupPlayerControlView;
 
-@property (nonatomic, weak) IBOutlet ZFPlayerView *playerView;
+@property (nonatomic, weak) IBOutlet ZFPlayerView *player;
+
+/** 重置ControlView */
+- (void)resetControlView;
+
+@property (nonatomic, weak) IBOutlet UIImageView *bottomImageView;
+@property (nonatomic, weak) IBOutlet UIImageView *topImageView;
 
 /** 开始播放按钮 */
 @property (nonatomic, weak) IBOutlet UIButton *startBtn;
@@ -42,15 +48,16 @@
 @property (nonatomic, weak) IBOutlet UIProgressView *progressView;
 /** 滑杆 */
 @property (nonatomic, weak) IBOutlet UISlider *videoSlider;
+
+
 /** 全屏按钮 */
 @property (nonatomic, weak) IBOutlet UIButton *fullScreenBtn;
+
+- (IBAction)onFullscreenButtonTapped:(UIButton *)sender;
+
 /** 锁定屏幕方向按钮 */
 @property (nonatomic, weak) IBOutlet UIButton *lockBtn;
 
-@property (nonatomic, weak) IBOutlet UIImageView *bottomImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *topImageView;
-
-/** 重置ControlView */
-- (void)resetControlView;
+- (IBAction)onOrientationLockButtonTapped:(UIButton *)sender;
 
 @end

@@ -72,10 +72,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @property (nonatomic, assign) PanDirection        panDirection;
 /** 播发器的几种状态 */
 @property (nonatomic, assign) ZFPlayerState       state;
-/** 是否为全屏 */
-@property (nonatomic, assign) BOOL                isFullScreen;
-/** 是否锁定屏幕方向 */
-@property (nonatomic, assign) BOOL                isLocked;
 /** 是否在调节音量*/
 @property (nonatomic, assign) BOOL                isVolume;
 /** 是否显示controlView*/
@@ -96,6 +92,10 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @property (nonatomic, assign) BOOL                playDidEnd;
 /** ViewController中页面是否消失 */
 @property (nonatomic, assign) BOOL                viewDisappear;
+
+/// 控制是否监听屏幕旋转事件
+@property (nonatomic) BOOL observingOrientationChangeEvent;
+@property (nonatomic) BOOL deviceBeginGeneratingOrientationNotificationsChangedByMine;
 @end
 
 @implementation ZFPlayerView
@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 }
 
 - (void)commonInit {
-
+    self.changeFullscreenModeWhenDeviceOrientationChanging = YES;
 }
 
 - (void)awakeFromNib {
@@ -149,8 +149,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     self.horizontalLabel.hidden = YES;
 
     self.repeatBtn.hidden = YES;
-    // 每次播放视频都解锁屏幕锁定
-    [self unLockTheScreen];
     self.backBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
 }
 
@@ -176,8 +174,13 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(playerTimerAction) userInfo:nil repeats:YES];
             }
         }
+        if (self.changeFullscreenModeWhenDeviceOrientationChanging) {
+            self.observingOrientationChangeEvent = YES;
+        }
     }
     else {
+        self.observingOrientationChangeEvent = NO;
+
         // 从 view hierarchy 移除，需要暂停
         if (self.playerItem) {
             [self pause];
@@ -205,11 +208,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 }
 
 - (void)backButtonAction {
-    if (self.isLocked) {
-        [self unLockTheScreen];
-        return;
-    }
-
     if (self.fullscreenMode) {
         [self setFullscreenMode:NO animated:YES];
         return;
@@ -407,7 +405,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 - (void)moviePlayDidEnd:(NSNotification *)notification {
     self.state = ZFPlayerStateStopped;
     if (self.isBottomVideo
-        && !self.isFullScreen) {
+        && !self.fullscreenMode) {
         // 播放完了，如果是在小屏模式切在bottom位置，直接关闭播放器
         self.repeatToPlay = NO;
         self.playDidEnd   = NO;
@@ -495,13 +493,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     }
     // 返回按钮点击事件
     [self.backBtn addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    // 全屏按钮点击事件
-    [self.controlView.fullScreenBtn addTarget:self action:@selector(fullScreenAction:) forControlEvents:UIControlEventTouchUpInside];
-    // 锁定屏幕方向点击事件
-    [self.controlView.lockBtn addTarget:self action:@selector(lockScreenAction:) forControlEvents:UIControlEventTouchUpInside];
-
-    // 监测设备方向
-    [self listeningRotating];
 }
 
 - (void)removeNotifications {
@@ -567,6 +558,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
         ZFPlayerControlView *cv = [ZFPlayerControlView setupPlayerControlView];
         cv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         cv.frame = self.bounds;
+        cv.player = self;
         [self insertSubview:cv belowSubview:self.backBtn];
         _controlView = cv;
     }
@@ -596,10 +588,10 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     }
     [UIView animateWithDuration:ZFPlayerControlBarAutoFadeOutTimeInterval animations:^{
         self.controlView.alpha = 0;
-        if (self.isFullScreen) { //全屏状态
+        if (self.fullscreenMode) { //全屏状态
             self.backBtn.alpha  = 0;
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-        }else if (self.isBottomVideo && !self.isFullScreen) { // 视频在底部bottom小屏,并且不是全屏状态
+        }else if (self.isBottomVideo && !self.fullscreenMode) { // 视频在底部bottom小屏,并且不是全屏状态
             self.backBtn.alpha = 1;
         }else {
             self.backBtn.alpha = 0;
@@ -620,7 +612,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     [UIView animateWithDuration:ZFPlayerControlBarAutoFadeOutTimeInterval animations:^{
         self.backBtn.alpha = 1;
         // 视频在底部bottom小屏,并且不是全屏状态
-        if (self.isBottomVideo && !self.isFullScreen) {
+        if (self.isBottomVideo && !self.fullscreenMode) {
             self.controlView.alpha = 0;
         }else if (self.playDidEnd) { // 播放完了
             self.controlView.alpha = 0;
@@ -816,7 +808,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     CGPoint point = [touch locationInView:self.controlView];
     // （屏幕下方slider区域不响应pan手势） || （在cell上播放视频 && 不是全屏状态）
-    if ((point.y > self.bounds.size.height-40) || (self.isCellVideo && !self.isFullScreen)) {
+    if ((point.y > self.bounds.size.height-40) || (self.isCellVideo && !self.fullscreenMode)) {
         return NO;
     }
     return YES;
@@ -824,8 +816,10 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 
 - (void)tapAction:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateRecognized) {
-        if (self.isBottomVideo && !self.isFullScreen) {
-            [self fullScreenAction:self.controlView.fullScreenBtn];
+        if (self.isBottomVideo) {
+            if (!self.fullscreenMode) {
+                [self setFullscreenMode:YES animated:YES];
+            }
             return;
         }
         if (self.isMaskShowing) {
@@ -995,6 +989,79 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     _fullscreenMode = fullscreen;
     ZFPlayerShared.isAllowLandscape = fullscreen;
     [self setDeviceOrientationToLandscape:fullscreen animated:animated];
+    [self updateUIForFullscreenModeChanged];
+}
+
+/// 供用户设置，旋转时是否切换全屏
+- (void)setChangeFullscreenModeWhenDeviceOrientationChanging:(BOOL)changeFullscreenModeWhenDeviceOrientationChanging {
+    if (_changeFullscreenModeWhenDeviceOrientationChanging == changeFullscreenModeWhenDeviceOrientationChanging) return;
+    _changeFullscreenModeWhenDeviceOrientationChanging = changeFullscreenModeWhenDeviceOrientationChanging;
+
+    if (changeFullscreenModeWhenDeviceOrientationChanging) {
+        if (self.window) {
+            self.observingOrientationChangeEvent = YES;
+        }
+    }
+    else {
+        self.observingOrientationChangeEvent = NO;
+    }
+}
+
+/// 旋转事件监听的管理
+- (void)setObservingOrientationChangeEvent:(BOOL)observingOrientationChangeEvent {
+    if (_observingOrientationChangeEvent != observingOrientationChangeEvent) {
+        _observingOrientationChangeEvent = observingOrientationChangeEvent;
+        if (observingOrientationChangeEvent) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceOrientationChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+        }
+        else {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+        }
+    }
+
+    // device 上这个破变量可能外面会管理，只能复杂点
+    UIDevice *dv = [UIDevice currentDevice];
+    if (observingOrientationChangeEvent) {
+        if (!dv.generatesDeviceOrientationNotifications) {
+            [dv beginGeneratingDeviceOrientationNotifications];
+            self.deviceBeginGeneratingOrientationNotificationsChangedByMine = YES;
+        }
+    }
+    else {
+        if (dv.generatesDeviceOrientationNotifications
+            && self.deviceBeginGeneratingOrientationNotificationsChangedByMine) {
+            self.deviceBeginGeneratingOrientationNotificationsChangedByMine = NO;
+            [dv endGeneratingDeviceOrientationNotifications];
+        }
+    }
+}
+
+/// 设备旋转事件的响应
+- (void)onDeviceOrientationChange {
+#if DEBUG
+    NSAssert(self.changeFullscreenModeWhenDeviceOrientationChanging, @"不自动旋转不应走这里");
+#endif
+
+    if (self.fullscreenMode
+        && self.lockOrientationWhenFullscreen) {
+        // 全屏且锁定不变
+        return;
+    }
+
+    BOOL isLandscape = UIInterfaceOrientationIsLandscape((UIInterfaceOrientation)[UIDevice currentDevice].orientation);
+    if (self.fullscreenMode != isLandscape) {
+        [self setFullscreenMode:isLandscape animated:YES];
+    }
+}
+
+/// 全屏模式变更时更新界面
+- (void)updateUIForFullscreenModeChanged {
+    BOOL fullscreen = self.fullscreenMode;
+    self.controlView.fullScreenBtn.selected = fullscreen;
+    self.controlView.lockBtn.hidden = !fullscreen;
+    UIImage *backImage = fullscreen? [UIImage imageNamed:@"ZFPlayer.close"] : [UIImage imageNamed:@"ZFPlayer.back"];
+    [self.backBtn setImage:backImage forState:UIControlStateNormal];
+
     if (fullscreen) {
         [self setOrientationLandscape];
     }
@@ -1003,6 +1070,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     }
 }
 
+/// 工具方法，旋转设备
 - (void)setDeviceOrientationToLandscape:(BOOL)isLandscape animated:(BOOL)animated {
     UIInterfaceOrientation orientation = (UIInterfaceOrientation)[UIDevice currentDevice].orientation;
     if (isLandscape) {
@@ -1016,111 +1084,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
         }
     }
     [[UIDevice currentDevice] setOrientation:orientation animated:animated];
-//    [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:animated];
-}
-
-/**
- *  监听设备旋转通知
- */
-- (void)listeningRotating{
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceOrientationChange) name:UIDeviceOrientationDidChangeNotification object:nil];
-}
-
-/**
- *  全屏按钮事件
- *
- *  @param sender 全屏Button
- */
-- (void)fullScreenAction:(UIButton *)sender {
-    if (self.isLocked) {
-        [self unLockTheScreen];
-        return;
-    }
-    [self setFullscreenMode:!self.fullscreenMode animated:YES];
-}
-
-/**
- *  屏幕方向发生变化会调用这里
- */
-- (void)onDeviceOrientationChange {
-    if (self.isLocked) {
-        self.isFullScreen = YES;
-        return;
-    }
-    // 在cell上播放视频 && 不允许横屏（此时为竖屏状态）
-    if (self.isCellVideo && !ZFPlayerShared.isAllowLandscape) {
-        [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.close"] forState:UIControlStateNormal];
-        self.isFullScreen = NO;
-        return;
-    }
-    UIDeviceOrientation orientation             = [UIDevice currentDevice].orientation;
-    UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
-    switch (interfaceOrientation) {
-        case UIInterfaceOrientationPortraitUpsideDown:{
-            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:@"ZFPlayer.shrinkscreen"] forState:UIControlStateNormal];
-            if (self.isCellVideo) {
-                [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
-            }
-            self.isFullScreen = YES;
-        }
-            break;
-        case UIInterfaceOrientationPortrait:{
-            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:@"ZFPlayer.fullscreen"] forState:UIControlStateNormal];
-            if (self.isCellVideo) {
-                // 当设备转到竖屏时候，设置为竖屏约束
-                [self setOrientationPortrait];
-                // 改为只允许竖屏播放
-                ZFPlayerShared.isAllowLandscape = NO;
-                [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.close"] forState:UIControlStateNormal];
-            }
-            self.isFullScreen = NO;
-        }
-            break;
-        case UIInterfaceOrientationLandscapeLeft:{
-            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:@"ZFPlayer.shrinkscreen"] forState:UIControlStateNormal];
-            if (self.isCellVideo) {
-                [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
-            }
-            self.isFullScreen = YES;
-        }
-            break;
-        case UIInterfaceOrientationLandscapeRight:{
-            [self.controlView.fullScreenBtn setImage:[UIImage imageNamed:@"ZFPlayer.shrinkscreen"] forState:UIControlStateNormal];
-            if (self.isCellVideo) {
-                [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
-            }
-            self.isFullScreen = YES;
-        }
-            break;
-
-        default:
-            break;
-    }
-
-    // 设置显示or不显示锁定屏幕方向按钮
-    self.controlView.lockBtn.hidden = !self.isFullScreen;
-}
-
-/**
- *  锁定屏幕方向按钮
- *
- *  @param sender UIButton
- */
-- (void)lockScreenAction:(UIButton *)sender {
-    sender.selected              = !sender.selected;
-    self.isLocked                = sender.selected;
-    // 调用AppDelegate单例记录播放状态是否锁屏，在TabBarController设置哪些页面支持旋转
-    ZFPlayerShared.isLockScreen = sender.selected;
-}
-
-/**
- *  解锁屏幕方向锁定
- */
-- (void)unLockTheScreen {
-    self.controlView.lockBtn.selected = NO;
-    self.isLocked = NO;
-    [self setFullscreenMode:NO animated:YES];
+    //    [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:animated];
 }
 
 #pragma mark - 列表模式
