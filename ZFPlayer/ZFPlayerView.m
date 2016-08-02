@@ -22,11 +22,10 @@
 // THE SOFTWARE.
 
 #import "ZFPlayerView.h"
-@import AVFoundation;
-@import MediaPlayer;
-#import <XXNibBridge/XXNibBridge.h>
-#import "ZFPlayerControlView.h"
 #import "ZFBrightnessView.h"
+#import "ZFPlayerControlView.h"
+@import MediaPlayer;
+
 
 static const CGFloat ZFPlayerAnimationTimeInterval             = 7.0f;
 static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.5f;
@@ -51,14 +50,13 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 - (void)setOrientation:(int)orientation animated:(BOOL)animated;
 @end
 
-@interface ZFPlayerView () <XXNibBridge, UIGestureRecognizerDelegate>
+@interface ZFPlayerView () <
+    UIGestureRecognizerDelegate
+>
 
-/** 播放属性 */
-@property (nonatomic, strong) AVPlayer            *player;
-/** 播放属性 */
-@property (nonatomic, strong) AVPlayerItem        *playerItem;
-/** playerLayer */
-@property (nonatomic, strong) AVPlayerLayer       *playerLayer;
+@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) AVPlayerLayer *playerLayer;
+
 @property (nonatomic, strong) NSHashTable<id<ZFPlayerDisplayDelegate>> *displayers;
 /** 滑杆 */
 @property (nonatomic, strong) UISlider            *volumeViewSlider;
@@ -80,10 +78,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @property (nonatomic, assign) BOOL                isLocalVideo;
 /** slider上次的值 */
 @property (nonatomic, assign) CGFloat             sliderLastValue;
-/** 是否缩小视频在底部 */
-@property (nonatomic, assign) BOOL                isBottomVideo;
-/** cell上imageView的tag */
-@property (nonatomic, assign) NSInteger           cellImageViewTag;
 /** 是否点了重播 */
 @property (nonatomic, assign) BOOL                repeatToPlay;
 /** 播放完了*/
@@ -139,14 +133,11 @@ RFInitializingRootForUIView
     dout(@"%@释放了", self.class);
 
     self.playerItem = nil;
-    self.tableView = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
     [super willMoveToWindow:newWindow];
-    // 列表模式走原有流程吧
-    if (self.tableView) return;
 
     if (newWindow) {
         if (self.state != ZFPlayerStateStopped) {
@@ -192,14 +183,6 @@ RFInitializingRootForUIView
 - (void)backButtonAction {
     if (self.fullscreenMode) {
         [self setFullscreenMode:NO animated:YES];
-        return;
-    }
-
-    // 在cell上播放视频
-    if (self.isCellVideo) {
-        // 关闭player
-        [self resetPlayer];
-        [self removeFromSuperview];
         return;
     }
 
@@ -277,10 +260,6 @@ RFInitializingRootForUIView
     [self play];
     self.controlView.startBtn.selected = YES;
     self.isPauseByUser = NO;
-
-    //强制让系统调用layoutSubviews 两个方法必须同时写
-    [self setNeedsLayout]; //是标记 异步刷新 会调但是慢
-    [self layoutIfNeeded]; //加上此代码立刻刷新
 
     _videoURL = videoURL;
 }
@@ -364,41 +343,18 @@ RFInitializingRootForUIView
     [self.controlView resetControlView];
     // 隐藏重播按钮
     self.repeatBtn.hidden = YES;
-    // 列表中悬浮且非重播时，从 view hierarchy 中移除
-    if (self.isBottomVideo
-        && !self.repeatToPlay) {
-        [self removeFromSuperview];
-    }
-    // 底部播放video改为NO
-    self.isBottomVideo = NO;
-    if (self.tableView && !self.repeatToPlay) {
-        // vicontroller中页面消失
-        self.viewDisappear = YES;
-
-        self.tableView = nil;
-        self.indexPath = nil;
-    }
 }
 
 #pragma mark 事件
 
 - (void)moviePlayDidEnd:(NSNotification *)notification {
     self.state = ZFPlayerStateStopped;
-    if (self.isBottomVideo
-        && !self.fullscreenMode) {
-        // 播放完了，如果是在小屏模式切在bottom位置，直接关闭播放器
-        self.repeatToPlay = NO;
-        self.playDidEnd   = NO;
-        [self resetPlayer];
-    }
-    else {
-        self.playDidEnd       = YES;
-        self.repeatBtn.hidden = NO;
-        // 初始化显示controlView为YES
-        self.isMaskShowing    = NO;
-        // 延迟隐藏controlView
-        [self animateShow];
-    }
+    self.playDidEnd       = YES;
+    self.repeatBtn.hidden = NO;
+    // 初始化显示controlView为YES
+    self.isMaskShowing    = NO;
+    // 延迟隐藏controlView
+    [self animateShow];
 }
 
 - (void)appDidEnterBackground {
@@ -465,12 +421,7 @@ RFInitializingRootForUIView
 
     // 播放按钮点击事件
     [self.controlView.startBtn addTarget:self action:@selector(startAction:) forControlEvents:UIControlEventTouchUpInside];
-    // cell上播放视频的话，该返回按钮为×
-    if (self.isCellVideo) {
-        [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.close"] forState:UIControlStateNormal];
-    }else {
-        [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
-    }
+    [self.backBtn setImage:[UIImage imageNamed:@"ZFPlayer.back"] forState:UIControlStateNormal];
     // 返回按钮点击事件
     [self.backBtn addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -515,13 +466,6 @@ RFInitializingRootForUIView
                 self.state = ZFPlayerStatePlaying;
             }
 
-        }
-    }
-    else if (object == self.tableView) {
-        if ([keyPath isEqualToString:@"contentOffset"]) {
-            if (([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft) || ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight)) { return; }
-            // 当tableview滚动时处理playerView的位置
-            [self handleScrollOffsetWithDict:change];
         }
     }
 }
@@ -570,9 +514,8 @@ RFInitializingRootForUIView
         if (self.fullscreenMode) { //全屏状态
             self.backBtn.alpha  = 0;
             [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-        }else if (self.isBottomVideo && !self.fullscreenMode) { // 视频在底部bottom小屏,并且不是全屏状态
-            self.backBtn.alpha = 1;
-        }else {
+        }
+        else {
             self.backBtn.alpha = 0;
         }
     }completion:^(BOOL finished) {
@@ -590,10 +533,7 @@ RFInitializingRootForUIView
     }
     [UIView animateWithDuration:ZFPlayerControlBarAutoFadeOutTimeInterval animations:^{
         self.backBtn.alpha = 1;
-        // 视频在底部bottom小屏,并且不是全屏状态
-        if (self.isBottomVideo && !self.fullscreenMode) {
-            self.controlView.alpha = 0;
-        }else if (self.playDidEnd) { // 播放完了
+        if (self.playDidEnd) { // 播放完了
             self.controlView.alpha = 0;
         }else {
             self.controlView.alpha = 1;
@@ -662,7 +602,6 @@ RFInitializingRootForUIView
  *  @param slider UISlider
  */
 - (void)progressSliderTouchBegan:(UISlider *)slider {
-    [self cancelAutoFadeOutControlBar];
     if (self.player.status == AVPlayerStatusReadyToPlay) {
 
         // 暂停timer
@@ -780,14 +719,14 @@ RFInitializingRootForUIView
 #pragma mark 手势
 
 - (void)createGesture {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
     [self addGestureRecognizer:tap];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     CGPoint point = [touch locationInView:self.controlView];
-    // （屏幕下方slider区域不响应pan手势） || （在cell上播放视频 && 不是全屏状态）
-    if ((point.y > self.bounds.size.height-40) || (self.isCellVideo && !self.fullscreenMode)) {
+    // （屏幕下方slider区域不响应pan手势）
+    if ((point.y > self.bounds.size.height-40)) {
         return NO;
     }
     return YES;
@@ -795,12 +734,6 @@ RFInitializingRootForUIView
 
 - (void)tapAction:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateRecognized) {
-        if (self.isBottomVideo) {
-            if (!self.fullscreenMode) {
-                [self setFullscreenMode:YES animated:YES];
-            }
-            return;
-        }
         if (self.isMaskShowing) {
             [self hideControlView];
         } else {
@@ -1045,13 +978,6 @@ RFInitializingRootForUIView
     self.controlView.lockBtn.hidden = !fullscreen;
     UIImage *backImage = fullscreen? [UIImage imageNamed:@"ZFPlayer.close"] : [UIImage imageNamed:@"ZFPlayer.back"];
     [self.backBtn setImage:backImage forState:UIControlStateNormal];
-
-    if (fullscreen) {
-        [self setOrientationLandscape];
-    }
-    else {
-        [self setOrientationPortrait];
-    }
 }
 
 /// 工具方法，旋转设备
@@ -1107,157 +1033,6 @@ RFInitializingRootForUIView
 
 ZFPlayerDisplayerNoticeMethod(noticeDisplayerFullscreenModeChanged, ZFPlayerDidChangedFullscreenMode)
 ZFPlayerDisplayerNoticeMethod(noticeDisplayerLockOrientationWhenFullscreenChanged, ZFPlayerDidChangedLockOrientationWhenFullscreen)
-
-#pragma mark - 列表模式
-
-- (void)setTableView:(UITableView *)tableView {
-    if (_tableView == tableView) return;
-
-    if (_tableView) {
-        [_tableView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset))];
-    }
-    _tableView = tableView;
-    if (tableView) {
-        [tableView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset)) options:NSKeyValueObservingOptionNew context:nil];
-    }
-}
-
-- (void)setOrientationLandscape {
-    if (self.tableView) {
-        self.backBtn.center = CGPointMake(15 + 15, 20 + 15);
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-        // 亮度view加到window最上层
-        ZFBrightnessView *brightnessView = [ZFBrightnessView sharedBrightnesView];
-        [[UIApplication sharedApplication].keyWindow insertSubview:self belowSubview:brightnessView];
-    }
-}
-
-- (void)setOrientationPortrait {
-    if (self.tableView) {
-        self.backBtn.center = CGPointMake(5 +15, 5 +15);
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-        [self removeFromSuperview];
-        UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
-        NSArray *visableCells = [self.tableView visibleCells];
-        if (![visableCells containsObject:cell]) {
-            self.isBottomVideo = NO;
-            [self updataPlayerViewToBottom];
-        }else {
-            // 根据tag取到对应的cellImageView
-            UIImageView *cellImageView = [cell viewWithTag:self.cellImageViewTag];
-            [self addPlayerToCellImageView:cellImageView];
-        }
-    }
-}
-
-/**
- *  player添加到cellImageView上
- *
- *  @param cell 添加player的cellImageView
- */
-- (void)addPlayerToCellImageView:(UIImageView *)imageView {
-    [imageView addSubview:self];
-    self.frame = imageView.bounds;
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-}
-
-/**
- *  KVO TableViewContentOffset
- *
- *  @param dict void
- */
-- (void)handleScrollOffsetWithDict:(NSDictionary*)dict
-{
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
-    NSArray *visableCells = self.tableView.visibleCells;
-    if ([visableCells containsObject:cell]) {
-        //在显示中
-        [self updataPlayerViewToCell];
-    }else {
-        //在底部
-        [self updataPlayerViewToBottom];
-    }
-}
-
-/**
- *  缩小到底部，显示小视频
- */
-- (void)updataPlayerViewToBottom
-{
-    if (self.isBottomVideo) {
-        return ;
-    }
-    if (self.playDidEnd) { //如果播放完了，滑动到小屏bottom位置时，直接resetPlayer
-        self.repeatToPlay = NO;
-        self.playDidEnd   = NO;
-        [self resetPlayer];
-        return;
-    }
-    [[UIApplication sharedApplication].keyWindow addSubview:self];
-
-    //
-    self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
-    self.frame = ({
-        CGRect refrenceFrame = self.tableView? self.tableView.frame : [UIScreen mainScreen].bounds;
-        CGFloat superWidth = CGRectGetWidth(refrenceFrame)?: 320;
-        CGFloat width = superWidth *0.5 - 20;
-        CGFloat height = width / 16 * 9;
-        CGFloat y = CGRectGetHeight(refrenceFrame) - height - 10 - self.tableView.contentInset.bottom;
-        CGRectMake(superWidth - width - 20, y, width, height);
-    });
-
-    self.isBottomVideo = YES;
-    // 不显示控制层
-    self.controlView.alpha = 0;
-}
-
-/**
- *  回到cell显示
- */
-- (void)updataPlayerViewToCell
-{
-    if (!self.isBottomVideo) {
-        return;
-    }
-    [self setOrientationPortrait];
-    self.isBottomVideo = NO;
-    // 显示控制层
-    self.controlView.alpha = 1;
-}
-
-- (void)setVideoURL:(NSURL *)videoURL
-      withTableView:(UITableView *)tableView
-        AtIndexPath:(NSIndexPath *)indexPath
-   withImageViewTag:(NSInteger)tag
-{
-    // 在cell上播放视频
-    self.isCellVideo = YES;
-
-    // 如果页面没有消失过，并且playerItem有值，需要重置player
-    if (!self.viewDisappear && self.playerItem) {
-        [self resetPlayer];
-    }
-    // viewDisappear改为NO
-    self.viewDisappear = NO;
-    // 设置imageView的tag
-    self.cellImageViewTag = tag;
-    // 设置tableview
-    self.tableView = tableView;
-    // 设置indexPath
-    self.indexPath = indexPath;
-    // 设置视频URL
-    [self setVideoURL:videoURL];
-}
-
-
-@end
-
-
-@implementation ZFPlayerView (Deprecated)
-
-- (void)cancelAutoFadeOutControlBar {
-    // nothing
-}
 
 @end
 

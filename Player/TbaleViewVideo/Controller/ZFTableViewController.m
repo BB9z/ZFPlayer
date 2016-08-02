@@ -104,19 +104,13 @@
     __block ZFPlayerModel *model       = self.dataSource[indexPath.section][indexPath.row];
     // 赋值model
     cell.model                         = model;
-    
-    __weak NSIndexPath *weakIndexPath = indexPath;
+
     __weak typeof(self) weakSelf = self;
-    __weak ZFPlayerCell *weakCell = cell;
     // 点击播放的回调
     cell.playBlock = ^(UIButton *btn){
         NSURL *videoURL     = [NSURL URLWithString:model.playUrl];
         // 设置player相关参数(需要设置imageView的tag值，此处设置的为101)
-        [weakSelf.listPlayer setVideoURL:videoURL
-                           withTableView:weakSelf.tableView
-                             AtIndexPath:weakIndexPath
-                        withImageViewTag:101];
-        [weakSelf.listPlayer addPlayerToCellImageView:weakCell.picView];
+        weakSelf.listPlayer.videoURL = videoURL;
     };
 
     return cell;

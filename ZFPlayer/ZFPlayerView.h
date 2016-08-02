@@ -22,15 +22,24 @@
 // THE SOFTWARE.
 
 #import "RFUI.h"
+#import <XXNibBridge/XXNibBridge.h>
+@import AVFoundation;
 
 typedef void(^ZFPlayerGoBackBlock)(void);
 
 @protocol ZFPlayerDisplayDelegate;
 @class ZFPlayerControlView;
 
+/**
+ 
+ */
 @interface ZFPlayerView : UIView <
-    RFInitializing
+    RFInitializing,
+    XXNibBridge
 >
+
+///
+@property (nonatomic, nullable, strong) AVPlayerItem *playerItem;
 
 /// 默认控制层，从 nib 里载入若不设置会自动创建一个
 @property (nonatomic, nullable, weak) IBOutlet ZFPlayerControlView *controlView;
@@ -93,30 +102,6 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 设备旋转时自动切换全屏模式，默认 YES
 @property (nonatomic) BOOL changeFullscreenModeWhenDeviceOrientationChanging;
 
-#pragma mark - Table view 模式
-
-/** 是否在cell上播放video */
-@property (nonatomic) BOOL isCellVideo;
-
-/** palyer加到tableView */
-@property (nonatomic, nullable, strong) UITableView *tableView;
-
-/** player所在cell的indexPath */
-@property (nonatomic, nullable, strong) NSIndexPath *indexPath;
-
-/**
- *  用于cell上播放player
- *
- *  @param videoURL  视频的URL
- *  @param tableView tableView
- *  @param indexPath indexPath 
- *  @param ImageViewTag ImageViewTag
- */
-- (void)setVideoURL:(nonnull NSURL *)videoURL
-      withTableView:(nonnull UITableView *)tableView
-        AtIndexPath:(nonnull NSIndexPath *)indexPath
-   withImageViewTag:(NSInteger)tag;
-
 @end
 
 
@@ -125,12 +110,5 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 
 - (void)ZFPlayerDidChangedFullscreenMode:(nonnull ZFPlayerView *)player;
 - (void)ZFPlayerDidChangedLockOrientationWhenFullscreen:(nonnull ZFPlayerView *)player;
-
-@end
-
-
-@interface ZFPlayerView (Deprecated)
-
-- (void)cancelAutoFadeOutControlBar DEPRECATED_MSG_ATTRIBUTE("不再需要 view controller 的协助");
 
 @end
