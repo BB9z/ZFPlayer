@@ -9,6 +9,7 @@
     http://www.opensource.org/licenses/mit-license.php
  */
 #import <UIKit/UIKit.h>
+#import "UIDevice+RFKit.h"
 
 #ifndef RFUIInterfaceOrientationSupport_H
 #define RFUIInterfaceOrientationSupport_H

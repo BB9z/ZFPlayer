@@ -57,21 +57,7 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /** 返回按钮Block */
 @property (nonatomic, nullable, copy) ZFPlayerGoBackBlock goBackBlock;
 
-#pragma mark - method
-
-/**
- *  类方法创建，该方法适用于代码创建View
- *
- *  @return ZFPlayer
- */
-+ (nonnull instancetype)setupZFPlayer;
-
-/**
- *  单例，用于列表cell上多个视频
- *
- *  @return ZFPlayer
- */
-+ (nonnull instancetype)playerView;
+#pragma mark - metho
 
 /**
  *  player添加到cell上

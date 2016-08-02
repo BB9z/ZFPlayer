@@ -23,12 +23,13 @@
 
 #import "ZFTableViewController.h"
 #import "ZFPlayerCell.h"
+#import "ZFPlayerView.h"
 #import "ZFPlayerModel.h"
 
 @interface ZFTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) ZFPlayerView   *playerView;
+@property (nonatomic, strong) ZFPlayerView *listPlayer;
 
 @end
 
@@ -63,15 +64,9 @@
 }
 
 // 页面消失时候
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.playerView resetPlayer];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.listPlayer resetPlayer];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -81,6 +76,12 @@
     }else if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
         self.view.backgroundColor = [UIColor blackColor];
     }
+}
+
+- (ZFPlayerView *)listPlayer {
+    if (_listPlayer) return _listPlayer;
+    _listPlayer = [ZFPlayerView new];
+    return _listPlayer;
 }
 
 #pragma mark - Table view data source
@@ -104,19 +105,18 @@
     // 赋值model
     cell.model                         = model;
     
-    __block NSIndexPath *weakIndexPath = indexPath;
-    __weak typeof(self) weakSelf       = self;
+    __weak NSIndexPath *weakIndexPath = indexPath;
+    __weak typeof(self) weakSelf = self;
     __weak ZFPlayerCell *weakCell = cell;
     // 点击播放的回调
     cell.playBlock = ^(UIButton *btn){
-        weakSelf.playerView = [ZFPlayerView playerView];
         NSURL *videoURL     = [NSURL URLWithString:model.playUrl];
         // 设置player相关参数(需要设置imageView的tag值，此处设置的为101)
-        [weakSelf.playerView setVideoURL:videoURL
+        [weakSelf.listPlayer setVideoURL:videoURL
                            withTableView:weakSelf.tableView
                              AtIndexPath:weakIndexPath
                         withImageViewTag:101];
-        [weakSelf.playerView addPlayerToCellImageView:weakCell.picView];
+        [weakSelf.listPlayer addPlayerToCellImageView:weakCell.picView];
     };
 
     return cell;

@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 #import "MoviePlayerViewController.h"
-#import "ZFPlayer.h"
+#import "ZFPlayerView.h"
 
 @interface MoviePlayerViewController ()
 @end

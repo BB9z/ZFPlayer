@@ -22,69 +22,14 @@
 // THE SOFTWARE.
 
 #import "MainViewController.h"
-#import "MoviePlayerViewController.h"
-#import "ZFTableViewController.h"
-#import "ZFPlayer.h"
-
-@interface MainViewController ()
-
-@end
+#import "RFUI.h"
 
 @implementation MainViewController
+RFUIInterfaceOrientationSupportAll
 
--(void)awakeFromNib
-{
+- (void)awakeFromNib {
+    [super awakeFromNib];
     self.selectedIndex = 0;
 }
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-// 哪些页面支持自动转屏
-- (BOOL)shouldAutorotate{
-    
-    UINavigationController *nav = self.viewControllers[self.selectedIndex];
-    
-    // MoviePlayerViewController 、ZFTableViewController 控制器支持自动转屏
-    if ([nav.topViewController isKindOfClass:[MoviePlayerViewController class]] || [nav.topViewController isKindOfClass:[ZFTableViewController class]]) {
-        
-        // 调用ZFPlayerSingleton单例记录播放状态是否锁定屏幕方向
-        return !ZFPlayerShared.isLockScreen;
-    }
-    return NO;
-}
-
-// viewcontroller支持哪些转屏方向
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    
-    UINavigationController *nav = self.viewControllers[self.selectedIndex];
-    if ([nav.topViewController isKindOfClass:[MoviePlayerViewController class]]) { // MoviePlayerViewController这个页面支持转屏方向
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    }else if ([nav.topViewController isKindOfClass:[ZFTableViewController class]]) { // ZFTableViewController这个页面支持转屏方向
-        if (ZFPlayerShared.isAllowLandscape) {
-            return UIInterfaceOrientationMaskAllButUpsideDown;
-        }else {
-            return UIInterfaceOrientationMaskPortrait;
-        }
-    }
-    // 其他页面
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "ZFPlayer.h"
+#import "ZFPlayerView.h"
 
 @interface ZFPlayerControlView : UIView <
     ZFPlayerDisplayDelegate

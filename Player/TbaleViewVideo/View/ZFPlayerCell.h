@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-#import "ZFPlayer.h"
 #import "ZFPlayerModel.h"
 
 typedef void(^PlayBtnCallBackBlock)(UIButton *);

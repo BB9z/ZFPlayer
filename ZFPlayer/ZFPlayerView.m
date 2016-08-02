@@ -27,7 +27,6 @@
 #import <XXNibBridge/XXNibBridge.h>
 #import "ZFPlayerControlView.h"
 #import "ZFBrightnessView.h"
-#import "ZFPlayer.h"
 
 static const CGFloat ZFPlayerAnimationTimeInterval             = 7.0f;
 static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.5f;
@@ -98,10 +97,10 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @end
 
 @implementation ZFPlayerView
-RFInitializingRootForNSObject
+RFInitializingRootForUIView
 
 - (void)onInit {
-
+    self.changeFullscreenModeWhenDeviceOrientationChanging = YES;
 }
 
 - (void)afterInit {
@@ -110,41 +109,8 @@ RFInitializingRootForNSObject
 
 + (instancetype)alloc {
     ZFPlayerView *pv = [super alloc];
-    NSLog(@"Creat %p", pv);
+    dout(@"Creat %p", pv);
     return pv;
-}
-
-+ (instancetype)setupZFPlayer {
-    return [[NSBundle mainBundle] loadNibNamed:@"ZFPlayerView" owner:nil options:nil].lastObject;
-}
-
-+ (instancetype)playerView {
-    static ZFPlayerView *playerView = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        playerView = [[[NSBundle mainBundle] loadNibNamed:@"ZFPlayerView" owner:nil options:nil] lastObject];
-    });
-    return playerView;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (void)commonInit {
-    self.changeFullscreenModeWhenDeviceOrientationChanging = YES;
 }
 
 - (void)awakeFromNib {
@@ -170,12 +136,11 @@ RFInitializingRootForNSObject
 }
 
 - (void)dealloc {
-    NSLog(@"%@释放了",self.class);
+    dout(@"%@释放了", self.class);
+
     self.playerItem = nil;
     self.tableView = nil;
-
-    // 移除所有通知
-    [self removeNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
@@ -386,8 +351,6 @@ RFInitializingRootForNSObject
 - (void)resetPlayer {
     self.playerItem = nil;
 
-    // 移除所有通知、观察者
-    [self removeNotifications];
     // 关闭定时器
     [self.timer invalidate];
     self.timer = nil;
@@ -510,11 +473,6 @@ RFInitializingRootForNSObject
     }
     // 返回按钮点击事件
     [self.backBtn addTarget:self action:@selector(backButtonAction) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)removeNotifications {
-    // 移除通知
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
@@ -1008,7 +966,6 @@ RFInitializingRootForNSObject
 
 - (void)setFullscreenMode:(BOOL)fullscreen animated:(BOOL)animated {
     _fullscreenMode = fullscreen;
-    ZFPlayerShared.isAllowLandscape = fullscreen;
     [self setDeviceOrientationToLandscape:fullscreen animated:animated];
     [self updateUIForFullscreenModeChanged];
     [self noticeDisplayerFullscreenModeChanged];
