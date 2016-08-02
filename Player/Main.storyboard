@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tUM-Ta-yQP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tUM-Ta-yQP">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -27,7 +27,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GMP-fV-smq" id="5zH-w5-J9b">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击加载网络视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0f-9x-ixh">
@@ -80,7 +80,7 @@
         <!--列表视频-->
         <scene sceneID="KcN-Y8-2Q4">
             <objects>
-                <tableViewController id="x8g-fk-vKS" customClass="ZFTableViewController" sceneMemberID="viewController">
+                <tableViewController id="x8g-fk-vKS" customClass="ZFTableViewController" propertyAccessControl="all" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="379" sectionHeaderHeight="28" sectionFooterHeight="28" id="8f3-x6-scd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,7 +90,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="379"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kzk-rb-IGS" id="3dy-Pu-1jL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="378.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="378"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LT-yX-98V">
@@ -100,7 +100,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xgn-A1-cKA">
-                                            <rect key="frame" x="0.0" y="339" width="94" height="40"/>
+                                            <rect key="frame" x="0.0" y="338" width="93" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="nqE-tE-Mox"/>
                                             </constraints>
@@ -113,7 +113,7 @@
                                             <state key="highlighted" image="mainCellCaiClick"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPf-zf-g0b">
-                                            <rect key="frame" x="94" y="339" width="93" height="40"/>
+                                            <rect key="frame" x="94" y="338" width="94" height="40"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="345" image="mainCellCai">
@@ -123,14 +123,14 @@
                                             <state key="highlighted" image="mainCellCaiClick"/>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="9uX-k6-yQS">
-                                            <rect key="frame" x="93" y="346" width="1" height="26"/>
+                                            <rect key="frame" x="93" y="345" width="1" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="8Md-YJ-csE"/>
                                                 <constraint firstAttribute="width" constant="1" id="fx7-9R-BX7"/>
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="gwZ-xX-AK6">
-                                            <rect key="frame" x="187" y="346" width="1" height="26"/>
+                                            <rect key="frame" x="188" y="345" width="1" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="Yfe-pS-EYQ"/>
                                                 <constraint firstAttribute="width" constant="1" id="nH6-eR-Q4h"/>
@@ -143,7 +143,7 @@
                                             </variation>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cell-button-line" translatesAutoresizingMaskIntoConstraints="NO" id="XIE-Iq-PKp">
-                                            <rect key="frame" x="282" y="346" width="1" height="26"/>
+                                            <rect key="frame" x="282" y="345" width="1" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="Xug-xM-CiY"/>
                                                 <constraint firstAttribute="width" constant="1" id="mqU-MN-jty"/>
@@ -156,7 +156,7 @@
                                             </variation>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5m-ec-6ef">
-                                            <rect key="frame" x="188" y="339" width="94" height="40"/>
+                                            <rect key="frame" x="189" y="338" width="93" height="40"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="666" image="mainCellShare">
@@ -166,7 +166,7 @@
                                             <state key="highlighted" image="mainCellCaiClick"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWC-FQ-jGF">
-                                            <rect key="frame" x="282" y="339" width="93" height="40"/>
+                                            <rect key="frame" x="282" y="338" width="93" height="40"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="333" image="mainCellComment">
@@ -195,7 +195,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_bgView" translatesAutoresizingMaskIntoConstraints="NO" id="hXd-DO-bVF">
-                                            <rect key="frame" x="0.0" y="88" width="375" height="251"/>
+                                            <rect key="frame" x="0.0" y="88" width="375" height="250"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="hXd-DO-bVF" secondAttribute="height" multiplier="16:9" priority="750" id="6GF-Ut-zV7"/>
                                             </constraints>

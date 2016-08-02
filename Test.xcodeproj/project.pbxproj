@@ -20,7 +20,6 @@
 		CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */; };
 		CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */; };
 		CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */; };
-		CC2CC6401CA24D4B0028BBDD /* ZFPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2CC63A1CA24D4B0028BBDD /* ZFPlayerView.xib */; };
 		CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC48ECD61C8863DB009CF0D0 /* Main.storyboard */; };
 		CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */; };
 		CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */ = {isa = PBXBuildFile; fileRef = CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */; };
@@ -98,7 +97,6 @@
 		CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFPlayerControlView.xib; sourceTree = "<group>"; };
 		CC2CC6381CA24D4B0028BBDD /* ZFPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerView.h; sourceTree = "<group>"; };
 		CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerView.m; sourceTree = "<group>"; };
-		CC2CC63A1CA24D4B0028BBDD /* ZFPlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFPlayerView.xib; sourceTree = "<group>"; };
 		CC48ECD61C8863DB009CF0D0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CC6C7AE31C9BDFE90000AD58 /* MoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayerViewController.h; sourceTree = "<group>"; };
 		CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerViewController.m; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 			children = (
 				CC2CC6381CA24D4B0028BBDD /* ZFPlayerView.h */,
 				CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */,
-				CC2CC63A1CA24D4B0028BBDD /* ZFPlayerView.xib */,
 				CC2CC6351CA24D4B0028BBDD /* ZFPlayerControlView.h */,
 				CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */,
 				CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */,
@@ -568,7 +565,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */,
-				CC2CC6401CA24D4B0028BBDD /* ZFPlayerView.xib in Resources */,
 				CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */,
 				4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */,
 				4947F79A1BE996AC003093C8 /* Assets.xcassets in Resources */,
