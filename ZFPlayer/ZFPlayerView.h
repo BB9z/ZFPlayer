@@ -21,17 +21,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "RFUI.h"
 
 typedef void(^ZFPlayerGoBackBlock)(void);
 
 @protocol ZFPlayerDisplayDelegate;
 @class ZFPlayerControlView;
 
-@interface ZFPlayerView : UIView
+@interface ZFPlayerView : UIView <
+    RFInitializing
+>
 
 /// 默认控制层，从 nib 里载入若不设置会自动创建一个
-@property (nonatomic, weak) IBOutlet ZFPlayerControlView *controlView;
+@property (nonatomic, nullable, weak) IBOutlet ZFPlayerControlView *controlView;
 
 - (void)addDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
 - (void)removeDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
@@ -39,13 +41,13 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 #pragma mark - UI
 
 /** 快进快退label */
-@property (nonatomic, weak) IBOutlet UILabel *horizontalLabel;
+@property (nonatomic, nullable, weak) IBOutlet UILabel *horizontalLabel;
 /** 系统菊花 */
-@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
+@property (nonatomic, nullable, weak) IBOutlet UIActivityIndicatorView *activity;
 /** 返回按钮*/
-@property (nonatomic, weak) IBOutlet UIButton *backBtn;
+@property (nonatomic, nullable, weak) IBOutlet UIButton *backBtn;
 /** 重播按钮 */
-@property (nonatomic, weak) IBOutlet UIButton *repeatBtn;
+@property (nonatomic, nullable, weak) IBOutlet UIButton *repeatBtn;
 
 #pragma mark - config
 

@@ -32,6 +32,25 @@
 		CCE1C13E1C9AA128004C95AC /* ZFTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE1C13D1C9AA128004C95AC /* ZFTableViewController.m */; };
 		CCE1C1401C9AA131004C95AC /* videoData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCE1C13F1C9AA131004C95AC /* videoData.json */; };
 		D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */; };
+		D5FF10AF1D504D52005A068E /* dout.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10A41D504D52005A068E /* dout.m */; };
+		D5FF10B01D504D52005A068E /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10A81D504D52005A068E /* EXTScope.m */; };
+		D5FF10B11D504D52005A068E /* RFDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10AB1D504D52005A068E /* RFDispatch.m */; };
+		D5FF10B21D504D52005A068E /* RFGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10AD1D504D52005A068E /* RFGeometry.m */; };
+		D5FF10B81D504E43005A068E /* RFUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10B61D504E43005A068E /* RFUI.m */; };
+		D5FF10BF1D504EE6005A068E /* RFKVOWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10BB1D504EE6005A068E /* RFKVOWrapper.m */; };
+		D5FF10C01D504EE6005A068E /* RFTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10BE1D504EE6005A068E /* RFTimer.m */; };
+		D5FF10C31D504FF7005A068E /* RFPerformance.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10C21D504FF7005A068E /* RFPerformance.m */; };
+		D5FF10DD1D5050F1005A068E /* NSArray+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10C71D5050F1005A068E /* NSArray+RFKit.m */; };
+		D5FF10DE1D5050F1005A068E /* NSDate+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10C91D5050F1005A068E /* NSDate+RFKit.m */; };
+		D5FF10DF1D5050F1005A068E /* NSDateFormatter+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10CB1D5050F1005A068E /* NSDateFormatter+RFKit.m */; };
+		D5FF10E01D5050F1005A068E /* NSDictionary+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10CD1D5050F1005A068E /* NSDictionary+RFKit.m */; };
+		D5FF10E11D5050F1005A068E /* NSError+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10CF1D5050F1005A068E /* NSError+RFKit.m */; };
+		D5FF10E21D5050F1005A068E /* NSString+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10D11D5050F1005A068E /* NSString+RFKit.m */; };
+		D5FF10E31D5050F1005A068E /* UINavigationController+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10D41D5050F1005A068E /* UINavigationController+RFKit.m */; };
+		D5FF10E41D5050F1005A068E /* UIResponder+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10D61D5050F1005A068E /* UIResponder+RFKit.m */; };
+		D5FF10E51D5050F1005A068E /* UIView+RFAnimate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10D81D5050F1005A068E /* UIView+RFAnimate.m */; };
+		D5FF10E61D5050F1005A068E /* UIView+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10DA1D5050F1005A068E /* UIView+RFKit.m */; };
+		D5FF10E71D5050F1005A068E /* UIViewController+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10DC1D5050F1005A068E /* UIViewController+RFKit.m */; };
 		D9B558B36CCC488962F548FA /* libPods-Player.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0AF4757901EAD2A137190E /* libPods-Player.a */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +118,50 @@
 		CCE1C13D1C9AA128004C95AC /* ZFTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFTableViewController.m; sourceTree = "<group>"; };
 		CCE1C13F1C9AA131004C95AC /* videoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoData.json; sourceTree = "<group>"; };
 		D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZFPlayer.xcassets; sourceTree = "<group>"; };
+		D5FF10A31D504D52005A068E /* dout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dout.h; sourceTree = "<group>"; };
+		D5FF10A41D504D52005A068E /* dout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dout.m; sourceTree = "<group>"; };
+		D5FF10A61D504D52005A068E /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
+		D5FF10A71D504D52005A068E /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
+		D5FF10A81D504D52005A068E /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
+		D5FF10A91D504D52005A068E /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
+		D5FF10AA1D504D52005A068E /* RFDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFDispatch.h; sourceTree = "<group>"; };
+		D5FF10AB1D504D52005A068E /* RFDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFDispatch.m; sourceTree = "<group>"; };
+		D5FF10AC1D504D52005A068E /* RFGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFGeometry.h; sourceTree = "<group>"; };
+		D5FF10AD1D504D52005A068E /* RFGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFGeometry.m; sourceTree = "<group>"; };
+		D5FF10AE1D504D52005A068E /* RFRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFRuntime.h; sourceTree = "<group>"; };
+		D5FF10B31D504D81005A068E /* RFFeatureSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFeatureSupport.h; sourceTree = "<group>"; };
+		D5FF10B41D504E43005A068E /* RFInitializing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFInitializing.h; sourceTree = "<group>"; };
+		D5FF10B51D504E43005A068E /* RFUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFUI.h; sourceTree = "<group>"; };
+		D5FF10B61D504E43005A068E /* RFUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFUI.m; sourceTree = "<group>"; };
+		D5FF10B71D504E43005A068E /* RFUIInterfaceOrientationSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFUIInterfaceOrientationSupport.h; sourceTree = "<group>"; };
+		D5FF10BA1D504EE6005A068E /* RFKVOWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFKVOWrapper.h; sourceTree = "<group>"; };
+		D5FF10BB1D504EE6005A068E /* RFKVOWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFKVOWrapper.m; sourceTree = "<group>"; };
+		D5FF10BD1D504EE6005A068E /* RFTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTimer.h; sourceTree = "<group>"; };
+		D5FF10BE1D504EE6005A068E /* RFTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTimer.m; sourceTree = "<group>"; };
+		D5FF10C11D504FF7005A068E /* RFPerformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFPerformance.h; sourceTree = "<group>"; };
+		D5FF10C21D504FF7005A068E /* RFPerformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFPerformance.m; sourceTree = "<group>"; };
+		D5FF10C61D5050F1005A068E /* NSArray+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10C71D5050F1005A068E /* NSArray+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10C81D5050F1005A068E /* NSDate+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10C91D5050F1005A068E /* NSDate+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10CA1D5050F1005A068E /* NSDateFormatter+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10CB1D5050F1005A068E /* NSDateFormatter+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10CC1D5050F1005A068E /* NSDictionary+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10CD1D5050F1005A068E /* NSDictionary+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10CE1D5050F1005A068E /* NSError+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10CF1D5050F1005A068E /* NSError+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10D01D5050F1005A068E /* NSString+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10D11D5050F1005A068E /* NSString+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10D31D5050F1005A068E /* UINavigationController+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10D41D5050F1005A068E /* UINavigationController+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10D51D5050F1005A068E /* UIResponder+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10D61D5050F1005A068E /* UIResponder+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10D71D5050F1005A068E /* UIView+RFAnimate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RFAnimate.h"; sourceTree = "<group>"; };
+		D5FF10D81D5050F1005A068E /* UIView+RFAnimate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RFAnimate.m"; sourceTree = "<group>"; };
+		D5FF10D91D5050F1005A068E /* UIView+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10DA1D5050F1005A068E /* UIView+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RFKit.m"; sourceTree = "<group>"; };
+		D5FF10DB1D5050F1005A068E /* UIViewController+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RFKit.h"; sourceTree = "<group>"; };
+		D5FF10DC1D5050F1005A068E /* UIViewController+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RFKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +265,7 @@
 		77BAA74D466CF5B1952CD7B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5FF10A21D504D1A005A068E /* RFUI */,
 				0F0AF4757901EAD2A137190E /* libPods-Player.a */,
 			);
 			name = Frameworks;
@@ -298,6 +362,105 @@
 				CCE1C13A1C9AA11F004C95AC /* ZFPlayerModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D5FF10A21D504D1A005A068E /* RFUI */ = {
+			isa = PBXGroup;
+			children = (
+				D5FF10C41D5050F1005A068E /* category */,
+				D5FF10A31D504D52005A068E /* dout.h */,
+				D5FF10A41D504D52005A068E /* dout.m */,
+				D5FF10A51D504D52005A068E /* extobjc */,
+				D5FF10AA1D504D52005A068E /* RFDispatch.h */,
+				D5FF10AB1D504D52005A068E /* RFDispatch.m */,
+				D5FF10B31D504D81005A068E /* RFFeatureSupport.h */,
+				D5FF10AC1D504D52005A068E /* RFGeometry.h */,
+				D5FF10AD1D504D52005A068E /* RFGeometry.m */,
+				D5FF10B41D504E43005A068E /* RFInitializing.h */,
+				D5FF10B91D504EE6005A068E /* RFKVOWrapper */,
+				D5FF10C11D504FF7005A068E /* RFPerformance.h */,
+				D5FF10C21D504FF7005A068E /* RFPerformance.m */,
+				D5FF10AE1D504D52005A068E /* RFRuntime.h */,
+				D5FF10BC1D504EE6005A068E /* RFTimer */,
+				D5FF10B51D504E43005A068E /* RFUI.h */,
+				D5FF10B61D504E43005A068E /* RFUI.m */,
+				D5FF10B71D504E43005A068E /* RFUIInterfaceOrientationSupport.h */,
+			);
+			path = RFUI;
+			sourceTree = "<group>";
+		};
+		D5FF10A51D504D52005A068E /* extobjc */ = {
+			isa = PBXGroup;
+			children = (
+				D5FF10A61D504D52005A068E /* EXTKeyPathCoding.h */,
+				D5FF10A71D504D52005A068E /* EXTScope.h */,
+				D5FF10A81D504D52005A068E /* EXTScope.m */,
+				D5FF10A91D504D52005A068E /* metamacros.h */,
+			);
+			path = extobjc;
+			sourceTree = "<group>";
+		};
+		D5FF10B91D504EE6005A068E /* RFKVOWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				D5FF10BA1D504EE6005A068E /* RFKVOWrapper.h */,
+				D5FF10BB1D504EE6005A068E /* RFKVOWrapper.m */,
+			);
+			path = RFKVOWrapper;
+			sourceTree = "<group>";
+		};
+		D5FF10BC1D504EE6005A068E /* RFTimer */ = {
+			isa = PBXGroup;
+			children = (
+				D5FF10BD1D504EE6005A068E /* RFTimer.h */,
+				D5FF10BE1D504EE6005A068E /* RFTimer.m */,
+			);
+			path = RFTimer;
+			sourceTree = "<group>";
+		};
+		D5FF10C41D5050F1005A068E /* category */ = {
+			isa = PBXGroup;
+			children = (
+				D5FF10C51D5050F1005A068E /* Foundation */,
+				D5FF10D21D5050F1005A068E /* UIKit */,
+			);
+			path = category;
+			sourceTree = "<group>";
+		};
+		D5FF10C51D5050F1005A068E /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				D5FF10C61D5050F1005A068E /* NSArray+RFKit.h */,
+				D5FF10C71D5050F1005A068E /* NSArray+RFKit.m */,
+				D5FF10C81D5050F1005A068E /* NSDate+RFKit.h */,
+				D5FF10C91D5050F1005A068E /* NSDate+RFKit.m */,
+				D5FF10CA1D5050F1005A068E /* NSDateFormatter+RFKit.h */,
+				D5FF10CB1D5050F1005A068E /* NSDateFormatter+RFKit.m */,
+				D5FF10CC1D5050F1005A068E /* NSDictionary+RFKit.h */,
+				D5FF10CD1D5050F1005A068E /* NSDictionary+RFKit.m */,
+				D5FF10CE1D5050F1005A068E /* NSError+RFKit.h */,
+				D5FF10CF1D5050F1005A068E /* NSError+RFKit.m */,
+				D5FF10D01D5050F1005A068E /* NSString+RFKit.h */,
+				D5FF10D11D5050F1005A068E /* NSString+RFKit.m */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		D5FF10D21D5050F1005A068E /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				D5FF10D31D5050F1005A068E /* UINavigationController+RFKit.h */,
+				D5FF10D41D5050F1005A068E /* UINavigationController+RFKit.m */,
+				D5FF10D51D5050F1005A068E /* UIResponder+RFKit.h */,
+				D5FF10D61D5050F1005A068E /* UIResponder+RFKit.m */,
+				D5FF10D71D5050F1005A068E /* UIView+RFAnimate.h */,
+				D5FF10D81D5050F1005A068E /* UIView+RFAnimate.m */,
+				D5FF10D91D5050F1005A068E /* UIView+RFKit.h */,
+				D5FF10DA1D5050F1005A068E /* UIView+RFKit.m */,
+				D5FF10DB1D5050F1005A068E /* UIViewController+RFKit.h */,
+				D5FF10DC1D5050F1005A068E /* UIViewController+RFKit.m */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -487,9 +650,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5FF10B01D504D52005A068E /* EXTScope.m in Sources */,
+				D5FF10E01D5050F1005A068E /* NSDictionary+RFKit.m in Sources */,
+				D5FF10C01D504EE6005A068E /* RFTimer.m in Sources */,
+				D5FF10E21D5050F1005A068E /* NSString+RFKit.m in Sources */,
+				D5FF10BF1D504EE6005A068E /* RFKVOWrapper.m in Sources */,
 				CC725C2D1C894D2500C3EAF2 /* SecondViewController.m in Sources */,
+				D5FF10C31D504FF7005A068E /* RFPerformance.m in Sources */,
+				D5FF10E61D5050F1005A068E /* UIView+RFKit.m in Sources */,
 				CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */,
 				4947F7921BE996AC003093C8 /* AppDelegate.m in Sources */,
+				D5FF10E11D5050F1005A068E /* NSError+RFKit.m in Sources */,
+				D5FF10E31D5050F1005A068E /* UINavigationController+RFKit.m in Sources */,
+				D5FF10DD1D5050F1005A068E /* NSArray+RFKit.m in Sources */,
+				D5FF10E51D5050F1005A068E /* UIView+RFAnimate.m in Sources */,
+				D5FF10DF1D5050F1005A068E /* NSDateFormatter+RFKit.m in Sources */,
+				D5FF10B21D504D52005A068E /* RFGeometry.m in Sources */,
+				D5FF10DE1D5050F1005A068E /* NSDate+RFKit.m in Sources */,
+				D5FF10AF1D504D52005A068E /* dout.m in Sources */,
 				CCE1C13B1C9AA11F004C95AC /* ZFPlayerModel.m in Sources */,
 				CC725C321C894D2D00C3EAF2 /* FirstViewController.m in Sources */,
 				CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */,
@@ -498,8 +676,12 @@
 				CC113C0E1C8C4E5D0044FEEB /* MainViewController.m in Sources */,
 				CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */,
 				CCE1C13E1C9AA128004C95AC /* ZFTableViewController.m in Sources */,
+				D5FF10E41D5050F1005A068E /* UIResponder+RFKit.m in Sources */,
+				D5FF10E71D5050F1005A068E /* UIViewController+RFKit.m in Sources */,
 				CCE1C1381C9AA115004C95AC /* ZFPlayerCell.m in Sources */,
+				D5FF10B81D504E43005A068E /* RFUI.m in Sources */,
 				4947F78F1BE996AC003093C8 /* main.m in Sources */,
+				D5FF10B11D504D52005A068E /* RFDispatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

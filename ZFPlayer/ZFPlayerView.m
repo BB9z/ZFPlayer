@@ -98,6 +98,15 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @end
 
 @implementation ZFPlayerView
+RFInitializingRootForNSObject
+
+- (void)onInit {
+
+}
+
+- (void)afterInit {
+    // Nothing
+}
 
 + (instancetype)alloc {
     ZFPlayerView *pv = [super alloc];
