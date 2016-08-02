@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 #import "RFUI.h"
-#import <XXNibBridge/XXNibBridge.h>
 @import AVFoundation;
 
 typedef void(^ZFPlayerGoBackBlock)(void);
@@ -31,11 +30,12 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 @class ZFPlayerControlView;
 
 /**
+ 对 AVPlayer，AVPlayerLayer 做封装，只提供好播放功能本身。
  
+ 控制 UI 交给 ZFPlayerControlView 去做，布局应该交给所属的 UIViewController
  */
 @interface ZFPlayerView : UIView <
-    RFInitializing,
-    XXNibBridge
+    RFInitializing
 >
 
 ///
@@ -47,33 +47,12 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 - (void)addDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
 - (void)removeDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
 
-#pragma mark - UI
-
-/** 快进快退label */
-@property (nonatomic, nullable, weak) IBOutlet UILabel *horizontalLabel;
-/** 系统菊花 */
-@property (nonatomic, nullable, weak) IBOutlet UIActivityIndicatorView *activity;
-/** 返回按钮*/
-@property (nonatomic, nullable, weak) IBOutlet UIButton *backBtn;
-/** 重播按钮 */
-@property (nonatomic, nullable, weak) IBOutlet UIButton *repeatBtn;
-
 #pragma mark - config
 
 /** 视频URL */
 @property (nonatomic, nullable, copy) NSURL *videoURL;
 
-/** 返回按钮Block */
-@property (nonatomic, nullable, copy) ZFPlayerGoBackBlock goBackBlock;
-
 #pragma mark - metho
-
-/**
- *  player添加到cell上
- *
- *  @param cell 添加player的cellImageView
- */
-- (void)addPlayerToCellImageView:(nonnull UIImageView *)imageView;
 
 /**
  *  重置player
@@ -89,6 +68,24 @@ typedef void(^ZFPlayerGoBackBlock)(void);
   * 暂停 
  */
 - (void)pause;
+
+- (void)seekToTime:(NSTimeInterval)time completion:(void (^__nullable)(BOOL finished))completion;
+
+#pragma mark - 状态
+
+typedef NS_ENUM(NSInteger, ZFPlayerState) {
+    ZFPlayerStateBuffering,  //缓冲中
+    ZFPlayerStatePlaying,    //播放中
+    ZFPlayerStateStopped,    //停止播放
+    ZFPlayerStatePause       //暂停播放
+};
+@property (nonatomic, assign) ZFPlayerState status;
+
+/// 播放完了
+@property (nonatomic) BOOL playDidEnd;
+
+/// 是否被用户暂停
+@property (nonatomic) BOOL isPauseByUser;
 
 #pragma mark - 全屏模式
 

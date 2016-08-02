@@ -21,15 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "RFUI.h"
 #import "ZFPlayerView.h"
 
 @interface ZFPlayerControlView : UIView <
+    RFInitializing,
+    UIGestureRecognizerDelegate,
     ZFPlayerDisplayDelegate
 >
-
-/** 类方法创建 */
-+ (instancetype)setupPlayerControlView;
 
 @property (nonatomic, weak) ZFPlayerView *player;
 
@@ -60,5 +59,15 @@
 @property (nonatomic, weak) IBOutlet UIButton *lockBtn;
 
 - (IBAction)onOrientationLockButtonTapped:(UIButton *)sender;
+
+/** 快进快退label */
+@property (nonatomic, weak) IBOutlet UILabel *horizontalLabel;
+/** 系统菊花 */
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
+/** 返回按钮*/
+@property (nonatomic, weak) IBOutlet UIButton *backBtn;
+/** 重播按钮 */
+@property (nonatomic, weak) IBOutlet UIButton *repeatBtn;
+
 
 @end

@@ -10,55 +10,9 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZFPlayerView">
             <rect key="frame" x="0.0" y="0.0" width="369" height="172"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="RMN-tc-wFo">
-                    <rect key="frame" x="175" y="76" width="20" height="20"/>
-                </activityIndicatorView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt; 00:00 / --:--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mac-6z-sQf">
-                    <rect key="frame" x="104" y="66" width="160" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="160" id="HNZ-vL-MjH"/>
-                        <constraint firstAttribute="height" constant="40" id="ZzB-eR-gfh"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUJ-Pv-GeU">
-                    <rect key="frame" x="15" y="10" width="30" height="30"/>
-                    <state key="normal" image="ZFPlayer.back"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfx-7i-uQI">
-                    <rect key="frame" x="165" y="56" width="40" height="60"/>
-                    <state key="normal" image="ZFPlayer.repeat_video"/>
-                    <connections>
-                        <action selector="repeatPlay:" destination="iN0-l3-epB" eventType="touchUpInside" id="9IS-4Z-vjI"/>
-                    </connections>
-                </button>
-            </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="gUJ-Pv-GeU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" priority="750" constant="15" placeholder="YES" id="D4g-dh-sxT"/>
-                <constraint firstItem="cfx-7i-uQI" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="PT5-ee-n8x"/>
-                <constraint firstItem="Mac-6z-sQf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TZI-xl-Qfx"/>
-                <constraint firstItem="Mac-6z-sQf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="VMT-Og-gIq"/>
-                <constraint firstItem="cfx-7i-uQI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZHm-ha-3pZ"/>
-                <constraint firstItem="RMN-tc-wFo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="peh-ku-1ft"/>
-                <constraint firstItem="RMN-tc-wFo" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="rNn-xL-dQd"/>
-                <constraint firstItem="gUJ-Pv-GeU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="750" constant="10" placeholder="YES" id="zuY-aP-7sb"/>
-            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="activity" destination="RMN-tc-wFo" id="kLZ-nk-O09"/>
-                <outlet property="backBtn" destination="gUJ-Pv-GeU" id="Q4H-Rv-zab"/>
-                <outlet property="horizontalLabel" destination="Mac-6z-sQf" id="yns-ff-iE4"/>
-                <outlet property="repeatBtn" destination="cfx-7i-uQI" id="gWX-GI-IKZ"/>
-            </connections>
             <point key="canvasLocation" x="339.5" y="192"/>
         </view>
     </objects>
-    <resources>
-        <image name="ZFPlayer.back" width="39" height="39"/>
-        <image name="ZFPlayer.repeat_video" width="40" height="60"/>
-    </resources>
 </document>
