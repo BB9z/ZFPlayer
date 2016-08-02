@@ -41,21 +41,16 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 @end
 
 @interface ZFPlayerView ()
-
-@property (nonatomic, strong) AVPlayer *player;
-@property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) AVPlayerLayer *ZFPlayerView_playerLayer;
 
 @property (nonatomic, strong) NSHashTable<id<ZFPlayerDisplayDelegate>> *displayers;
-
-/** 是否播放本地文件 */
-@property (nonatomic, assign) BOOL isLocalVideo;
 
 /// 控制是否监听屏幕旋转事件
 @property (nonatomic) BOOL observingOrientationChangeEvent;
 @property (nonatomic) BOOL deviceBeginGeneratingOrientationNotificationsChangedByMine;
 
 @property (nonatomic) BOOL ZFPlayerView_observingPlaybackTimeChanges;
-@property (nonatomic, nullable, strong) id ZFPlayerView_playbackTimeObserver;
+@property (nullable, strong) id ZFPlayerView_playbackTimeObserver;
 @end
 
 @implementation ZFPlayerView
@@ -116,55 +111,29 @@ RFInitializingRootForUIView
     }
 }
 
+#pragma mark - 播放核心属性
+
+@synthesize AVPlayer = _AVPlayer;
+
+- (AVPlayer *)AVPlayer {
+    if (!_AVPlayer) {
+        AVPlayer *ap = [AVPlayer playerWithPlayerItem:self.playerItem];
+        AVPlayerLayer *al = [AVPlayerLayer playerLayerWithPlayer:ap];
+        [self.layer addSublayer:al];
+        _ZFPlayerView_playerLayer = al;
+        _AVPlayer = ap;
+    }
+    return _AVPlayer;
+}
+
+- (void)layoutSublayersOfLayer:(CALayer *)layer {
+    [super layoutSublayersOfLayer:layer];
+    if (layer == self.layer) {
+        self.ZFPlayerView_playerLayer.frame = self.bounds;
+    }
+}
+
 #pragma mark - 播放器控制
-
-- (void)setVideoURL:(NSURL *)videoURL {
-    if (self.playerItem) {
-        [self resetPlayer];
-    }
-
-    self.playDidEnd   = NO;
-    self.status = ZFPlayerStateStopped;
-
-    // 初始化playerItem
-    self.playerItem  = [AVPlayerItem playerItemWithURL:videoURL];
-    [self.player replaceCurrentItemWithPlayerItem:self.playerItem];
-    // 初始化playerLayer
-    self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-
-    // 添加playerLayer到self.layer
-    [self.layer insertSublayer:self.playerLayer atIndex:0];
-
-    // 添加观察者、通知
-    [self addObserverAndNotification];
-
-    // 根据屏幕的方向设置相关UI
-    [self onDeviceOrientationChange];
-
-    // 本地文件不设置ZFPlayerStateBuffering状态
-    if (videoURL.isFileURL) {
-        self.status = ZFPlayerStatePlaying;
-        self.isLocalVideo = YES;
-    } else {
-        self.status = ZFPlayerStateBuffering;
-        self.isLocalVideo = NO;
-    }
-
-    // 开始播放
-    [self play];
-    self.controlView.startBtn.selected = YES;
-    self.isPauseByUser = NO;
-
-    _videoURL = videoURL;
-}
-
-- (AVPlayer *)player {
-    if (!_player) {
-        _player = [AVPlayer playerWithPlayerItem:self.playerItem];
-    }
-    return _player;
-}
 
 - (void)setPlayerItem:(AVPlayerItem *)playerItem {
     if (_playerItem == playerItem) return;
@@ -178,6 +147,8 @@ RFInitializingRootForUIView
     }
     _playerItem = playerItem;
     if (playerItem) {
+        [self.AVPlayer replaceCurrentItemWithPlayerItem:playerItem];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
 //        [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
 //        [playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
@@ -188,12 +159,44 @@ RFInitializingRootForUIView
     }
 }
 
+- (void)setVideoURL:(NSURL *)videoURL {
+    if (self.playerItem) {
+        [self resetPlayer];
+    }
+
+    self.playDidEnd   = NO;
+    self.status = ZFPlayerStateStopped;
+
+    self.playerItem  = [AVPlayerItem playerItemWithURL:videoURL];
+
+    // 添加观察者、通知
+    [self addObserverAndNotification];
+
+    // 根据屏幕的方向设置相关UI
+    [self onDeviceOrientationChange];
+
+    // 本地文件不设置ZFPlayerStateBuffering状态
+    if (videoURL.isFileURL) {
+        self.status = ZFPlayerStatePlaying;
+    } else {
+        self.status = ZFPlayerStateBuffering;
+    }
+
+    // 开始播放
+    [self play];
+    self.controlView.startBtn.selected = YES;
+    self.isPauseByUser = NO;
+
+    _videoURL = videoURL;
+}
+
+
 - (void)play {
-    [_player play];
+    [self.AVPlayer play];
 }
 
 - (void)pause {
-    [_player pause];
+    [self.AVPlayer pause];
 }
 
 - (void)resetPlayer {
@@ -202,10 +205,8 @@ RFInitializingRootForUIView
 
     // 暂停
     [self pause];
-    // 移除原来的layer
-    [self.playerLayer removeFromSuperlayer];
     // 替换PlayerItem
-    [self.player replaceCurrentItemWithPlayerItem:nil];
+    [self.AVPlayer replaceCurrentItemWithPlayerItem:nil];
     // 重置控制层View
     [self.controlView resetControlView];
 }
@@ -213,7 +214,7 @@ RFInitializingRootForUIView
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^)(BOOL))completion {
     // TODO: 合适的地方调用 cancelPendingSeeks
     CMTime tolerance = CMTimeFromNSTimeInterval(0.5);
-    [self.player seekToTime:CMTimeFromNSTimeInterval(time) toleranceBefore:tolerance toleranceAfter:tolerance completionHandler:^(BOOL finished) {
+    [self.AVPlayer seekToTime:CMTimeFromNSTimeInterval(time) toleranceBefore:tolerance toleranceAfter:tolerance completionHandler:^(BOOL finished) {
         if (completion) {
             completion(finished);
         }
@@ -251,22 +252,21 @@ RFInitializingRootForUIView
     // 需要先暂停一小会之后再播放，否则网络状况不好的时候时间在走，声音播放不出来
     [self pause];
 
-    __weak __typeof(&*self)weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        __strong __typeof(&*weakSelf)strongSelf = weakSelf;
-        if (!strongSelf) return;
+    @weakify(self);
+    dispatch_after_seconds(1, ^{
+        @strongify(self);
 
         // 如果此时用户已经暂停了，则不再需要开启播放了
-        if (strongSelf.isPauseByUser) {
+        if (self.isPauseByUser) {
             isBuffering = NO;
             return;
         }
 
-        [strongSelf play];
+        [self play];
         // 如果执行了play还是没有播放则说明还没有缓存好，则再次缓存一段时间
         isBuffering = NO;
-        if (!strongSelf.playerItem.isPlaybackLikelyToKeepUp) {
-            [strongSelf bufferingSomeSecond];
+        if (!self.playerItem.isPlaybackLikelyToKeepUp) {
+            [self bufferingSomeSecond];
         }
     });
 }
@@ -285,12 +285,12 @@ RFInitializingRootForUIView
 
     if (_ZFPlayerView_observingPlaybackTimeChanges) {
         if (self.ZFPlayerView_playbackTimeObserver) {
-            [self.player removeTimeObserver:self.ZFPlayerView_playbackTimeObserver];
+            [self.AVPlayer removeTimeObserver:self.ZFPlayerView_playbackTimeObserver];
         }
     }
     _ZFPlayerView_observingPlaybackTimeChanges = observingPlaybackTimeChanges;
     if (observingPlaybackTimeChanges) {
-        self.ZFPlayerView_playbackTimeObserver = [self.player addPeriodicTimeObserverForInterval:CMTimeFromNSTimeInterval(0.5) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        self.ZFPlayerView_playbackTimeObserver = [self.AVPlayer addPeriodicTimeObserverForInterval:CMTimeFromNSTimeInterval(0.5) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             dout_float(NSTimeIntervalFromCMTime(time))
         }];
     }
@@ -361,34 +361,28 @@ RFInitializingRootForUIView
     }
 }
 
-- (void)layoutSublayersOfLayer:(CALayer *)layer {
-    [super layoutSublayersOfLayer:layer];
-    if (layer == self.layer) {
-        self.playerLayer.frame = self.bounds;
-    }
-}
-
 #pragma mark 进度条
 
 - (void)playerTimerAction {
+    AVPlayer *player = self.AVPlayer;
     if (_playerItem.duration.timescale != 0) {
         self.controlView.videoSlider.value        = CMTimeGetSeconds([_playerItem currentTime]) / (_playerItem.duration.value / _playerItem.duration.timescale);//当前进度
 
         //当前时长进度progress
-        NSInteger proMin                          = (NSInteger)CMTimeGetSeconds([_player currentTime]) / 60;//当前秒
-        NSInteger proSec                          = (NSInteger)CMTimeGetSeconds([_player currentTime]) % 60;//当前分钟
+        NSInteger proMin = (NSInteger)CMTimeGetSeconds([player currentTime]) / 60;//当前秒
+        NSInteger proSec = (NSInteger)CMTimeGetSeconds([player currentTime]) % 60;//当前分钟
 
         //duration 总时长
-        NSInteger durMin                          = (NSInteger)_playerItem.duration.value / _playerItem.duration.timescale / 60;//总秒
-        NSInteger durSec                          = (NSInteger)_playerItem.duration.value / _playerItem.duration.timescale % 60;//总分钟
+        NSInteger durMin = (NSInteger)_playerItem.duration.value / _playerItem.duration.timescale / 60;//总秒
+        NSInteger durSec = (NSInteger)_playerItem.duration.value / _playerItem.duration.timescale % 60;//总分钟
 
-        self.controlView.currentTimeLabel.text    = [NSString stringWithFormat:@"%02zd:%02zd", proMin, proSec];
-        self.controlView.totalTimeLabel.text      = [NSString stringWithFormat:@"%02zd:%02zd", durMin, durSec];
+        self.controlView.currentTimeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd", proMin, proSec];
+        self.controlView.totalTimeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd", durMin, durSec];
     }
 }
 
 - (NSTimeInterval)availableDuration {
-    NSArray *loadedTimeRanges = [[_player currentItem] loadedTimeRanges];
+    NSArray *loadedTimeRanges = [[self.AVPlayer currentItem] loadedTimeRanges];
     CMTimeRange timeRange     = [loadedTimeRanges.firstObject CMTimeRangeValue];// 获取缓冲区域
     float startSeconds        = CMTimeGetSeconds(timeRange.start);
     float durationSeconds     = CMTimeGetSeconds(timeRange.duration);

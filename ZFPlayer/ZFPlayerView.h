@@ -38,6 +38,10 @@ typedef void(^ZFPlayerGoBackBlock)(void);
     RFInitializing
 >
 
+/// 不可能把 AVPlayer 上所有功能都做一层封装，这需要太多的代码。
+/// 尽量用 ZFPlayerView 提供好的方法而不是直接调用 AVPlayer 上的
+@property (nonatomic, nonnull, readonly) AVPlayer *AVPlayer;
+
 ///
 @property (nonatomic, nullable, strong) AVPlayerItem *playerItem;
 
