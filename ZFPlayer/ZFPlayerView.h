@@ -91,18 +91,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 /// 是否被用户暂停
 @property (nonatomic) BOOL isPauseByUser;
 
-#pragma mark - 全屏模式
-
-@property (nonatomic) BOOL fullscreenMode;
-
-- (void)setFullscreenMode:(BOOL)fullscreen animated:(BOOL)animated;
-
-/// 全屏时锁定屏幕方向
-@property (nonatomic, getter=isLockOrientationWhenFullscreen) BOOL lockOrientationWhenFullscreen;
-
-/// 设备旋转时自动切换全屏模式，默认 YES
-@property (nonatomic) BOOL changeFullscreenModeWhenDeviceOrientationChanging;
-
 @end
 
 

@@ -36,18 +36,10 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
     return CMTimeGetSeconds(time);
 }
 
-@interface UIDevice (Fake)
-- (void)setOrientation:(int)orientation animated:(BOOL)animated;
-@end
-
 @interface ZFPlayerView ()
 @property (nonatomic, strong) AVPlayerLayer *ZFPlayerView_playerLayer;
 
 @property (nonatomic, strong) NSHashTable<id<ZFPlayerDisplayDelegate>> *displayers;
-
-/// 控制是否监听屏幕旋转事件
-@property (nonatomic) BOOL observingOrientationChangeEvent;
-@property (nonatomic) BOOL deviceBeginGeneratingOrientationNotificationsChangedByMine;
 
 @property (nonatomic) BOOL ZFPlayerView_observingPlaybackTimeChanges;
 @property (nullable, strong) id ZFPlayerView_playbackTimeObserver;
@@ -57,7 +49,6 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 RFInitializingRootForUIView
 
 - (void)onInit {
-    self.changeFullscreenModeWhenDeviceOrientationChanging = YES;
 }
 
 - (void)afterInit {
@@ -96,13 +87,8 @@ RFInitializingRootForUIView
         if (self.status != ZFPlayerStateStopped) {
             self.ZFPlayerView_observingPlaybackTimeChanges = YES;
         }
-        if (self.changeFullscreenModeWhenDeviceOrientationChanging) {
-            self.observingOrientationChangeEvent = YES;
-        }
     }
     else {
-        self.observingOrientationChangeEvent = NO;
-
         // 从 view hierarchy 移除，需要暂停
         if (self.playerItem) {
             [self pause];
@@ -171,9 +157,6 @@ RFInitializingRootForUIView
 
     // 添加观察者、通知
     [self addObserverAndNotification];
-
-    // 根据屏幕的方向设置相关UI
-    [self onDeviceOrientationChange];
 
     // 本地文件不设置ZFPlayerStateBuffering状态
     if (videoURL.isFileURL) {
@@ -388,110 +371,6 @@ RFInitializingRootForUIView
     float durationSeconds     = CMTimeGetSeconds(timeRange.duration);
     NSTimeInterval result     = startSeconds + durationSeconds;// 计算缓冲总进度
     return result;
-}
-
-#pragma mark 屏幕旋转
-
-- (void)setFullscreenMode:(BOOL)fullscreenMode {
-    [self setFullscreenMode:fullscreenMode animated:NO];
-}
-
-- (void)setFullscreenMode:(BOOL)fullscreen animated:(BOOL)animated {
-    _fullscreenMode = fullscreen;
-    [self setDeviceOrientationToLandscape:fullscreen animated:animated];
-    [self updateUIForFullscreenModeChanged];
-    [self noticeDisplayerFullscreenModeChanged];
-}
-
-- (void)setLockOrientationWhenFullscreen:(BOOL)lockOrientationWhenFullscreen {
-    _lockOrientationWhenFullscreen = lockOrientationWhenFullscreen;
-    [self noticeDisplayerLockOrientationWhenFullscreenChanged];
-}
-
-/// 供用户设置，旋转时是否切换全屏
-- (void)setChangeFullscreenModeWhenDeviceOrientationChanging:(BOOL)changeFullscreenModeWhenDeviceOrientationChanging {
-    if (_changeFullscreenModeWhenDeviceOrientationChanging == changeFullscreenModeWhenDeviceOrientationChanging) return;
-    _changeFullscreenModeWhenDeviceOrientationChanging = changeFullscreenModeWhenDeviceOrientationChanging;
-
-    if (changeFullscreenModeWhenDeviceOrientationChanging) {
-        if (self.window) {
-            self.observingOrientationChangeEvent = YES;
-        }
-    }
-    else {
-        self.observingOrientationChangeEvent = NO;
-    }
-}
-
-/// 旋转事件监听的管理
-- (void)setObservingOrientationChangeEvent:(BOOL)observingOrientationChangeEvent {
-    if (_observingOrientationChangeEvent != observingOrientationChangeEvent) {
-        _observingOrientationChangeEvent = observingOrientationChangeEvent;
-        if (observingOrientationChangeEvent) {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDeviceOrientationChange) name:UIDeviceOrientationDidChangeNotification object:nil];
-        }
-        else {
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-        }
-    }
-
-    // device 上这个破变量可能外面会管理，只能复杂点
-    UIDevice *dv = [UIDevice currentDevice];
-    if (observingOrientationChangeEvent) {
-        if (!dv.generatesDeviceOrientationNotifications) {
-            [dv beginGeneratingDeviceOrientationNotifications];
-            self.deviceBeginGeneratingOrientationNotificationsChangedByMine = YES;
-        }
-    }
-    else {
-        if (dv.generatesDeviceOrientationNotifications
-            && self.deviceBeginGeneratingOrientationNotificationsChangedByMine) {
-            self.deviceBeginGeneratingOrientationNotificationsChangedByMine = NO;
-            [dv endGeneratingDeviceOrientationNotifications];
-        }
-    }
-}
-
-/// 设备旋转事件的响应
-- (void)onDeviceOrientationChange {
-#if DEBUG
-    NSAssert(self.changeFullscreenModeWhenDeviceOrientationChanging, @"不自动旋转不应走这里");
-#endif
-
-    if (self.fullscreenMode
-        && self.lockOrientationWhenFullscreen) {
-        // 全屏且锁定不变
-        return;
-    }
-
-    BOOL isLandscape = UIInterfaceOrientationIsLandscape((UIInterfaceOrientation)[UIDevice currentDevice].orientation);
-    if (self.fullscreenMode != isLandscape) {
-        [self setFullscreenMode:isLandscape animated:YES];
-    }
-}
-
-/// 全屏模式变更时更新界面
-- (void)updateUIForFullscreenModeChanged {
-    BOOL fullscreen = self.fullscreenMode;
-    self.controlView.fullScreenBtn.selected = fullscreen;
-    self.controlView.lockBtn.hidden = !fullscreen;
-}
-
-/// 工具方法，旋转设备
-- (void)setDeviceOrientationToLandscape:(BOOL)isLandscape animated:(BOOL)animated {
-    UIInterfaceOrientation orientation = (UIInterfaceOrientation)[UIDevice currentDevice].orientation;
-    if (isLandscape) {
-        if (!UIInterfaceOrientationIsLandscape(orientation)) {
-            orientation = UIInterfaceOrientationLandscapeLeft;
-        }
-    }
-    else {
-        if (!UIInterfaceOrientationIsPortrait(orientation)) {
-            orientation = UIInterfaceOrientationPortrait;
-        }
-    }
-    [[UIDevice currentDevice] setOrientation:orientation animated:animated];
-    //    [[UIApplication sharedApplication] setStatusBarOrientation:orientation animated:animated];
 }
 
 #pragma mark - Delegtate 通知

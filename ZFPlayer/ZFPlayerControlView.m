@@ -87,19 +87,19 @@ RFInitializingRootForUIView
 }
 
 - (IBAction)onFullscreenButtonTapped:(UIButton *)sender {
-    [self.player setFullscreenMode:!sender.selected animated:YES];
+//    [self.player setFullscreenMode:!sender.selected animated:YES];
 }
 
 - (void)ZFPlayerDidChangedFullscreenMode:(ZFPlayerView *)player {
-    self.fullScreenBtn.selected = player.fullscreenMode;
+//    self.fullScreenBtn.selected = player.fullscreenMode;
 }
 
 - (IBAction)onOrientationLockButtonTapped:(UIButton *)sender {
-    self.player.lockOrientationWhenFullscreen = !sender.selected;
+//    self.player.lockOrientationWhenFullscreen = !sender.selected;
 }
 
 - (void)ZFPlayerDidChangedLockOrientationWhenFullscreen:(ZFPlayerView *)player {
-    self.lockBtn.selected = player.lockOrientationWhenFullscreen;
+//    self.lockBtn.selected = player.lockOrientationWhenFullscreen;
 }
 
 - (IBAction)repeatPlay:(UIButton *)sender {
@@ -251,13 +251,6 @@ RFInitializingRootForUIView
     }
     [UIView animateWithDuration:ZFPlayerControlBarAutoFadeOutTimeInterval animations:^{
         self.alpha = 0;
-        if (self.player.fullscreenMode) { //全屏状态
-            self.backBtn.alpha  = 0;
-            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-        }
-        else {
-            self.backBtn.alpha = 0;
-        }
     }completion:^(BOOL finished) {
         self.isMaskShowing = NO;
     }];

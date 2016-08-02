@@ -25,7 +25,6 @@
 #import "RFUI.h"
 
 @implementation MainViewController
-RFUIInterfaceOrientationSupportAll
 
 - (void)awakeFromNib {
     [super awakeFromNib];

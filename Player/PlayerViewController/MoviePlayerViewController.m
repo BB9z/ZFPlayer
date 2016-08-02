@@ -24,7 +24,12 @@
 #import "MoviePlayerViewController.h"
 #import "ZFPlayerView.h"
 
+@interface UIDevice (/* Fake */)
+- (void)setOrientation:(UIDeviceOrientation)orientation animated:(BOOL)animated;
+@end
+
 @interface MoviePlayerViewController ()
+@property (nonatomic) BOOL hasApplyFullscreenLayout;
 @end
 
 @implementation MoviePlayerViewController
@@ -34,29 +39,26 @@
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    if (self.lockFullscreen) {
+        return UIInterfaceOrientationMaskLandscape;
+    }
     return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return self.shouldApplyFullscreenLayout;
 }
 
 - (void)dealloc {
     NSLog(@"%@释放了", self.class);
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (self.shouldHideNavigationBar) {
-        [self.navigationController setNavigationBarHidden:YES animated:animated];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (self.shouldHideNavigationBar) {
-        [self.navigationController setNavigationBarHidden:NO animated:animated];
-    }
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.playerView.translatesAutoresizingMaskIntoConstraints = YES;
+    [self.playerView bringToFront];
 
     if (self.autoPlay) {
         self.playerView.videoURL = self.videoURL;
@@ -80,8 +82,46 @@
     self.playerView.videoURL = [NSURL URLWithString:@"http://baobab.wdjcdn.com/1456665467509qingshu.mp4"];
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    self.view.backgroundColor = UIInterfaceOrientationIsLandscape(toInterfaceOrientation)? [UIColor redColor] : [UIColor yellowColor];
+#pragma mark - 屏幕旋转，全屏
+
+/// 到底是什么决定视频是否处于全屏？实际并不是设备方向！
+/// 想想分屏、不在主屏幕的情形，旋转设备影响的只是容器的尺寸
+- (BOOL)shouldApplyFullscreenLayout {
+    return self.view.width > self.view.height;
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    if (self.shouldApplyFullscreenLayout) {
+        self.playerView.frame = self.view.bounds;
+        self.hasApplyFullscreenLayout = YES;
+    }
+    else {
+        CGRect frame = self.view.bounds;
+        frame.origin.y = self.topLayoutGuide.length;
+        frame.size.height = frame.size.width/16*9;
+        self.playerView.frame = frame;
+        self.hasApplyFullscreenLayout = NO;
+    }
+}
+
+- (IBAction)onEnterFullscreenMode:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    self.lockFullscreen = sender.selected;
+    if (self.lockFullscreen) {
+        // 仍然不知道如何才能避免这个私有方法的调用
+        // 调用 attemptRotationToDeviceOrientation 并没有重新要 supportedInterfaceOrientations 并更新
+        [[UIDevice currentDevice] setOrientation:UIDeviceOrientationLandscapeLeft animated:YES];
+    }
+    [self.class attemptRotationToDeviceOrientation];
+}
+
+- (void)setHasApplyFullscreenLayout:(BOOL)hasApplyFullscreenLayout {
+    if (_hasApplyFullscreenLayout == hasApplyFullscreenLayout) return;
+    _hasApplyFullscreenLayout = hasApplyFullscreenLayout;
+
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self.navigationController setNavigationBarHidden:hasApplyFullscreenLayout animated:YES];
 }
 
 @end

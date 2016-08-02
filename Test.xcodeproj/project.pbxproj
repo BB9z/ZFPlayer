@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,6 +30,7 @@
 		CCE1C13E1C9AA128004C95AC /* ZFTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCE1C13D1C9AA128004C95AC /* ZFTableViewController.m */; };
 		CCE1C1401C9AA131004C95AC /* videoData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCE1C13F1C9AA131004C95AC /* videoData.json */; };
 		D5AF7D1B1D50685F0005451A /* UIDevice+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1A1D50685F0005451A /* UIDevice+RFKit.m */; };
+		D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */; };
 		D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */; };
 		D5FF10AF1D504D52005A068E /* dout.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10A41D504D52005A068E /* dout.m */; };
 		D5FF10B01D504D52005A068E /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10A81D504D52005A068E /* EXTScope.m */; };
@@ -114,6 +115,8 @@
 		CCE1C13F1C9AA131004C95AC /* videoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videoData.json; sourceTree = "<group>"; };
 		D5AF7D191D50685F0005451A /* UIDevice+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+RFKit.h"; sourceTree = "<group>"; };
 		D5AF7D1A1D50685F0005451A /* UIDevice+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+RFKit.m"; sourceTree = "<group>"; };
+		D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNavigationViewController.h; sourceTree = "<group>"; };
+		D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNavigationViewController.m; sourceTree = "<group>"; };
 		D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZFPlayer.xcassets; sourceTree = "<group>"; };
 		D5FF10A31D504D52005A068E /* dout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dout.h; sourceTree = "<group>"; };
 		D5FF10A41D504D52005A068E /* dout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dout.m; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 				4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */,
 				49F2727F1BF2330700FCC767 /* Info.plist */,
 				4947F78D1BE996AC003093C8 /* Supporting Files */,
+				D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */,
+				D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */,
 			);
 			path = Player;
 			sourceTree = SOURCE_ROOT;
@@ -523,8 +528,9 @@
 		4947F7821BE996AC003093C8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ZF;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "任子丰";
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					4947F7891BE996AC003093C8 = {
 						CreatedOnToolsVersion = 7.0;
@@ -540,7 +546,7 @@
 				};
 			};
 			buildConfigurationList = 4947F7851BE996AC003093C8 /* Build configuration list for PBXProject "Test" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -649,6 +655,7 @@
 				D5FF10C01D504EE6005A068E /* RFTimer.m in Sources */,
 				D5FF10E21D5050F1005A068E /* NSString+RFKit.m in Sources */,
 				D5AF7D1B1D50685F0005451A /* UIDevice+RFKit.m in Sources */,
+				D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */,
 				D5FF10BF1D504EE6005A068E /* RFKVOWrapper.m in Sources */,
 				CC725C2D1C894D2500C3EAF2 /* SecondViewController.m in Sources */,
 				D5FF10C31D504FF7005A068E /* RFPerformance.m in Sources */,

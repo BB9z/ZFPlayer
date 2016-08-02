@@ -111,7 +111,7 @@
                             <state key="normal" image="ZFPlayer.fullscreen"/>
                             <state key="selected" image="ZFPlayer.shrinkscreen"/>
                             <connections>
-                                <action selector="onFullscreenButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ndh-Ey-luV"/>
+                                <action selector="onEnterFullscreenMode:" destination="-2" eventType="touchUpInside" id="fJ2-oG-Ulq"/>
                             </connections>
                         </button>
                     </subviews>
