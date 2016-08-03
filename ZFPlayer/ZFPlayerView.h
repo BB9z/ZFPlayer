@@ -66,10 +66,8 @@ typedef void(^ZFPlayerGoBackBlock)(void);
  */
 - (void)play;
 
-/** 
-  * 暂停 
- */
-- (void)pause;
+/// 设置暂停
+@property (nonatomic, getter=isPaused) BOOL paused;
 
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^__nullable)(BOOL finished))completion;
 
@@ -77,14 +75,6 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 - (void)stop;
 
 #pragma mark - 状态
-
-typedef NS_ENUM(NSInteger, ZFPlayerState) {
-    ZFPlayerStateBuffering,  //缓冲中
-    ZFPlayerStatePlaying,    //播放中
-    ZFPlayerStateStopped,    //停止播放
-    ZFPlayerStatePause       //暂停播放
-};
-@property (nonatomic, assign) ZFPlayerState status;
 
 @property (nonatomic, getter=isPlaying) BOOL playing;
 
@@ -107,6 +97,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @optional
 
 - (void)ZFPlayerDidUpdatePlaybackInfo:(nonnull ZFPlayerView *)player;
+- (void)ZFPlayerDidPlayToEnd:(nonnull ZFPlayerView *)player;
 - (void)ZFPlayer:(nonnull ZFPlayerView *)player didChangePlayerItem:(nullable AVPlayerItem *)playerItem;
 
 

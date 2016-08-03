@@ -94,15 +94,11 @@ RFInitializingRootForUIView
     [super willMoveToWindow:newWindow];
 
     if (newWindow) {
-        if (self.status != ZFPlayerStateStopped) {
-            self.ZFPlayerView_observingPlaybackTimeChanges = YES;
-        }
+        self.ZFPlayerView_observingPlaybackTimeChanges = YES;
     }
     else {
         // 从 view hierarchy 移除，需要暂停
-        if (self.playerItem) {
-            [self pause];
-        }
+        self.paused = YES;
         self.ZFPlayerView_observingPlaybackTimeChanges = NO;
     }
 }
@@ -134,8 +130,10 @@ RFInitializingRootForUIView
 - (void)setPlayerItem:(AVPlayerItem *)playerItem {
     if (_playerItem == playerItem) return;
 
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     if (_playerItem) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
+        [nc removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+        [nc removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
 //        [_playerItem removeObserver:self forKeyPath:@"status"];
 //        [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
 //        [_playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
@@ -144,12 +142,15 @@ RFInitializingRootForUIView
     if (playerItem) {
         [self.AVPlayer replaceCurrentItemWithPlayerItem:playerItem];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
+        [nc addObserver:self selector:@selector(ZFPlayerView_handelApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+        [nc addObserver:self selector:@selector(ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
+
 //        [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
 //        // 缓冲区空了，需要等待数据
 //        [playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
 //        // 缓冲区有足够数据可以播放了
 //        [playerItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
+
 
         if ([playerItem.asset isKindOfClass:[AVURLAsset class]]) {
             NSURL *assetURL = [(AVURLAsset *)playerItem.asset URL];
@@ -160,6 +161,7 @@ RFInitializingRootForUIView
         else {
             _videoURL = nil;
         }
+        [self.AVPlayer play];
     }
     [self ZFPlayerView_noticePlayerItemChanged:playerItem];
 }
@@ -174,8 +176,19 @@ RFInitializingRootForUIView
     [self.AVPlayer play];
 }
 
-- (void)pause {
-    [self.AVPlayer pause];
+- (void)setPaused:(BOOL)paused {
+    if (paused) {
+        if (self.playerItem) {
+            [self.AVPlayer pause];
+            _paused = YES;
+        }
+    }
+    else {
+        _paused = NO;
+        if (self.playerItem) {
+            [self.AVPlayer play];
+        }
+    }
 }
 
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^)(BOOL))completion {
@@ -201,23 +214,12 @@ RFInitializingRootForUIView
 
 #pragma mark 事件
 
-- (void)moviePlayDidEnd:(NSNotification *)notification {
-    self.status = ZFPlayerStateStopped;
-    self.playDidEnd = YES;
+- (void)ZFPlayerView_handelApplicationWillResignActiveNotification:(NSNotification *)notice {
+    self.paused = YES;
 }
 
-- (void)appDidEnterBackground {
-    [self pause];
-    self.status = ZFPlayerStatePause;
-}
-
-- (void)appDidEnterPlayGround {
-    if (!self.isPauseByUser) {
-        self.status = ZFPlayerStatePlaying;
-        self.controlView.startBtn.selected = YES;
-        self.isPauseByUser = NO;
-        [self play];
-    }
+- (void)ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:(NSNotification *)notice {
+    [self ZFPlayerView_noticePlayToEnd];
 }
 
 /// 缓冲较差时候回调这里
@@ -228,7 +230,7 @@ RFInitializingRootForUIView
     isBuffering = YES;
 
     // 需要先暂停一小会之后再播放，否则网络状况不好的时候时间在走，声音播放不出来
-    [self pause];
+    [self.AVPlayer pause];
 
     @weakify(self);
     dispatch_after_seconds(1, ^{
@@ -240,22 +242,13 @@ RFInitializingRootForUIView
             return;
         }
 
-        [self play];
+        [self.AVPlayer play];
         // 如果执行了play还是没有播放则说明还没有缓存好，则再次缓存一段时间
         isBuffering = NO;
         if (!self.playerItem.isPlaybackLikelyToKeepUp) {
             [self bufferingSomeSecond];
         }
     });
-}
-
-#pragma mark - 通知
-
-- (void)addObserverAndNotification {
-    // app退到后台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
-    // app进入前台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayGround) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (BOOL)isPlaying {
@@ -410,6 +403,7 @@ RFInitializingRootForUIView
     }
 
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlaybackInfoUpdate, ZFPlayerDidUpdatePlaybackInfo);
+ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlayToEnd, ZFPlayerDidPlayToEnd);
 ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayerItemChanged, didChangePlayerItem, AVPlayerItem *)
 
 @end

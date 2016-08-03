@@ -75,53 +75,24 @@ RFInitializingRootForUIView
     self.loadRangView.item = nil;
     self.currentTimeLabel.text = @"00:00";
     self.totalTimeLabel.text = @"00:00";
-}
-
-- (IBAction)onFullscreenButtonTapped:(UIButton *)sender {
-//    [self.player setFullscreenMode:!sender.selected animated:YES];
-}
-
-- (void)ZFPlayerDidChangedFullscreenMode:(ZFPlayerView *)player {
-//    self.fullScreenBtn.selected = player.fullscreenMode;
-}
-
-- (IBAction)onOrientationLockButtonTapped:(UIButton *)sender {
-//    self.player.lockOrientationWhenFullscreen = !sender.selected;
-}
-
-- (void)ZFPlayerDidChangedLockOrientationWhenFullscreen:(ZFPlayerView *)player {
-//    self.lockBtn.selected = player.lockOrientationWhenFullscreen;
-}
-
-- (IBAction)repeatPlay:(UIButton *)sender {
-    self.repeatBtn.hidden = YES;
-    [self.player stop];
-    [self.player setVideoURL:self.player.videoURL];
+    self.replayButton.hidden = YES;
+    self.seekProgressIndicatorContainer.hidden = YES;
 }
 
 - (IBAction)onPlayButtonTapped:(UIButton *)button {
     button.selected = !button.selected;
-    // TODO: 状态恢复
-//    self.player.isPauseByUser = !button.isSelected;
-    if (button.selected) {
-        [self.player play];
-//        self.player.state = ZFPlayerStatePlaying;
-    } else {
-        [self.player pause];
-//        self.player.state = ZFPlayerStatePause;
-    }
+    self.player.paused = button.selected;
 }
 
 - (IBAction)onBackButtonTapped:(id)sender {
-//    if (self.fullscreenMode) {
-//        [self setFullscreenMode:NO animated:YES];
-//        return;
-//    }
-//
-//    // player加到控制器上，只有一个player时候
-//    [self.timer invalidate];
-//    self.timer = nil;
-    [self.player pause];
+    self.player.paused = YES;
+}
+
+- (IBAction)onReplayButtonTapped:(id)sender {
+    self.replayButton.hidden = YES;
+    [self.player seekToTime:0 completion:^(BOOL finished) {
+        [self.player play];
+    }];
 }
 
 #pragma mark - 面板显隐
@@ -169,7 +140,7 @@ RFInitializingRootForUIView
 - (RFTimer *)autoHidePanelTimer {
     if (!_autoHidePanelTimer) {
         @weakify(self);
-        _autoHidePanelTimer = [RFTimer scheduledTimerWithTimeInterval:3 repeats:NO fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
+        _autoHidePanelTimer = [RFTimer scheduledTimerWithTimeInterval:4 repeats:NO fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
             @strongify(self);
             if (!self.panelHidden
                 && self.player.isPlaying) {
@@ -254,9 +225,6 @@ RFInitializingRootForUIView
                 // 给sumTime初值
                 CMTime time = self.player.playerItem.currentTime;
                 self.sumTime = time.value/time.timescale;
-
-                // 暂停视频播放
-                [self.player pause];
             }
             else if (x < y){ // 垂直移动
                 self.panDirection = PanDirectionVerticalMoved;
@@ -307,9 +275,6 @@ RFInitializingRootForUIView
                             return;
                         }
                         [self.player play];
-                        if (!self.player.playerItem.playbackLikelyToKeepUp) {
-                            self.player.status = ZFPlayerStateBuffering;
-                        }
                     }];
                     self.sumTime = 0;
                     break;
@@ -374,7 +339,6 @@ RFInitializingRootForUIView
 #pragma mark -
 
 - (void)ZFPlayerDidUpdatePlaybackInfo:(ZFPlayerView *)player {
-    self.loadRangView.item = player.playerItem;
     if (self.seekBeginValue) {
         // 正在调解进度，UI 受手势影响
         return;
@@ -383,7 +347,14 @@ RFInitializingRootForUIView
 }
 
 - (void)ZFPlayer:(ZFPlayerView *)player didChangePlayerItem:(AVPlayerItem *)playerItem {
+    self.loadRangView.item = player.playerItem;
     [self updateProgressUIWithCurrentTime:player.currentTime duration:player.duration skipSlider:NO];
+    [self setPanelHidden:NO animated:YES];
+}
+
+- (void)ZFPlayerDidPlayToEnd:(ZFPlayerView *)player {
+    [self setPanelHidden:YES animated:YES];
+    self.replayButton.hidden = NO;
 }
 
 @end

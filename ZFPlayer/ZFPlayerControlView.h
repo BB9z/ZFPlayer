@@ -43,30 +43,20 @@
 
 @property (nonatomic, weak) IBOutlet UIView *toolBar;
 
-/** 开始播放按钮 */
 @property (nonatomic, weak) IBOutlet UIButton *startBtn;
-/** 当前播放时长label */
 @property (nonatomic, weak) IBOutlet UILabel *currentTimeLabel;
-/** 视频总时长label */
-@property (nonatomic, weak) IBOutlet UILabel *totalTimeLabel;
-
 /// 已加载进度
 @property (nonatomic, weak) IBOutlet ZFPlayerLoadedRangeProgressView *loadRangView;
-
 /// 播放进度
 @property (nonatomic, weak) IBOutlet UISlider *playbackProgressSlider;
-
-
-/** 全屏按钮 */
+@property (nonatomic, weak) IBOutlet UILabel *totalTimeLabel;
 @property (nonatomic, weak) IBOutlet UIButton *fullScreenBtn;
 
-/** 快进快退label */
+///
+@property (nonatomic, weak) IBOutlet UIView *seekProgressIndicatorContainer;
 @property (nonatomic, weak) IBOutlet UILabel *horizontalLabel;
-/** 系统菊花 */
+
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
 
-/** 重播按钮 */
-@property (nonatomic, weak) IBOutlet UIButton *repeatBtn;
-
-
+@property (nonatomic, weak) IBOutlet UIButton *replayButton;
 @end

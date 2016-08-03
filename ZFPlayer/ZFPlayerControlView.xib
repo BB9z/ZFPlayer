@@ -34,7 +34,7 @@
                         <action selector="onBackButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="rDv-iQ-07q"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd7-Gk-Mfx" userLabel="Progress">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd7-Gk-Mfx">
                     <rect key="frame" x="95" y="121" width="184" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt; 00:00 / --:--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpB-JU-pOE">
@@ -52,7 +52,7 @@
                         <constraint firstItem="vpB-JU-pOE" firstAttribute="leading" secondItem="Cd7-Gk-Mfx" secondAttribute="leading" constant="10" id="nAj-gB-FAy"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyH-TF-a3R" userLabel="Bottom Bar">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyH-TF-a3R">
                     <rect key="frame" x="0.0" y="161" width="375" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIf-aw-BaL">
@@ -134,6 +134,9 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gay-Nd-GMb">
                     <rect key="frame" x="168" y="76" width="40" height="60"/>
                     <state key="normal" image="ZFPlayer.repeat_video"/>
+                    <connections>
+                        <action selector="onReplayButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="2et-dZ-37r"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
@@ -172,7 +175,8 @@
                 <outlet property="loadRangView" destination="XJK-cI-fYm" id="se6-47-zXa"/>
                 <outlet property="navigationBackButton" destination="FsW-K3-1Nq" id="UbE-z3-TLR"/>
                 <outlet property="playbackProgressSlider" destination="nSJ-HO-8mU" id="Bng-si-AK4"/>
-                <outlet property="repeatBtn" destination="gay-Nd-GMb" id="7Pn-PO-CbZ"/>
+                <outlet property="replayButton" destination="gay-Nd-GMb" id="A2E-hG-Cdk"/>
+                <outlet property="seekProgressIndicatorContainer" destination="Cd7-Gk-Mfx" id="9Ob-BQ-sjy"/>
                 <outlet property="startBtn" destination="qIf-aw-BaL" id="Lzy-OO-PP9"/>
                 <outlet property="toolBar" destination="yyH-TF-a3R" id="dMj-Xt-uXY"/>
                 <outlet property="totalTimeLabel" destination="3mh-1N-825" id="68R-qh-J84"/>
