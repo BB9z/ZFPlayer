@@ -53,13 +53,13 @@ typedef NS_ENUM(NSInteger, PanDirection){
 @property (nonatomic, assign) NSTimeInterval sumTime;
 
 @property (nonatomic) BOOL playbackProgressChanging;
+@property (nonatomic) double seekBeginValue;
 @end
 
 @implementation ZFPlayerControlView
 RFInitializingRootForUIView
 
 - (void)onInit {
-    douto(self.videoSlider)
 }
 
 - (void)afterInit {
@@ -70,7 +70,7 @@ RFInitializingRootForUIView
     [super awakeFromNib];
 
     self.lockBtn.hidden = YES;
-    [self.videoSlider setThumbImage:[UIImage imageNamed:@"ZFPlayer.slider"] forState:UIControlStateNormal];
+    [self.playbackProgressSlider setThumbImage:[UIImage imageNamed:@"ZFPlayer.slider"] forState:UIControlStateNormal];
     [self resetControlView];
 }
 
@@ -80,8 +80,9 @@ RFInitializingRootForUIView
 
 /** 重置ControlView */
 - (void)resetControlView {
-    self.videoSlider.value = 0;
-    self.videoSlider.maximumValue = 1;
+    self.playbackProgressSlider.value = 0;
+    self.playbackProgressSlider.minimumValue = 0;
+    self.playbackProgressSlider.maximumValue = 1;
     self.loadRangView.item = nil;
     self.currentTimeLabel.text = @"00:00";
     self.totalTimeLabel.text = @"00:00";
@@ -105,7 +106,7 @@ RFInitializingRootForUIView
 
 - (IBAction)repeatPlay:(UIButton *)sender {
     self.repeatBtn.hidden = YES;
-    [self.player resetPlayer];
+    [self.player stop];
     [self.player setVideoURL:self.player.videoURL];
 }
 
@@ -143,73 +144,40 @@ RFInitializingRootForUIView
 //    // slider结束滑动事件
 //    [self.controlView.videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchCancel | UIControlEventTouchUpOutside];
 
-- (IBAction)onPlaybackProgressSliderTouchBegin:(id)sender {
-
+- (IBAction)onPlaybackProgressSliderTouchDown:(UISlider *)sender {
+    self.seekBeginValue = sender.value;
 }
 
-/**
- *  slider开始滑动事件
- *
- *  @param slider UISlider
- */
-- (void)progressSliderTouchBegan:(UISlider *)slider {
-    if (self.player.status == AVPlayerStatusReadyToPlay) {
-        self.playbackProgressChanging = YES;
-    }
+- (IBAction)onPlaybackProgressSliderTouchMove:(UISlider *)sender {
+    NSTimeInterval duration = self.player.duration;
+    NSTimeInterval target = sender.value * duration;
+    [self updateProgressUIWithCurrentTime:target duration:duration skipSlider:YES];
 }
 
-/**
- *  slider滑动中事件
- *
- *  @param slider UISlider
- */
-- (void)progressSliderValueChanged:(UISlider *)slider {
-    //拖动改变视频播放进度
-    if (self.player.status == AVPlayerStatusReadyToPlay) {
-        NSString *style = @"";
-        CGFloat value = slider.value - self.sliderLastValue;
-        if (value > 0) {
-            style = @">>";
-        } else if (value < 0) {
-            style = @"<<";
-        }
-        self.sliderLastValue = slider.value;
+- (IBAction)onPlaybackProgressSliderTouchUp:(UISlider *)sender {
+    NSTimeInterval duration = self.player.duration;
+    NSTimeInterval target = sender.value * duration;
+    [self.player seekToTime:target completion:^(BOOL finished) {
+        self.seekBeginValue = 0;
+    }];
+    [self updateProgressUIWithCurrentTime:target duration:duration skipSlider:YES];
+}
 
-        [self.player pause];
-        //计算出拖动的当前秒数
-        CGFloat total = (CGFloat)self.player.playerItem.duration.value / self.player.playerItem.duration.timescale;
+- (IBAction)onPlaybackProgressSliderTouchCancel:(id)sender {
+    self.seekBeginValue = 0;
+    [self ZFPlayerDidUpdatePlaybackInfo:self.player];
+}
 
-        NSInteger dragedSeconds = floorf(total * slider.value);
+- (void)updateProgressUIWithCurrentTime:(NSTimeInterval)current duration:(NSTimeInterval)duration skipSlider:(BOOL)skipSlider {
+    self.currentTimeLabel.text = [self durationMSStringWithTimeInterval:current];
+    self.totalTimeLabel.text = [self durationMSStringWithTimeInterval:duration];
 
-        //转换成CMTime才能给player来控制播放进度
-
-        CMTime dragedCMTime = CMTimeMake(dragedSeconds, 1);
-        // 拖拽的时长
-        NSInteger proMin = (NSInteger)CMTimeGetSeconds(dragedCMTime) / 60;//当前秒
-        NSInteger proSec = (NSInteger)CMTimeGetSeconds(dragedCMTime) % 60;//当前分钟
-
-        //duration 总时长
-        NSInteger durMin = (NSInteger)total / 60;//总秒
-        NSInteger durSec = (NSInteger)total % 60;//总分钟
-
-        NSString *currentTime = [NSString stringWithFormat:@"%02zd:%02zd", proMin, proSec];
-        NSString *totalTime = [NSString stringWithFormat:@"%02zd:%02zd", durMin, durSec];
-
-        if (durSec > 0) {
-            // 当总时长>0时候才能拖动slider
-            self.currentTimeLabel.text = currentTime;
-            self.horizontalLabel.hidden            = NO;
-            self.horizontalLabel.text              = [NSString stringWithFormat:@"%@ %@ / %@",style, currentTime, totalTime];
-        }
-        else {
-            // 此时设置slider值为0
-            slider.value = 0;
-        }
-
+    if (skipSlider) return;
+    if (duration > 0) {
+        [self.playbackProgressSlider setValue:current/duration animated:YES];
     }
-    else { // player状态加载失败
-        // 此时设置slider值为0
-        slider.value = 0;
+    else {
+        self.playbackProgressSlider.value = 0;
     }
 }
 
@@ -224,9 +192,6 @@ RFInitializingRootForUIView
         // 结束滑动时候把开始播放按钮改为播放状态
         self.startBtn.selected = YES;
         self.player.isPauseByUser = NO;
-
-        // 滑动结束延时隐藏controlView
-        [self autoFadeOutControlBar];
 
         //计算出拖动的当前秒数
         CGFloat total = (CGFloat)self.player.playerItem.duration.value / self.player.playerItem.duration.timescale;
@@ -459,13 +424,12 @@ RFInitializingRootForUIView
 
 - (void)ZFPlayerDidUpdatePlaybackInfo:(ZFPlayerView *)player {
     _douto(player)
-    if (!self.loadRangView.item) {
-        self.loadRangView.item = player.playerItem;
+    self.loadRangView.item = player.playerItem;
+    if (self.seekBeginValue) {
+        // 正在调解进度，UI 受手势影响
+        return;
     }
-    [self.loadRangView setNeedsDisplay];
-
-    self.currentTimeLabel.text = [self durationMSStringWithTimeInterval:player.currentTime];
-    self.totalTimeLabel.text = [self durationMSStringWithTimeInterval:player.duration];
+    [self updateProgressUIWithCurrentTime:player.currentTime duration:player.duration skipSlider:NO];
 }
 
 @end

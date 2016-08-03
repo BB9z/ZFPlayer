@@ -50,7 +50,7 @@
 @property (nonatomic, weak) IBOutlet ZFPlayerLoadedRangeProgressView *loadRangView;
 
 /** 滑杆 */
-@property (nonatomic, weak) IBOutlet UISlider *videoSlider;
+@property (nonatomic, weak) IBOutlet UISlider *playbackProgressSlider;
 
 
 /** 全屏按钮 */

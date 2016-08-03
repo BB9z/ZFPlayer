@@ -26,18 +26,6 @@
                         <constraint firstAttribute="height" constant="45" id="gfd-xY-SbZ"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvY-b6-dD6">
-                    <rect key="frame" x="10" y="86" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="40" id="4M6-bo-khP"/>
-                        <constraint firstAttribute="height" constant="40" id="Fv8-wx-nfY"/>
-                    </constraints>
-                    <state key="normal" image="ZFPlayer.unlock-nor"/>
-                    <state key="selected" image="ZFPlayer.lock-nor"/>
-                    <connections>
-                        <action selector="onOrientationLockButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="d1V-Em-4tZ"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FsW-K3-1Nq">
                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                     <constraints>
@@ -50,11 +38,11 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd7-Gk-Mfx" userLabel="Progress">
-                    <rect key="frame" x="116" y="120" width="142" height="31"/>
+                    <rect key="frame" x="95" y="121" width="184" height="30"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt; 00:00 / --:--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpB-JU-pOE">
-                            <rect key="frame" x="10" y="5" width="122" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <rect key="frame" x="10" y="5" width="164" height="20"/>
+                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -82,13 +70,13 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIE-vF-c8O">
-                            <rect key="frame" x="50" y="17" width="34" height="15"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <rect key="frame" x="50" y="18" width="37" height="14"/>
+                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="XJK-cI-fYm" customClass="ZFPlayerLoadedRangeProgressView">
-                            <rect key="frame" x="86" y="10" width="203" height="30"/>
+                            <rect key="frame" x="89" y="10" width="197" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="tintColor" red="0.95294117649999999" green="0.33725490200000002" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -96,13 +84,20 @@
                             </constraints>
                         </view>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nSJ-HO-8mU">
-                            <rect key="frame" x="84" y="10" width="207" height="31"/>
+                            <rect key="frame" x="87" y="10" width="201" height="31"/>
                             <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="onPlaybackProgressSliderTouchCancel:" destination="iN0-l3-epB" eventType="touchUpOutside" id="R1X-lj-M4G"/>
+                                <action selector="onPlaybackProgressSliderTouchCancel:" destination="iN0-l3-epB" eventType="touchCancel" id="UWN-60-0fU"/>
+                                <action selector="onPlaybackProgressSliderTouchDown:" destination="iN0-l3-epB" eventType="touchDown" id="CVJ-rC-jfx"/>
+                                <action selector="onPlaybackProgressSliderTouchMove:" destination="iN0-l3-epB" eventType="valueChanged" id="Ysf-t2-Zx9"/>
+                                <action selector="onPlaybackProgressSliderTouchUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="oGf-lI-fRZ"/>
+                            </connections>
                         </slider>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mh-1N-825">
-                            <rect key="frame" x="291" y="18" width="34" height="15"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <rect key="frame" x="288" y="18" width="37" height="14"/>
+                            <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -148,10 +143,8 @@
             <constraints>
                 <constraint firstItem="y1P-EE-mR8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1DO-PM-EST"/>
                 <constraint firstItem="gay-Nd-GMb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="6Pa-o0-mCf"/>
-                <constraint firstItem="vvY-b6-dD6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="6qx-A3-qBz"/>
                 <constraint firstItem="yyH-TF-a3R" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="C2Z-Jc-HJ5"/>
                 <constraint firstItem="yyH-TF-a3R" firstAttribute="top" secondItem="Cd7-Gk-Mfx" secondAttribute="bottom" constant="10" id="FJk-qx-lc5"/>
-                <constraint firstItem="vvY-b6-dD6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="NXh-gg-P9j"/>
                 <constraint firstItem="gay-Nd-GMb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UVX-UE-0KG"/>
                 <constraint firstItem="y1P-EE-mR8" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Whm-e2-myt"/>
                 <constraint firstItem="Cd7-Gk-Mfx" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Wje-iU-WoG"/>
@@ -181,12 +174,11 @@
                 <outlet property="fullScreenBtn" destination="AEI-I4-hWP" id="Wnd-p1-skw"/>
                 <outlet property="horizontalLabel" destination="vpB-JU-pOE" id="C7c-ED-lEk"/>
                 <outlet property="loadRangView" destination="XJK-cI-fYm" id="se6-47-zXa"/>
-                <outlet property="lockBtn" destination="vvY-b6-dD6" id="mSq-K2-3hG"/>
+                <outlet property="playbackProgressSlider" destination="nSJ-HO-8mU" id="Bng-si-AK4"/>
                 <outlet property="repeatBtn" destination="gay-Nd-GMb" id="7Pn-PO-CbZ"/>
                 <outlet property="startBtn" destination="qIf-aw-BaL" id="Lzy-OO-PP9"/>
                 <outlet property="topImageView" destination="1aH-Q2-nW0" id="Mj7-Py-gKG"/>
                 <outlet property="totalTimeLabel" destination="3mh-1N-825" id="68R-qh-J84"/>
-                <outlet property="videoSlider" destination="nSJ-HO-8mU" id="Rlm-7v-eCj"/>
             </connections>
             <point key="canvasLocation" x="224.5" y="213.5"/>
         </view>
@@ -196,11 +188,9 @@
         <image name="ZFPlayer.fullscreen" width="24" height="24"/>
         <image name="ZFPlayer.gradient_bottom" width="1" height="1"/>
         <image name="ZFPlayer.gradient_top" width="1" height="1"/>
-        <image name="ZFPlayer.lock-nor" width="27" height="27"/>
         <image name="ZFPlayer.pause" width="24" height="24"/>
         <image name="ZFPlayer.play" width="24" height="24"/>
         <image name="ZFPlayer.repeat_video" width="40" height="60"/>
         <image name="ZFPlayer.shrinkscreen" width="24" height="24"/>
-        <image name="ZFPlayer.unlock-nor" width="27" height="27"/>
     </resources>
 </document>
