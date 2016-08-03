@@ -36,7 +36,6 @@
         NSURL *videoURL = [[NSBundle mainBundle] URLForResource:@"150511_JiveBike" withExtension:@"mov"];
         movie.videoURL = videoURL;
         movie.autoPlay = YES;
-        movie.shouldHideNavigationBar = YES;
     }
     else if ([segue.identifier isEqualToString:@"S2"]) {
 

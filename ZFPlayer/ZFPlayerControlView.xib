@@ -20,11 +20,8 @@
                         <constraint firstAttribute="height" constant="50" id="lQg-1d-jEY"/>
                     </constraints>
                 </imageView>
-                <imageView alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ZFPlayer.gradient_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="ngr-ji-6Se" userLabel="bottomView">
-                    <rect key="frame" x="0.0" y="166" width="375" height="45"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="gfd-xY-SbZ"/>
-                    </constraints>
+                <imageView alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="40" image="ZFPlayer.gradient_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="ngr-ji-6Se" userLabel="bottomView">
+                    <rect key="frame" x="0.0" y="171" width="375" height="40"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="30" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FsW-K3-1Nq">
                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -76,7 +73,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="XJK-cI-fYm" customClass="ZFPlayerLoadedRangeProgressView">
-                            <rect key="frame" x="89" y="10" width="197" height="30"/>
+                            <rect key="frame" x="92" y="10" width="191" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="tintColor" red="0.95294117649999999" green="0.33725490200000002" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -84,7 +81,7 @@
                             </constraints>
                         </view>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nSJ-HO-8mU">
-                            <rect key="frame" x="87" y="10" width="201" height="31"/>
+                            <rect key="frame" x="90" y="10" width="195" height="31"/>
                             <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
@@ -116,8 +113,8 @@
                     <color key="backgroundColor" red="1" green="0.0" blue="0.077466178189999998" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="yIE-vF-c8O" firstAttribute="leading" secondItem="qIf-aw-BaL" secondAttribute="trailing" id="83W-ta-aT2"/>
-                        <constraint firstItem="3mh-1N-825" firstAttribute="leading" secondItem="nSJ-HO-8mU" secondAttribute="trailing" constant="2" id="AFI-JI-yHG"/>
-                        <constraint firstItem="nSJ-HO-8mU" firstAttribute="leading" secondItem="yIE-vF-c8O" secondAttribute="trailing" constant="2" id="Fkw-h2-Qzt"/>
+                        <constraint firstItem="3mh-1N-825" firstAttribute="leading" secondItem="nSJ-HO-8mU" secondAttribute="trailing" constant="5" id="AFI-JI-yHG"/>
+                        <constraint firstItem="nSJ-HO-8mU" firstAttribute="leading" secondItem="yIE-vF-c8O" secondAttribute="trailing" constant="5" id="Fkw-h2-Qzt"/>
                         <constraint firstItem="XJK-cI-fYm" firstAttribute="trailing" secondItem="nSJ-HO-8mU" secondAttribute="trailing" id="KmM-oq-esh"/>
                         <constraint firstItem="XJK-cI-fYm" firstAttribute="centerY" secondItem="nSJ-HO-8mU" secondAttribute="centerY" id="LDo-uw-818"/>
                         <constraint firstAttribute="bottom" secondItem="qIf-aw-BaL" secondAttribute="bottom" id="NQ7-gM-YJq"/>
@@ -140,6 +137,7 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="y1P-EE-mR8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1DO-PM-EST"/>
                 <constraint firstItem="gay-Nd-GMb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="6Pa-o0-mCf"/>
@@ -168,20 +166,27 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="activity" destination="y1P-EE-mR8" id="083-eq-gJi"/>
-                <outlet property="backBtn" destination="FsW-K3-1Nq" id="LPO-BP-bi5"/>
-                <outlet property="bottomImageView" destination="ngr-ji-6Se" id="GMS-cR-Sbq"/>
                 <outlet property="currentTimeLabel" destination="yIE-vF-c8O" id="bdx-Ti-WaH"/>
                 <outlet property="fullScreenBtn" destination="AEI-I4-hWP" id="Wnd-p1-skw"/>
                 <outlet property="horizontalLabel" destination="vpB-JU-pOE" id="C7c-ED-lEk"/>
                 <outlet property="loadRangView" destination="XJK-cI-fYm" id="se6-47-zXa"/>
+                <outlet property="navigationBackButton" destination="FsW-K3-1Nq" id="UbE-z3-TLR"/>
                 <outlet property="playbackProgressSlider" destination="nSJ-HO-8mU" id="Bng-si-AK4"/>
                 <outlet property="repeatBtn" destination="gay-Nd-GMb" id="7Pn-PO-CbZ"/>
                 <outlet property="startBtn" destination="qIf-aw-BaL" id="Lzy-OO-PP9"/>
-                <outlet property="topImageView" destination="1aH-Q2-nW0" id="Mj7-Py-gKG"/>
+                <outlet property="toolBar" destination="yyH-TF-a3R" id="dMj-Xt-uXY"/>
                 <outlet property="totalTimeLabel" destination="3mh-1N-825" id="68R-qh-J84"/>
+                <outletCollection property="gestureRecognizers" destination="PiX-SB-Soh" appends="YES" id="0EX-0e-0YD"/>
+                <outletCollection property="panelElementViews" destination="yyH-TF-a3R" id="eVH-se-6F5"/>
+                <outletCollection property="panelElementViews" destination="FsW-K3-1Nq" id="I5f-J7-cRz"/>
             </connections>
             <point key="canvasLocation" x="224.5" y="213.5"/>
         </view>
+        <tapGestureRecognizer id="PiX-SB-Soh" userLabel="单击控制面板显隐">
+            <connections>
+                <action selector="onTapInView:" destination="iN0-l3-epB" id="pRf-hS-qpO"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="ZFPlayer.back" width="39" height="39"/>

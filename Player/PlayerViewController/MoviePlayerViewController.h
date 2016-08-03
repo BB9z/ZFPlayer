@@ -30,19 +30,9 @@
 
 @property (nonatomic, strong) NSURL *videoURL;
 @property (nonatomic) BOOL autoPlay;
-@property (nonatomic) BOOL shouldHideNavigationBar;
 
 #pragma mark - 全屏模式
 
 @property (nonatomic) BOOL lockFullscreen;
 
-/// 全屏时锁定屏幕方向
-@property (nonatomic, getter=isLockOrientationWhenFullscreen) BOOL lockOrientationWhenFullscreen;
-
-/// 设备旋转时自动切换全屏模式，默认 YES
-@property (nonatomic) BOOL changeFullscreenModeWhenDeviceOrientationChanging;
-
-/// 控制是否监听屏幕旋转事件
-@property (nonatomic) BOOL observingOrientationChangeEvent;
-@property (nonatomic) BOOL deviceBeginGeneratingOrientationNotificationsChangedByMine;
 @end

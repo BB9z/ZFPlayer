@@ -28,17 +28,20 @@
 
 @interface ZFPlayerControlView : UIView <
     RFInitializing,
-    UIGestureRecognizerDelegate,
     ZFPlayerDisplayDelegate
 >
 
 @property (nonatomic, weak) ZFPlayerView *player;
 
-/** 重置ControlView */
-- (void)resetControlView;
+@property (nonatomic) BOOL panelHidden;
+- (void)setPanelHidden:(BOOL)hidden animated:(BOOL)animated;
 
-@property (nonatomic, weak) IBOutlet UIImageView *bottomImageView;
-@property (nonatomic, weak) IBOutlet UIImageView *topImageView;
+/// 集合内指定的 view 均属于面板元素，显隐受 panelHidden 控制
+@property (nonatomic, strong) IBOutletCollection(UIView) NSArray *panelElementViews;
+
+@property (nonatomic, weak) IBOutlet UIButton *navigationBackButton;
+
+@property (nonatomic, weak) IBOutlet UIView *toolBar;
 
 /** 开始播放按钮 */
 @property (nonatomic, weak) IBOutlet UIButton *startBtn;
@@ -47,28 +50,21 @@
 /** 视频总时长label */
 @property (nonatomic, weak) IBOutlet UILabel *totalTimeLabel;
 
+/// 已加载进度
 @property (nonatomic, weak) IBOutlet ZFPlayerLoadedRangeProgressView *loadRangView;
 
-/** 滑杆 */
+/// 播放进度
 @property (nonatomic, weak) IBOutlet UISlider *playbackProgressSlider;
 
 
 /** 全屏按钮 */
 @property (nonatomic, weak) IBOutlet UIButton *fullScreenBtn;
 
-- (IBAction)onFullscreenButtonTapped:(UIButton *)sender;
-
-/** 锁定屏幕方向按钮 */
-@property (nonatomic, weak) IBOutlet UIButton *lockBtn;
-
-- (IBAction)onOrientationLockButtonTapped:(UIButton *)sender;
-
 /** 快进快退label */
 @property (nonatomic, weak) IBOutlet UILabel *horizontalLabel;
 /** 系统菊花 */
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
-/** 返回按钮*/
-@property (nonatomic, weak) IBOutlet UIButton *backBtn;
+
 /** 重播按钮 */
 @property (nonatomic, weak) IBOutlet UIButton *repeatBtn;
 

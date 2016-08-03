@@ -42,8 +42,11 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 尽量用 ZFPlayerView 提供好的方法而不是直接调用 AVPlayer 上的
 @property (nonatomic, nonnull, readonly) AVPlayer *AVPlayer;
 
-///
+/// 正在播放的视频对象，设置这个属性可以切换视频
 @property (nonatomic, nullable, strong) AVPlayerItem *playerItem;
+
+/// 正在播放视频的 URL，可能有正在播放仍为空的情形，设置这个属性可以切换视频
+@property (nonatomic, nullable, copy) NSURL *videoURL;
 
 /// 默认控制层，从 nib 里载入若不设置会自动创建一个
 @property (nonatomic, nullable, weak) IBOutlet ZFPlayerControlView *controlView;
@@ -53,15 +56,10 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 
 #pragma mark - config
 
-/** 视频URL */
-@property (nonatomic, nullable, copy) NSURL *videoURL;
+/// 默认 0.5s，不大于 0 不刷新
+@property (nonatomic) IBInspectable NSTimeInterval playbackInfoUpdateInterval;
 
 #pragma mark - metho
-
-/**
- *  重置player
- */
-- (void)resetPlayer;
 
 /** 
  *  播放
@@ -75,6 +73,9 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^__nullable)(BOOL finished))completion;
 
+/// 停止播放并清理状态
+- (void)stop;
+
 #pragma mark - 状态
 
 typedef NS_ENUM(NSInteger, ZFPlayerState) {
@@ -84,6 +85,8 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
     ZFPlayerStatePause       //暂停播放
 };
 @property (nonatomic, assign) ZFPlayerState status;
+
+@property (nonatomic, getter=isPlaying) BOOL playing;
 
 /// 当前已播放时间，特殊状态下的定义暂不明确
 @property NSTimeInterval currentTime;
@@ -104,6 +107,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @optional
 
 - (void)ZFPlayerDidUpdatePlaybackInfo:(nonnull ZFPlayerView *)player;
+- (void)ZFPlayer:(nonnull ZFPlayerView *)player didChangePlayerItem:(nullable AVPlayerItem *)playerItem;
 
 
 @end

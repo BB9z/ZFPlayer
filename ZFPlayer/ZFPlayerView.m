@@ -43,12 +43,21 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 
 @property (nonatomic) BOOL ZFPlayerView_observingPlaybackTimeChanges;
 @property (nullable, strong) id ZFPlayerView_playbackTimeObserver;
+
+@property (nonatomic, strong) RFTimer *debugTimer;
 @end
 
 @implementation ZFPlayerView
 RFInitializingRootForUIView
 
 - (void)onInit {
+    _playbackInfoUpdateInterval = 0.5;
+    @weakify(self);
+    self.debugTimer = [RFTimer scheduledTimerWithTimeInterval:1 repeats:YES fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
+        @strongify(self);
+        dout_int(self->_AVPlayer.status)
+        dout_int(self->_AVPlayer.currentItem.status)
+    }];
 }
 
 - (void)afterInit {
@@ -78,6 +87,7 @@ RFInitializingRootForUIView
 
     self.playerItem = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.debugTimer invalidate];
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
@@ -127,7 +137,6 @@ RFInitializingRootForUIView
     if (_playerItem) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
 //        [_playerItem removeObserver:self forKeyPath:@"status"];
-//        [_playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
 //        [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
 //        [_playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
     }
@@ -137,42 +146,29 @@ RFInitializingRootForUIView
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayDidEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
 //        [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-//        [playerItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
 //        // 缓冲区空了，需要等待数据
 //        [playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
 //        // 缓冲区有足够数据可以播放了
 //        [playerItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
+
+        if ([playerItem.asset isKindOfClass:[AVURLAsset class]]) {
+            NSURL *assetURL = [(AVURLAsset *)playerItem.asset URL];
+            if (![assetURL isEqual:self.videoURL]) {
+                _videoURL = assetURL;
+            }
+        }
+        else {
+            _videoURL = nil;
+        }
     }
+    [self ZFPlayerView_noticePlayerItemChanged:playerItem];
 }
 
 - (void)setVideoURL:(NSURL *)videoURL {
-    if (self.playerItem) {
-        [self resetPlayer];
-    }
-
-    self.playDidEnd   = NO;
-    self.status = ZFPlayerStateStopped;
-
-    self.playerItem  = [AVPlayerItem playerItemWithURL:videoURL];
-
-    // 添加观察者、通知
-    [self addObserverAndNotification];
-
-    // 本地文件不设置ZFPlayerStateBuffering状态
-    if (videoURL.isFileURL) {
-        self.status = ZFPlayerStatePlaying;
-    } else {
-        self.status = ZFPlayerStateBuffering;
-    }
-
-    // 开始播放
-    [self play];
-    self.controlView.startBtn.selected = YES;
-    self.isPauseByUser = NO;
-
+    if (_videoURL == videoURL) return;
     _videoURL = videoURL;
+    self.playerItem  = [AVPlayerItem playerItemWithURL:videoURL];
 }
-
 
 - (void)play {
     [self.AVPlayer play];
@@ -182,26 +178,25 @@ RFInitializingRootForUIView
     [self.AVPlayer pause];
 }
 
-- (void)resetPlayer {
-    self.playerItem = nil;
-    self.ZFPlayerView_observingPlaybackTimeChanges = NO;
-
-    // 暂停
-    [self pause];
-    // 替换PlayerItem
-    [self.AVPlayer replaceCurrentItemWithPlayerItem:nil];
-    // 重置控制层View
-    [self.controlView resetControlView];
-}
-
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^)(BOOL))completion {
     // TODO: 合适的地方调用 cancelPendingSeeks
-    CMTime tolerance = CMTimeFromNSTimeInterval(0.5);
+    BOOL shouldPausePlaybackObserving = self.ZFPlayerView_observingPlaybackTimeChanges;
+    if (shouldPausePlaybackObserving) {
+        self.ZFPlayerView_observingPlaybackTimeChanges = NO;
+    }
+    CMTime tolerance = CMTimeFromNSTimeInterval(0.3);
     [self.AVPlayer seekToTime:CMTimeFromNSTimeInterval(time) toleranceBefore:tolerance toleranceAfter:tolerance completionHandler:^(BOOL finished) {
         if (completion) {
             completion(finished);
         }
+        if (shouldPausePlaybackObserving) {
+            self.ZFPlayerView_observingPlaybackTimeChanges = YES;
+        }
     }];
+}
+
+- (void)stop {
+    self.playerItem = nil;
 }
 
 #pragma mark 事件
@@ -263,6 +258,14 @@ RFInitializingRootForUIView
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayGround) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
+- (BOOL)isPlaying {
+    return self.AVPlayer.rate != 0;
+}
+
++ (NSSet *)keyPathsForValuesAffectingPlaying {
+    return [NSSet setWithObject:@keypathClassInstance(ZFPlayerView, AVPlayer.rate)];
+}
+
 #pragma mark - Playback info update
 
 - (void)setZFPlayerView_observingPlaybackTimeChanges:(BOOL)observingPlaybackTimeChanges {
@@ -276,15 +279,17 @@ RFInitializingRootForUIView
     _ZFPlayerView_observingPlaybackTimeChanges = observingPlaybackTimeChanges;
     if (observingPlaybackTimeChanges) {
         @weakify(self);
-        self.ZFPlayerView_playbackTimeObserver = [self.AVPlayer addPeriodicTimeObserverForInterval:CMTimeFromNSTimeInterval(0.5) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        NSTimeInterval interval = self.playbackInfoUpdateInterval;
+        if (interval <= 0) return;
+        self.ZFPlayerView_playbackTimeObserver = [self.AVPlayer addPeriodicTimeObserverForInterval:CMTimeFromNSTimeInterval(interval) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             @strongify(self);
             dout_float(NSTimeIntervalFromCMTime(time))
-            [self updatePlaybackInfo];
+            [self ZFPlayerView_updatePlaybackInfo];
         }];
     }
 }
 
-- (void)updatePlaybackInfo {
+- (void)ZFPlayerView_updatePlaybackInfo {
     self.currentTime = NSTimeIntervalFromCMTime(self.playerItem.currentTime);
     self.duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
     [self ZFPlayerView_noticePlaybackInfoUpdate];
@@ -310,12 +315,6 @@ RFInitializingRootForUIView
 //                [self.activity startAnimating];
             }
 
-        }
-        else if (ZFPlayerKeyIsEqual(keyPath, loadedTimeRanges)) {
-            NSTimeInterval timeInterval = [self availableDuration];// 计算缓冲进度
-            CMTime duration             = self.playerItem.duration;
-            CGFloat totalDuration       = CMTimeGetSeconds(duration);
-            [self.controlView.progressView setProgress:timeInterval / totalDuration animated:NO];
         }
         else if (ZFPlayerKeyIsEqual(keyPath, playbackBufferEmpty)) {
             // 当缓冲是空的时候
@@ -400,8 +399,8 @@ RFInitializingRootForUIView
         }\
     }
 
-#define ZFPlayerDisplayerNoticeMethod2(METHODNAME, PROTOCOL_SELECTOR, PAR) \
-    - (void)METHODNAME {\
+#define ZFPlayerDisplayerNoticeMethod2(METHODNAME, PROTOCOL_SELECTOR, PAR_TYPE) \
+    - (void)METHODNAME:(PAR_TYPE)PAR {\
         NSArray *all = [self.ZFPlayerView_displayers allObjects];\
         for (id<ZFPlayerDisplayDelegate> displayer in all) {\
             if ([displayer respondsToSelector:@selector(ZFPlayer:PROTOCOL_SELECTOR:)]) {\
@@ -411,6 +410,7 @@ RFInitializingRootForUIView
     }
 
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlaybackInfoUpdate, ZFPlayerDidUpdatePlaybackInfo);
+ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayerItemChanged, didChangePlayerItem, AVPlayerItem *)
 
 @end
 

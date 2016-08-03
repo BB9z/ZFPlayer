@@ -34,17 +34,6 @@
 
 @implementation MoviePlayerViewController
 
-- (BOOL)shouldAutorotate {
-    return YES;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    if (self.lockFullscreen) {
-        return UIInterfaceOrientationMaskLandscape;
-    }
-    return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
 - (BOOL)prefersStatusBarHidden {
     return self.shouldApplyFullscreenLayout;
 }
@@ -83,6 +72,17 @@
 }
 
 #pragma mark - 屏幕旋转，全屏
+
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    if (self.lockFullscreen) {
+        return UIInterfaceOrientationMaskLandscape;
+    }
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
 
 /// 到底是什么决定视频是否处于全屏？实际并不是设备方向！
 /// 想想分屏、不在主屏幕的情形，旋转设备影响的只是容器的尺寸
