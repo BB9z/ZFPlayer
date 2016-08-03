@@ -1,8 +1,11 @@
 
 #import "ZFPlayerLoadedRangeProgressView.h"
+#import "RFKVOWrapper.h"
 @import AVFoundation;
 
 @interface ZFPlayerLoadedRangeProgressView ()
+@property (nonatomic, strong) id loadedTimeRangesObserver;
+@property (nonatomic) BOOL loadedTimeRangesObservingEnable;
 @end
 
 @implementation ZFPlayerLoadedRangeProgressView
@@ -13,7 +16,12 @@ RFInitializingRootForUIView
 }
 
 - (void)afterInit {
+    // For overwrite
+}
 
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+    [super willMoveToWindow:newWindow];
+    self.loadedTimeRangesObservingEnable = newWindow;
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
@@ -26,8 +34,33 @@ RFInitializingRootForUIView
 }
 
 - (void)setItem:(AVPlayerItem *)item {
+    if (_item == item) return;
+    if (_item) {
+        self.loadedTimeRangesObservingEnable = NO;
+    }
     _item = item;
+    if (item) {
+        self.loadedTimeRangesObservingEnable = YES;
+    }
     [self setNeedsDisplay];
+}
+
+- (void)setLoadedTimeRangesObservingEnable:(BOOL)loadedTimeRangesObservingEnable {
+    if (_loadedTimeRangesObservingEnable == loadedTimeRangesObservingEnable) return;
+    if (_loadedTimeRangesObservingEnable) {
+        if (self.loadedTimeRangesObserver) {
+            [self.item RFRemoveObserverWithIdentifier:self.loadedTimeRangesObserver];
+            self.loadedTimeRangesObserver = nil;
+        }
+    }
+    _loadedTimeRangesObservingEnable = loadedTimeRangesObservingEnable;
+    if (loadedTimeRangesObservingEnable) {
+        @weakify(self);
+        self.loadedTimeRangesObserver = [self.item RFAddObserver:self forKeyPath:@keypath(self.item, loadedTimeRanges) options:NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(id observer, NSDictionary *change) {
+            @strongify(self);
+            [self setNeedsDisplay];
+        }];
+    }
 }
 
 - (void)drawRect:(CGRect)rect {
