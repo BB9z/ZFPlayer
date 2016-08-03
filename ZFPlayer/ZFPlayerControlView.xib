@@ -87,11 +87,14 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <progressView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pHD-mY-c8M">
-                            <rect key="frame" x="86" y="24" width="203" height="2"/>
-                            <color key="progressTintColor" red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
-                            <color key="trackTintColor" red="1" green="1" blue="1" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
-                        </progressView>
+                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="30" translatesAutoresizingMaskIntoConstraints="NO" id="XJK-cI-fYm" customClass="ZFPlayerLoadedRangeProgressView">
+                            <rect key="frame" x="86" y="10" width="203" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.95294117649999999" green="0.33725490200000002" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="ae6-Zv-zpR"/>
+                            </constraints>
+                        </view>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nSJ-HO-8mU">
                             <rect key="frame" x="84" y="10" width="207" height="31"/>
                             <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -117,18 +120,18 @@
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.077466178189999998" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="pHD-mY-c8M" firstAttribute="centerY" secondItem="nSJ-HO-8mU" secondAttribute="centerY" id="0XQ-ME-CcS"/>
                         <constraint firstItem="yIE-vF-c8O" firstAttribute="leading" secondItem="qIf-aw-BaL" secondAttribute="trailing" id="83W-ta-aT2"/>
                         <constraint firstItem="3mh-1N-825" firstAttribute="leading" secondItem="nSJ-HO-8mU" secondAttribute="trailing" constant="2" id="AFI-JI-yHG"/>
                         <constraint firstItem="nSJ-HO-8mU" firstAttribute="leading" secondItem="yIE-vF-c8O" secondAttribute="trailing" constant="2" id="Fkw-h2-Qzt"/>
+                        <constraint firstItem="XJK-cI-fYm" firstAttribute="trailing" secondItem="nSJ-HO-8mU" secondAttribute="trailing" id="KmM-oq-esh"/>
+                        <constraint firstItem="XJK-cI-fYm" firstAttribute="centerY" secondItem="nSJ-HO-8mU" secondAttribute="centerY" id="LDo-uw-818"/>
                         <constraint firstAttribute="bottom" secondItem="qIf-aw-BaL" secondAttribute="bottom" id="NQ7-gM-YJq"/>
                         <constraint firstItem="qIf-aw-BaL" firstAttribute="top" secondItem="yyH-TF-a3R" secondAttribute="top" id="QyW-yr-Xw2"/>
                         <constraint firstItem="3mh-1N-825" firstAttribute="centerY" secondItem="yyH-TF-a3R" secondAttribute="centerY" id="RBS-by-OUy"/>
                         <constraint firstItem="AEI-I4-hWP" firstAttribute="leading" secondItem="3mh-1N-825" secondAttribute="trailing" id="RkY-uK-Usb"/>
                         <constraint firstItem="qIf-aw-BaL" firstAttribute="leading" secondItem="yyH-TF-a3R" secondAttribute="leading" id="U0a-HN-hms"/>
-                        <constraint firstItem="pHD-mY-c8M" firstAttribute="trailing" secondItem="nSJ-HO-8mU" secondAttribute="trailing" id="gwf-Dq-3OU"/>
                         <constraint firstItem="yIE-vF-c8O" firstAttribute="centerY" secondItem="yyH-TF-a3R" secondAttribute="centerY" id="mhe-qO-ug7"/>
-                        <constraint firstItem="pHD-mY-c8M" firstAttribute="leading" secondItem="nSJ-HO-8mU" secondAttribute="leading" id="reI-w4-zja"/>
+                        <constraint firstItem="XJK-cI-fYm" firstAttribute="leading" secondItem="nSJ-HO-8mU" secondAttribute="leading" id="tch-et-shc"/>
                         <constraint firstAttribute="trailing" secondItem="AEI-I4-hWP" secondAttribute="trailing" id="uf0-I1-hb1"/>
                         <constraint firstAttribute="bottom" secondItem="AEI-I4-hWP" secondAttribute="bottom" id="w6a-72-2WA"/>
                         <constraint firstAttribute="height" constant="50" id="x7p-sd-iP2"/>
@@ -177,8 +180,8 @@
                 <outlet property="currentTimeLabel" destination="yIE-vF-c8O" id="bdx-Ti-WaH"/>
                 <outlet property="fullScreenBtn" destination="AEI-I4-hWP" id="Wnd-p1-skw"/>
                 <outlet property="horizontalLabel" destination="vpB-JU-pOE" id="C7c-ED-lEk"/>
+                <outlet property="loadRangView" destination="XJK-cI-fYm" id="se6-47-zXa"/>
                 <outlet property="lockBtn" destination="vvY-b6-dD6" id="mSq-K2-3hG"/>
-                <outlet property="progressView" destination="pHD-mY-c8M" id="0Nn-4j-FPI"/>
                 <outlet property="repeatBtn" destination="gay-Nd-GMb" id="7Pn-PO-CbZ"/>
                 <outlet property="startBtn" destination="qIf-aw-BaL" id="Lzy-OO-PP9"/>
                 <outlet property="topImageView" destination="1aH-Q2-nW0" id="Mj7-Py-gKG"/>

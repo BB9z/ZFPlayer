@@ -24,6 +24,8 @@
 #import "RFUI.h"
 #import "ZFPlayerView.h"
 
+@class ZFPlayerLoadedRangeProgressView;
+
 @interface ZFPlayerControlView : UIView <
     RFInitializing,
     UIGestureRecognizerDelegate,
@@ -44,8 +46,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *currentTimeLabel;
 /** 视频总时长label */
 @property (nonatomic, weak) IBOutlet UILabel *totalTimeLabel;
-/** 缓冲进度条 */
-@property (nonatomic, weak) IBOutlet UIProgressView *progressView;
+
+@property (nonatomic, weak) IBOutlet ZFPlayerLoadedRangeProgressView *loadRangView;
+
 /** 滑杆 */
 @property (nonatomic, weak) IBOutlet UISlider *videoSlider;
 

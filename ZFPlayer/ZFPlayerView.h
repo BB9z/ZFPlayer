@@ -85,6 +85,12 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 };
 @property (nonatomic, assign) ZFPlayerState status;
 
+/// 当前已播放时间，特殊状态下的定义暂不明确
+@property NSTimeInterval currentTime;
+
+/// 当前播放视频的时长，特殊状态下的定义暂不明确
+@property NSTimeInterval duration;
+
 /// 播放完了
 @property (nonatomic) BOOL playDidEnd;
 
@@ -97,7 +103,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @protocol ZFPlayerDisplayDelegate <NSObject>
 @optional
 
-- (void)ZFPlayerDidChangedFullscreenMode:(nonnull ZFPlayerView *)player;
-- (void)ZFPlayerDidChangedLockOrientationWhenFullscreen:(nonnull ZFPlayerView *)player;
+- (void)ZFPlayerDidUpdatePlaybackInfo:(nonnull ZFPlayerView *)player;
+
 
 @end

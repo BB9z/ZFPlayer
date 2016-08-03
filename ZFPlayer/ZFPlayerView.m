@@ -39,7 +39,7 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 @interface ZFPlayerView ()
 @property (nonatomic, strong) AVPlayerLayer *ZFPlayerView_playerLayer;
 
-@property (nonatomic, strong) NSHashTable<id<ZFPlayerDisplayDelegate>> *displayers;
+@property (nonatomic, strong) NSHashTable<id<ZFPlayerDisplayDelegate>> *ZFPlayerView_displayers;
 
 @property (nonatomic) BOOL ZFPlayerView_observingPlaybackTimeChanges;
 @property (nullable, strong) id ZFPlayerView_playbackTimeObserver;
@@ -105,7 +105,7 @@ RFInitializingRootForUIView
     if (!_AVPlayer) {
         AVPlayer *ap = [AVPlayer playerWithPlayerItem:self.playerItem];
         AVPlayerLayer *al = [AVPlayerLayer playerLayerWithPlayer:ap];
-        [self.layer addSublayer:al];
+        [self.layer insertSublayer:al atIndex:0];
         _ZFPlayerView_playerLayer = al;
         _AVPlayer = ap;
     }
@@ -263,6 +263,8 @@ RFInitializingRootForUIView
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayGround) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
+#pragma mark - Playback info update
+
 - (void)setZFPlayerView_observingPlaybackTimeChanges:(BOOL)observingPlaybackTimeChanges {
     if (_ZFPlayerView_observingPlaybackTimeChanges == observingPlaybackTimeChanges) return;
 
@@ -273,10 +275,19 @@ RFInitializingRootForUIView
     }
     _ZFPlayerView_observingPlaybackTimeChanges = observingPlaybackTimeChanges;
     if (observingPlaybackTimeChanges) {
+        @weakify(self);
         self.ZFPlayerView_playbackTimeObserver = [self.AVPlayer addPeriodicTimeObserverForInterval:CMTimeFromNSTimeInterval(0.5) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+            @strongify(self);
             dout_float(NSTimeIntervalFromCMTime(time))
+            [self updatePlaybackInfo];
         }];
     }
+}
+
+- (void)updatePlaybackInfo {
+    self.currentTime = NSTimeIntervalFromCMTime(self.playerItem.currentTime);
+    self.duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
+    [self ZFPlayerView_noticePlaybackInfoUpdate];
 }
 
 
@@ -346,24 +357,6 @@ RFInitializingRootForUIView
 
 #pragma mark 进度条
 
-- (void)playerTimerAction {
-    AVPlayer *player = self.AVPlayer;
-    if (_playerItem.duration.timescale != 0) {
-        self.controlView.videoSlider.value        = CMTimeGetSeconds([_playerItem currentTime]) / (_playerItem.duration.value / _playerItem.duration.timescale);//当前进度
-
-        //当前时长进度progress
-        NSInteger proMin = (NSInteger)CMTimeGetSeconds([player currentTime]) / 60;//当前秒
-        NSInteger proSec = (NSInteger)CMTimeGetSeconds([player currentTime]) % 60;//当前分钟
-
-        //duration 总时长
-        NSInteger durMin = (NSInteger)_playerItem.duration.value / _playerItem.duration.timescale / 60;//总秒
-        NSInteger durSec = (NSInteger)_playerItem.duration.value / _playerItem.duration.timescale % 60;//总分钟
-
-        self.controlView.currentTimeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd", proMin, proSec];
-        self.controlView.totalTimeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd", durMin, durSec];
-    }
-}
-
 - (NSTimeInterval)availableDuration {
     NSArray *loadedTimeRanges = [[self.AVPlayer currentItem] loadedTimeRanges];
     CMTimeRange timeRange     = [loadedTimeRanges.firstObject CMTimeRangeValue];// 获取缓冲区域
@@ -375,22 +368,22 @@ RFInitializingRootForUIView
 
 #pragma mark - Delegtate 通知
 
-- (NSHashTable<id<ZFPlayerDisplayDelegate>> *)displayers {
-    if (!_displayers) {
-        _displayers = [NSHashTable weakObjectsHashTable];
+- (NSHashTable<id<ZFPlayerDisplayDelegate>> *)ZFPlayerView_displayers {
+    if (!_ZFPlayerView_displayers) {
+        _ZFPlayerView_displayers = [NSHashTable weakObjectsHashTable];
     }
-    return _displayers;
+    return _ZFPlayerView_displayers;
 }
 
 - (void)addDisplayer:(id<ZFPlayerDisplayDelegate>)displayer {
     if (displayer) {
-        [self.displayers addObject:displayer];
+        [self.ZFPlayerView_displayers addObject:displayer];
     }
 }
 
 - (void)removeDisplayer:(id<ZFPlayerDisplayDelegate>)displayer {
     if (displayer) {
-        [self.displayers removeObject:displayer];
+        [self.ZFPlayerView_displayers removeObject:displayer];
     }
 }
 
@@ -399,7 +392,7 @@ RFInitializingRootForUIView
  */
 #define ZFPlayerDisplayerNoticeMethod(METHODNAME, PROTOCOL_SELECTOR) \
     - (void)METHODNAME {\
-        NSArray *all = [self.displayers allObjects];\
+        NSArray *all = [self.ZFPlayerView_displayers allObjects];\
         for (id<ZFPlayerDisplayDelegate> displayer in all) {\
             if ([displayer respondsToSelector:@selector(PROTOCOL_SELECTOR:)]) {\
                 [displayer PROTOCOL_SELECTOR:self];\
@@ -409,7 +402,7 @@ RFInitializingRootForUIView
 
 #define ZFPlayerDisplayerNoticeMethod2(METHODNAME, PROTOCOL_SELECTOR, PAR) \
     - (void)METHODNAME {\
-        NSArray *all = [self.displayers allObjects];\
+        NSArray *all = [self.ZFPlayerView_displayers allObjects];\
         for (id<ZFPlayerDisplayDelegate> displayer in all) {\
             if ([displayer respondsToSelector:@selector(ZFPlayer:PROTOCOL_SELECTOR:)]) {\
                 [displayer ZFPlayer:self PROTOCOL_SELECTOR:PAR];\
@@ -417,9 +410,7 @@ RFInitializingRootForUIView
         }\
     }
 
-
-ZFPlayerDisplayerNoticeMethod(noticeDisplayerFullscreenModeChanged, ZFPlayerDidChangedFullscreenMode)
-ZFPlayerDisplayerNoticeMethod(noticeDisplayerLockOrientationWhenFullscreenChanged, ZFPlayerDidChangedLockOrientationWhenFullscreen)
+ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlaybackInfoUpdate, ZFPlayerDidUpdatePlaybackInfo);
 
 @end
 

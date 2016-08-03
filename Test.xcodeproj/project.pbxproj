@@ -31,6 +31,7 @@
 		CCE1C1401C9AA131004C95AC /* videoData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCE1C13F1C9AA131004C95AC /* videoData.json */; };
 		D5AF7D1B1D50685F0005451A /* UIDevice+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1A1D50685F0005451A /* UIDevice+RFKit.m */; };
 		D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */; };
+		D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */; };
 		D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */; };
 		D5FF10AF1D504D52005A068E /* dout.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10A41D504D52005A068E /* dout.m */; };
 		D5FF10B01D504D52005A068E /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10A81D504D52005A068E /* EXTScope.m */; };
@@ -117,6 +118,8 @@
 		D5AF7D1A1D50685F0005451A /* UIDevice+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+RFKit.m"; sourceTree = "<group>"; };
 		D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNavigationViewController.h; sourceTree = "<group>"; };
 		D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNavigationViewController.m; sourceTree = "<group>"; };
+		D5AF7D1F1D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerLoadedRangeProgressView.h; sourceTree = "<group>"; };
+		D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerLoadedRangeProgressView.m; sourceTree = "<group>"; };
 		D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZFPlayer.xcassets; sourceTree = "<group>"; };
 		D5FF10A31D504D52005A068E /* dout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dout.h; sourceTree = "<group>"; };
 		D5FF10A41D504D52005A068E /* dout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dout.m; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				CC2CC6311CA24D4B0028BBDD /* ZFBrightnessView.h */,
 				CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */,
 				D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */,
+				D5AF7D1F1D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.h */,
+				D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */,
 			);
 			path = ZFPlayer;
 			sourceTree = SOURCE_ROOT;
@@ -675,6 +680,7 @@
 				CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */,
 				CC2CC63B1CA24D4B0028BBDD /* ZFBrightnessView.m in Sources */,
 				CC113C0E1C8C4E5D0044FEEB /* MainViewController.m in Sources */,
+				D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */,
 				CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */,
 				CCE1C13E1C9AA128004C95AC /* ZFTableViewController.m in Sources */,
 				D5FF10E41D5050F1005A068E /* UIResponder+RFKit.m in Sources */,

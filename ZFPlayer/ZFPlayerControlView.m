@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 #import "ZFPlayerControlView.h"
+#import "ZFPlayerLoadedRangeProgressView.h"
 @import MediaPlayer;
 
 static const CGFloat ZFPlayerAnimationTimeInterval             = 7.0f;
@@ -81,7 +82,7 @@ RFInitializingRootForUIView
 - (void)resetControlView {
     self.videoSlider.value = 0;
     self.videoSlider.maximumValue = 1;
-    self.progressView.progress = 0;
+    self.loadRangView.item = nil;
     self.currentTimeLabel.text = @"00:00";
     self.totalTimeLabel.text = @"00:00";
 }
@@ -250,7 +251,7 @@ RFInitializingRootForUIView
         return;
     }
     [UIView animateWithDuration:ZFPlayerControlBarAutoFadeOutTimeInterval animations:^{
-        self.alpha = 0;
+        self.alpha = 0.5;
     }completion:^(BOOL finished) {
         self.isMaskShowing = NO;
     }];
@@ -263,7 +264,7 @@ RFInitializingRootForUIView
     [UIView animateWithDuration:ZFPlayerControlBarAutoFadeOutTimeInterval animations:^{
         self.backBtn.alpha = 1;
         if (self.player.playDidEnd) { // 播放完了
-            self.alpha = 0;
+            self.alpha = 0.5;
         }else {
             self.alpha = 1;
         }
@@ -447,20 +448,24 @@ RFInitializingRootForUIView
         self.sumTime = 0;
     }
 
-    // 当前快进的时间
-    NSString *nowTime         = [self durationStringWithTime:(int)self.sumTime];
-    // 总时间
-    NSString *durationTime    = [self durationStringWithTime:(int)totalMovieDuration];
-    // 给label赋值
+    NSString *nowTime = [self durationMSStringWithTimeInterval:self.sumTime];
+    NSString *durationTime = [self durationMSStringWithTimeInterval:totalMovieDuration];
     self.horizontalLabel.text = [NSString stringWithFormat:@"%@ %@ / %@",style, nowTime, durationTime];
 }
 
-- (NSString *)durationStringWithTime:(int)time {
-    // 获取分钟
-    NSString *min = [NSString stringWithFormat:@"%02d",time / 60];
-    // 获取秒数
-    NSString *sec = [NSString stringWithFormat:@"%02d",time % 60];
-    return [NSString stringWithFormat:@"%@:%@", min, sec];
+- (NSString *)durationMSStringWithTimeInterval:(NSTimeInterval)duration {
+    return [NSString stringWithFormat:@"%02ld:%02ld", (long)duration/60, (long)duration % 60];
+}
+
+- (void)ZFPlayerDidUpdatePlaybackInfo:(ZFPlayerView *)player {
+    _douto(player)
+    if (!self.loadRangView.item) {
+        self.loadRangView.item = player.playerItem;
+    }
+    [self.loadRangView setNeedsDisplay];
+
+    self.currentTimeLabel.text = [self durationMSStringWithTimeInterval:player.currentTime];
+    self.totalTimeLabel.text = [self durationMSStringWithTimeInterval:player.duration];
 }
 
 @end
