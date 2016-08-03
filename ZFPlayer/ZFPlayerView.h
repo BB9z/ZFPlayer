@@ -51,24 +51,14 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 默认控制层，从 nib 里载入若不设置会自动创建一个
 @property (nonatomic, nullable, weak) IBOutlet ZFPlayerControlView *controlView;
 
-- (void)addDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
-- (void)removeDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
+#pragma mark - 播放控制
 
-#pragma mark - config
-
-/// 默认 0.5s，不大于 0 不刷新
-@property (nonatomic) IBInspectable NSTimeInterval playbackInfoUpdateInterval;
-
-#pragma mark - metho
-
-/** 
- *  播放
- */
 - (void)play;
 
-/// 设置暂停
+/// 设置暂停，如果没有视频在播放总是 NO
 @property (nonatomic, getter=isPaused) BOOL paused;
 
+///
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^__nullable)(BOOL finished))completion;
 
 /// 停止播放并清理状态
@@ -76,7 +66,8 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 
 #pragma mark - 状态
 
-@property (nonatomic, getter=isPlaying) BOOL playing;
+/// 视频是否正在播放，处于缓冲状态为 NO
+@property (readonly, getter=isPlaying) BOOL playing;
 
 /// 当前已播放时间，特殊状态下的定义暂不明确
 @property NSTimeInterval currentTime;
@@ -84,11 +75,22 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 当前播放视频的时长，特殊状态下的定义暂不明确
 @property NSTimeInterval duration;
 
-/// 播放完了
-@property (nonatomic) BOOL playDidEnd;
+#pragma mark - 配置
 
-/// 是否被用户暂停
-@property (nonatomic) BOOL isPauseByUser;
+/// 默认设置 videoURL 或 playerItem 就开始自动播放，置为 YES 必须手动调用 play 方法才开始播放
+@property IBInspectable BOOL disableAutoPlayWhenSetPlayItem;
+
+/// 默认 0.5s，不大于 0 不刷新
+@property IBInspectable NSTimeInterval playbackInfoUpdateInterval;
+
+#pragma mark - 状态监听
+
+// 并不推荐使用 KVO，原生的 KVO 代码 90% 的人都不能完全写对
+// 这里的 displayer 是 delegate 模式的增强，你可以设置多个独立的 displayer
+// PS: 所有未注明不支持 KVO 的属性均支持 KVO
+
+- (void)addDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
+- (void)removeDisplayer:(nullable id<ZFPlayerDisplayDelegate>)displayer;
 
 @end
 
@@ -96,9 +98,23 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 @protocol ZFPlayerDisplayDelegate <NSObject>
 @optional
 
-- (void)ZFPlayerDidUpdatePlaybackInfo:(nonnull ZFPlayerView *)player;
-- (void)ZFPlayerDidPlayToEnd:(nonnull ZFPlayerView *)player;
+/// 视频切换时通知
 - (void)ZFPlayer:(nonnull ZFPlayerView *)player didChangePlayerItem:(nullable AVPlayerItem *)playerItem;
+
+/// 播放开始/暂停时通知，因缓冲不足停止播放不会调用
+- (void)ZFPlayer:(nonnull ZFPlayerView *)player didChangePauseState:(BOOL)isPaused;
+
+/// 视频进入缓冲状态（播放停止）时调用
+- (void)ZFPlayerWillBeginBuffering:(nonnull ZFPlayerView *)player;
+
+/// 视频结束缓冲状态时调用
+- (void)ZFPlayerDidEndBuffering:(nonnull ZFPlayerView *)player;
+
+/// 视频播放时，会周期性调用通知刷新播放进度
+- (void)ZFPlayerDidUpdatePlaybackInfo:(nonnull ZFPlayerView *)player;
+
+/// 视频播放到末尾时通知
+- (void)ZFPlayerDidPlayToEnd:(nonnull ZFPlayerView *)player;
 
 
 @end

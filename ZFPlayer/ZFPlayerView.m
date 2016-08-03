@@ -140,8 +140,6 @@ RFInitializingRootForUIView
     }
     _playerItem = playerItem;
     if (playerItem) {
-        [self.AVPlayer replaceCurrentItemWithPlayerItem:playerItem];
-
         [nc addObserver:self selector:@selector(ZFPlayerView_handelApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
         [nc addObserver:self selector:@selector(ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
 
@@ -151,7 +149,7 @@ RFInitializingRootForUIView
 //        // 缓冲区有足够数据可以播放了
 //        [playerItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
 
-
+        // 同步 videoURL 属性
         if ([playerItem.asset isKindOfClass:[AVURLAsset class]]) {
             NSURL *assetURL = [(AVURLAsset *)playerItem.asset URL];
             if (![assetURL isEqual:self.videoURL]) {
@@ -161,7 +159,14 @@ RFInitializingRootForUIView
         else {
             _videoURL = nil;
         }
-        [self.AVPlayer play];
+
+        [self.AVPlayer replaceCurrentItemWithPlayerItem:playerItem];
+        if (self.disableAutoPlayWhenSetPlayItem) {
+            self.paused = YES;
+        }
+        else {
+            [self.AVPlayer play];
+        }
     }
     [self ZFPlayerView_noticePlayerItemChanged:playerItem];
 }
@@ -219,7 +224,9 @@ RFInitializingRootForUIView
 }
 
 - (void)ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:(NSNotification *)notice {
-    [self ZFPlayerView_noticePlayToEnd];
+    dispatch_async_on_main(^{
+        [self ZFPlayerView_noticePlayToEnd];
+    });
 }
 
 /// 缓冲较差时候回调这里
@@ -237,7 +244,7 @@ RFInitializingRootForUIView
         @strongify(self);
 
         // 如果此时用户已经暂停了，则不再需要开启播放了
-        if (self.isPauseByUser) {
+        if (self.paused) {
             isBuffering = NO;
             return;
         }
@@ -402,9 +409,12 @@ RFInitializingRootForUIView
         }\
     }
 
+ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayerItemChanged, didChangePlayerItem, AVPlayerItem *)
+ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePauseChanged, didChangePauseState, BOOL)
+ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticeBufferingBegin, ZFPlayerWillBeginBuffering);
+ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticeBufferingEnd, ZFPlayerDidEndBuffering);
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlaybackInfoUpdate, ZFPlayerDidUpdatePlaybackInfo);
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlayToEnd, ZFPlayerDidPlayToEnd);
-ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayerItemChanged, didChangePlayerItem, AVPlayerItem *)
 
 @end
 

@@ -268,10 +268,10 @@ RFInitializingRootForUIView
                     });
                     //快进、快退时候把开始播放按钮改为播放状态
                     self.startBtn.selected = YES;
-                    self.player.isPauseByUser = NO;
+                    self.player.paused = NO;
 
                     [self.player seekToTime:self.sumTime completion:^(BOOL finished) {
-                        if (self.player.isPauseByUser) {
+                        if (self.player.paused) {
                             return;
                         }
                         [self.player play];
