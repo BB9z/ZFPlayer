@@ -137,6 +137,8 @@ RFInitializingRootForUIView
 //        [_playerItem removeObserver:self forKeyPath:@"status"];
 //        [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
 //        [_playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+        self.currentTime = 0;
+        self.duration = 0;
     }
     _playerItem = playerItem;
     if (playerItem) {
@@ -204,6 +206,11 @@ RFInitializingRootForUIView
     }
     CMTime tolerance = CMTimeFromNSTimeInterval(0.3);
     [self.AVPlayer seekToTime:CMTimeFromNSTimeInterval(time) toleranceBefore:tolerance toleranceAfter:tolerance completionHandler:^(BOOL finished) {
+        if (!self.paused
+            && !self.playing) {
+            // 没有明确暂停，继续播放
+            [self play];
+        }
         if (completion) {
             completion(finished);
         }
@@ -291,7 +298,12 @@ RFInitializingRootForUIView
 
 - (void)ZFPlayerView_updatePlaybackInfo {
     self.currentTime = NSTimeIntervalFromCMTime(self.playerItem.currentTime);
-    self.duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
+    if (CMTIME_IS_INDEFINITE(self.playerItem.duration)) {
+        self.duration = 0;
+    }
+    else {
+        self.duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
+    }
     [self ZFPlayerView_noticePlaybackInfoUpdate];
 }
 

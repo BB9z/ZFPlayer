@@ -58,7 +58,6 @@ RFInitializingRootForUIView
 }
 
 - (void)afterInit {
-
 }
 
 - (void)awakeFromNib {
@@ -72,11 +71,11 @@ RFInitializingRootForUIView
     self.playbackProgressSlider.value = 0;
     self.playbackProgressSlider.minimumValue = 0;
     self.playbackProgressSlider.maximumValue = 1;
+
     self.loadRangView.item = nil;
-    self.currentTimeLabel.text = @"00:00";
-    self.totalTimeLabel.text = @"00:00";
     self.replayButton.hidden = YES;
     self.seekProgressIndicatorContainer.hidden = YES;
+    [self updateProgressUIWithCurrentTime:0 duration:0 skipSlider:NO];
 }
 
 - (IBAction)onPlayButtonTapped:(UIButton *)button {
@@ -188,6 +187,7 @@ RFInitializingRootForUIView
 - (void)updateProgressUIWithCurrentTime:(NSTimeInterval)current duration:(NSTimeInterval)duration skipSlider:(BOOL)skipSlider {
     self.currentTimeLabel.text = [self durationMSStringWithTimeInterval:current];
     self.totalTimeLabel.text = [self durationMSStringWithTimeInterval:duration];
+    [self setProgressControlEnabled:(duration != 0) animated:YES];
 
     if (skipSlider) return;
     if (duration > 0) {
@@ -196,6 +196,13 @@ RFInitializingRootForUIView
     else {
         self.playbackProgressSlider.value = 0;
     }
+}
+
+- (void)setProgressControlEnabled:(BOOL)enabled animated:(BOOL)animated {
+    if (self.playbackProgressSlider.enabled == enabled) return;
+
+    self.playbackProgressSlider.enabled = enabled;
+    self.progressContainer.userInteractionEnabled = enabled;
 }
 
 - (NSString *)durationMSStringWithTimeInterval:(NSTimeInterval)duration {

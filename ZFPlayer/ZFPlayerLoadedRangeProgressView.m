@@ -46,6 +46,9 @@ RFInitializingRootForUIView
 }
 
 - (void)setLoadedTimeRangesObservingEnable:(BOOL)loadedTimeRangesObservingEnable {
+    if (!self.item) {
+        loadedTimeRangesObservingEnable = NO;
+    }
     if (_loadedTimeRangesObservingEnable == loadedTimeRangesObservingEnable) return;
     if (_loadedTimeRangesObservingEnable) {
         if (self.loadedTimeRangesObserver) {

@@ -72,7 +72,8 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 当前已播放时间，特殊状态下的定义暂不明确
 @property NSTimeInterval currentTime;
 
-/// 当前播放视频的时长，特殊状态下的定义暂不明确
+/// 当前播放视频的时长
+/// 视频未加载或正在加载但未获取到时长时为 0
 @property NSTimeInterval duration;
 
 #pragma mark - 配置

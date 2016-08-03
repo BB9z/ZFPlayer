@@ -44,6 +44,9 @@
 @property (nonatomic, weak) IBOutlet UIView *toolBar;
 
 @property (nonatomic, weak) IBOutlet UIButton *startBtn;
+
+/// 进度显示，控制部分的容器
+@property (nonatomic, weak) IBOutlet UIView *progressContainer;
 @property (nonatomic, weak) IBOutlet UILabel *currentTimeLabel;
 /// 已加载进度
 @property (nonatomic, weak) IBOutlet ZFPlayerLoadedRangeProgressView *loadRangView;
