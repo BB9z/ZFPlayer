@@ -1,25 +1,3 @@
-//
-//  ZFPlayerView.m
-//
-// Copyright (c) 2016年 任子丰 ( http://github.com/renzifeng )
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
 
 #import "ZFPlayerView.h"
 #import "ZFPlayerControlView.h"
@@ -37,12 +15,15 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 }
 
 @interface ZFPlayerView ()
-@property (nonatomic, strong) AVPlayerLayer *ZFPlayerView_playerLayer;
+@property (nonatomic, readonly) AVPlayerLayer *ZFPlayerView_playerLayer;
 
 @property (nonatomic, strong) NSHashTable<id<ZFPlayerDisplayDelegate>> *ZFPlayerView_displayers;
 
 @property (nonatomic) BOOL ZFPlayerView_observingPlaybackTimeChanges;
 @property (nullable, strong) id ZFPlayerView_playbackTimeObserver;
+@property (nonatomic) BOOL ZFPlayerView_buffering;
+@property (nullable, strong) id ZFPlayerView_bufferEmptyObserver;
+@property (nullable, strong) id ZFPlayerView_loadRangeObserver;
 
 @property (nonatomic, strong) RFTimer *debugTimer;
 @end
@@ -53,10 +34,16 @@ RFInitializingRootForUIView
 - (void)onInit {
     _playbackInfoUpdateInterval = 0.5;
     @weakify(self);
-    self.debugTimer = [RFTimer scheduledTimerWithTimeInterval:1 repeats:YES fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
+    self.debugTimer = [RFTimer scheduledTimerWithTimeInterval:3 repeats:YES fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
         @strongify(self);
-        dout_int(self->_AVPlayer.status)
-        dout_int(self->_AVPlayer.currentItem.status)
+        douts(@"------")
+        dout_bool(self.isPlaying)
+        dout_bool(self.paused)
+        dout_bool(self.ZFPlayerView_buffering)
+        dout_int(self.playerItem.status)
+        dout_bool(self.playerItem.playbackBufferEmpty)
+        dout_bool(self.playerItem.playbackBufferFull)
+        dout_bool(self.playerItem.isPlaybackLikelyToKeepUp)
     }];
 }
 
@@ -134,9 +121,10 @@ RFInitializingRootForUIView
     if (_playerItem) {
         [nc removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
         [nc removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
-//        [_playerItem removeObserver:self forKeyPath:@"status"];
-//        [_playerItem removeObserver:self forKeyPath:@"playbackBufferEmpty"];
-//        [_playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
+        [nc removeObserver:self name:AVPlayerItemPlaybackStalledNotification object:_playerItem];
+        [self RFRemoveObserverWithIdentifier:self.ZFPlayerView_bufferEmptyObserver];
+
+        self.ZFPlayerView_buffering = NO;
         self.currentTime = 0;
         self.duration = 0;
     }
@@ -144,12 +132,14 @@ RFInitializingRootForUIView
     if (playerItem) {
         [nc addObserver:self selector:@selector(ZFPlayerView_handelApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
         [nc addObserver:self selector:@selector(ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
-
-//        [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-//        // 缓冲区空了，需要等待数据
-//        [playerItem addObserver:self forKeyPath:@"playbackBufferEmpty" options:NSKeyValueObservingOptionNew context:nil];
-//        // 缓冲区有足够数据可以播放了
-//        [playerItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options:NSKeyValueObservingOptionNew context:nil];
+        [nc addObserver:self selector:@selector(ZFPlayerView_handelPlaybackStalledNotification:) name:AVPlayerItemPlaybackStalledNotification object:playerItem];
+        @weakify(self);
+        self.ZFPlayerView_bufferEmptyObserver = [playerItem RFAddObserver:self forKeyPath:@keypath(playerItem, playbackBufferEmpty) options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(id observer, NSDictionary *change) {
+            @strongify(self);
+            if (self.playerItem.playbackBufferEmpty) {
+                self.ZFPlayerView_buffering = YES;
+            }
+        }];
 
         // 同步 videoURL 属性
         if ([playerItem.asset isKindOfClass:[AVURLAsset class]]) {
@@ -208,7 +198,6 @@ RFInitializingRootForUIView
 }
 
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^)(BOOL))completion {
-    // TODO: 合适的地方调用 cancelPendingSeeks
     BOOL shouldPausePlaybackObserving = self.ZFPlayerView_observingPlaybackTimeChanges;
     if (shouldPausePlaybackObserving) {
         self.ZFPlayerView_observingPlaybackTimeChanges = NO;
@@ -289,46 +278,70 @@ RFInitializingRootForUIView
     [self ZFPlayerView_noticePlaybackInfoUpdate];
 }
 
+#pragma mark - 缓冲控制
 
-/*
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    if (object == self.playerItem) {
-        if (ZFPlayerKeyIsEqual(keyPath, status)) {
-            if (self.player.status == AVPlayerStatusReadyToPlay) {
++ (NSSet *)keyPathsForValuesAffectingZFPlayerView_buffering {
+    return [NSSet setWithObjects:
+            @keypathClassInstance(ZFPlayerView, AVPlayer.status),
+            @keypathClassInstance(ZFPlayerView, playerItem.playbackBufferEmpty),
+            @keypathClassInstance(ZFPlayerView, playerItem, playbackLikelyToKeepUp),
+            nil];
+}
 
-                self.state = ZFPlayerStatePlaying;
+- (void)ZFPlayerView_handelPlaybackStalledNotification:(NSNotification *)notice {
+    doutwork()
+    dispatch_async_on_main(^{
+        self.ZFPlayerView_buffering = YES;
+    });
+}
 
-                // 加载完成后，再添加平移手势
-                // 添加平移手势，用来控制音量、亮度、快进快退
-                UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panDirection:)];
-                pan.delegate                = self;
-                [self addGestureRecognizer:pan];
-
-            }
-            else if (self.player.status == AVPlayerStatusFailed){
-//                [self.activity startAnimating];
-            }
-
-        }
-        else if (ZFPlayerKeyIsEqual(keyPath, playbackBufferEmpty)) {
-            // 当缓冲是空的时候
-            if (self.playerItem.playbackBufferEmpty) {
-                //NSLog(@"playbackBufferEmpty");
-                self.state = ZFPlayerStateBuffering;
-                [self bufferingSomeSecond];
-            }
-        }
-        else if (ZFPlayerKeyIsEqual(keyPath, playbackLikelyToKeepUp)) {
-            // 当缓冲好的时候
-            if (self.playerItem.playbackLikelyToKeepUp){
-                //NSLog(@"playbackLikelyToKeepUp");
-                self.state = ZFPlayerStatePlaying;
-            }
-
+- (void)setZFPlayerView_buffering:(BOOL)ZFPlayerView_buffering {
+    if (_ZFPlayerView_buffering == ZFPlayerView_buffering) return;
+    if (_ZFPlayerView_buffering) {
+        [self ZFPlayerView_noticeBufferingEnd];
+        [self.playerItem RFRemoveObserverWithIdentifier:self.ZFPlayerView_loadRangeObserver];
+        self.ZFPlayerView_loadRangeObserver = nil;
+        if (!self.paused) {
+            [self.AVPlayer play];
         }
     }
+    _ZFPlayerView_buffering = ZFPlayerView_buffering;
+    if (ZFPlayerView_buffering) {
+        NSAssert(self.playerItem, @"Set needs buffering but no playerItem");
+
+        dout_debug(@"Pause to buffer");
+        [self.AVPlayer pause];
+
+        @weakify(self);
+        self.ZFPlayerView_loadRangeObserver = [self.playerItem RFAddObserver:self forKeyPath:@keypath(self.playerItem, loadedTimeRanges) options:NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(id observer, NSDictionary *change) {
+            @strongify(self);
+            // 缓冲够 3s 认为可以继续播放了
+            NSTimeInterval loadedRange = self.ZFPlayerView_maxLoadRang;
+            if (loadedRange > self.currentTime + 3
+                || loadedRange == self.duration) {
+                dout_debug(@"Got enough buffer");
+                self.ZFPlayerView_buffering = NO;
+            }
+        }];
+
+        [self ZFPlayerView_noticeBufferingBegin];
+    }
 }
-*/
+
+/// 当前已缓冲的时间
+- (NSTimeInterval)ZFPlayerView_maxLoadRang {
+    NSTimeInterval time = 0;
+    for (NSValue *rangObject in self.playerItem.loadedTimeRanges) {
+        CMTimeRange rang = [rangObject CMTimeRangeValue];
+        NSTimeInterval start = NSTimeIntervalFromCMTime(rang.start);
+        NSTimeInterval duration = NSTimeIntervalFromCMTime(rang.duration);
+        NSTimeInterval rangMax = start + duration;
+        if (time < rangMax) {
+            time = rangMax;
+        }
+    }
+    return time;
+}
 
 #pragma mark - UI 逻辑
 
@@ -346,17 +359,6 @@ RFInitializingRootForUIView
             controlView.player = self;
         }
     }
-}
-
-#pragma mark 进度条
-
-- (NSTimeInterval)availableDuration {
-    NSArray *loadedTimeRanges = [[self.AVPlayer currentItem] loadedTimeRanges];
-    CMTimeRange timeRange     = [loadedTimeRanges.firstObject CMTimeRangeValue];// 获取缓冲区域
-    float startSeconds        = CMTimeGetSeconds(timeRange.start);
-    float durationSeconds     = CMTimeGetSeconds(timeRange.duration);
-    NSTimeInterval result     = startSeconds + durationSeconds;// 计算缓冲总进度
-    return result;
 }
 
 #pragma mark - Delegtate 通知

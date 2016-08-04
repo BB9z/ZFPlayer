@@ -53,6 +53,7 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 
 #pragma mark - 播放控制
 
+/// 尝试开始播放，如果视频已播放到结尾，再调用会从头开始播放
 - (void)play;
 
 /// 设置暂停，如果没有视频在播放总是 NO

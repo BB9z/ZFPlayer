@@ -153,6 +153,12 @@ RFInitializingRootForUIView
 
 - (void)ZFPlayer:(ZFPlayerView *)player didChangePauseState:(BOOL)isPaused {
     self.startPauseButton.selected = !isPaused;
+    if (isPaused) {
+        [self setPanelHidden:NO animated:YES];
+    }
+    else {
+        [self resetAutoHidePanelTimer];
+    }
 }
 
 - (void)ZFPlayerWillBeginBuffering:(ZFPlayerView *)player {
