@@ -206,10 +206,10 @@ RFInitializingRootForUIView
 }
 
 - (void)setProgressControlEnabled:(BOOL)enabled animated:(BOOL)animated {
-    if (self.playbackProgressSlider.hidden == enabled) return;
+    if (self.playbackProgressSlider.hidden == !enabled) return;
 
+    self.playbackProgressSlider.userInteractionEnabled = enabled;
     self.playbackProgressSlider.hidden = !enabled;
-    self.progressContainer.userInteractionEnabled = enabled;
 }
 
 - (NSString *)durationMSStringWithTimeInterval:(NSTimeInterval)duration {

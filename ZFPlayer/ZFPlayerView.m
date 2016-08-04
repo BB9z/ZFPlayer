@@ -198,6 +198,12 @@ RFInitializingRootForUIView
 }
 
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^)(BOOL))completion {
+    if (!self.playerItem) {
+        if (completion) {
+            completion(NO);
+        }
+        return;
+    }
     BOOL shouldPausePlaybackObserving = self.ZFPlayerView_observingPlaybackTimeChanges;
     if (shouldPausePlaybackObserving) {
         self.ZFPlayerView_observingPlaybackTimeChanges = NO;
