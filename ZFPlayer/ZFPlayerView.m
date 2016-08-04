@@ -161,15 +161,9 @@ RFInitializingRootForUIView
         else {
             _videoURL = nil;
         }
-
-        [self.AVPlayer replaceCurrentItemWithPlayerItem:playerItem];
-        if (self.disableAutoPlayWhenSetPlayItem) {
-            self.paused = YES;
-        }
-        else {
-            [self.AVPlayer play];
-        }
+        self.paused = self.disableAutoPlayWhenSetPlayItem;
     }
+    [self.AVPlayer replaceCurrentItemWithPlayerItem:playerItem];
     [self ZFPlayerView_noticePlayerItemChanged:playerItem];
 }
 
@@ -180,22 +174,37 @@ RFInitializingRootForUIView
 }
 
 - (void)play {
-    [self.AVPlayer play];
+    if (!self.playerItem) {
+        dout_warning(@"Cannot play, no playerItem");
+        return;
+    }
+
+    if (CMTIME_IS_VALID(self.playerItem.duration)
+        && CMTimeGetSeconds(self.playerItem.currentTime) == CMTimeGetSeconds(self.playerItem.duration)
+        && self.AVPlayer.status == AVPlayerItemStatusReadyToPlay) {
+        // 如果播放到末尾，再 play 重头开始
+        [self seekToTime:0 completion:nil];
+        self.currentTime = 0;
+        [self ZFPlayerView_noticePlaybackInfoUpdate];
+    }
+    else {
+        [self.AVPlayer play];
+    }
 }
 
 - (void)setPaused:(BOOL)paused {
+    if (!self.playerItem) {
+        paused = NO;
+    }
+    _paused = paused;
+
     if (paused) {
-        if (self.playerItem) {
-            [self.AVPlayer pause];
-            _paused = YES;
-        }
+        [self.AVPlayer pause];
     }
     else {
-        _paused = NO;
-        if (self.playerItem) {
-            [self.AVPlayer play];
-        }
+        [self play];
     }
+    [self ZFPlayerView_noticePauseChanged:paused];
 }
 
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^)(BOOL))completion {
@@ -209,7 +218,7 @@ RFInitializingRootForUIView
         if (!self.paused
             && !self.playing) {
             // 没有明确暂停，继续播放
-            [self play];
+            [self.AVPlayer play];
         }
         if (completion) {
             completion(finished);
@@ -221,6 +230,7 @@ RFInitializingRootForUIView
 }
 
 - (void)stop {
+    [self.AVPlayer pause];  // 为了重置 rate
     self.playerItem = nil;
 }
 
@@ -233,35 +243,7 @@ RFInitializingRootForUIView
 - (void)ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:(NSNotification *)notice {
     dispatch_async_on_main(^{
         [self ZFPlayerView_noticePlayToEnd];
-    });
-}
-
-/// 缓冲较差时候回调这里
-- (void)bufferingSomeSecond {
-    // playbackBufferEmpty会反复进入，因此在bufferingOneSecond延时播放执行完之前再调用bufferingSomeSecond都忽略
-    __block BOOL isBuffering = NO;
-    if (isBuffering) return;
-    isBuffering = YES;
-
-    // 需要先暂停一小会之后再播放，否则网络状况不好的时候时间在走，声音播放不出来
-    [self.AVPlayer pause];
-
-    @weakify(self);
-    dispatch_after_seconds(1, ^{
-        @strongify(self);
-
-        // 如果此时用户已经暂停了，则不再需要开启播放了
-        if (self.paused) {
-            isBuffering = NO;
-            return;
-        }
-
-        [self.AVPlayer play];
-        // 如果执行了play还是没有播放则说明还没有缓存好，则再次缓存一段时间
-        isBuffering = NO;
-        if (!self.playerItem.isPlaybackLikelyToKeepUp) {
-            [self bufferingSomeSecond];
-        }
+        [self ZFPlayerView_noticePauseChanged:YES];
     });
 }
 
@@ -290,7 +272,7 @@ RFInitializingRootForUIView
         if (interval <= 0) return;
         self.ZFPlayerView_playbackTimeObserver = [self.AVPlayer addPeriodicTimeObserverForInterval:CMTimeFromNSTimeInterval(interval) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
             @strongify(self);
-            dout_float(NSTimeIntervalFromCMTime(time))
+            _dout_float(NSTimeIntervalFromCMTime(time))
             [self ZFPlayerView_updatePlaybackInfo];
         }];
     }

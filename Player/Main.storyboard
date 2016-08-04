@@ -305,6 +305,13 @@
                                     <action selector="onBack:" destination="Dif-MC-umB" eventType="touchUpInside" id="C72-L7-wx2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pn-GB-UIK">
+                                <rect key="frame" x="127" y="388" width="31" height="30"/>
+                                <state key="normal" title="stop"/>
+                                <connections>
+                                    <action selector="onStop:" destination="Dif-MC-umB" eventType="touchUpInside" id="ij9-XY-Y1J"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

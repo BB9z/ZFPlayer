@@ -36,7 +36,7 @@
                         <action selector="onBackButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="rDv-iQ-07q"/>
                     </connections>
                 </button>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="y1P-EE-mR8">
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="y1P-EE-mR8">
                     <rect key="frame" x="177" y="96" width="20" height="20"/>
                 </activityIndicatorView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd7-Gk-Mfx">
@@ -193,7 +193,7 @@
                 <outlet property="progressContainer" destination="LXe-Qc-9BR" id="A0s-fT-dLL"/>
                 <outlet property="replayButton" destination="gay-Nd-GMb" id="A2E-hG-Cdk"/>
                 <outlet property="seekProgressIndicatorContainer" destination="Cd7-Gk-Mfx" id="9Ob-BQ-sjy"/>
-                <outlet property="startBtn" destination="qIf-aw-BaL" id="Lzy-OO-PP9"/>
+                <outlet property="startPauseButton" destination="qIf-aw-BaL" id="UPg-hT-dvn"/>
                 <outlet property="toolBar" destination="yyH-TF-a3R" id="dMj-Xt-uXY"/>
                 <outlet property="totalTimeLabel" destination="3mh-1N-825" id="68R-qh-J84"/>
                 <outletCollection property="gestureRecognizers" destination="PiX-SB-Soh" appends="YES" id="0EX-0e-0YD"/>

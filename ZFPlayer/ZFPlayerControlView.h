@@ -43,7 +43,7 @@
 
 @property (nonatomic, weak) IBOutlet UIView *toolBar;
 
-@property (nonatomic, weak) IBOutlet UIButton *startBtn;
+@property (nonatomic, weak) IBOutlet UIButton *startPauseButton;
 
 /// 进度显示，控制部分的容器
 @property (nonatomic, weak) IBOutlet UIView *progressContainer;

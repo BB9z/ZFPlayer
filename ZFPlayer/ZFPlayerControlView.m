@@ -64,23 +64,13 @@ RFInitializingRootForUIView
     [super awakeFromNib];
 
     [self.playbackProgressSlider setThumbImage:[UIImage imageNamed:@"ZFPlayer.slider"] forState:UIControlStateNormal];
-    [self resetControlView];
-}
-
-- (void)resetControlView {
     self.playbackProgressSlider.value = 0;
     self.playbackProgressSlider.minimumValue = 0;
     self.playbackProgressSlider.maximumValue = 1;
 
-    self.loadRangView.item = nil;
+    [self ZFPlayer:self.player didChangePlayerItem:self.player.playerItem];
     self.replayButton.hidden = YES;
     self.seekProgressIndicatorContainer.hidden = YES;
-    [self updateProgressUIWithCurrentTime:0 duration:0 skipSlider:NO];
-}
-
-- (IBAction)onPlayButtonTapped:(UIButton *)button {
-    button.selected = !button.selected;
-    self.player.paused = button.selected;
 }
 
 - (IBAction)onBackButtonTapped:(id)sender {
@@ -155,6 +145,24 @@ RFInitializingRootForUIView
     self.autoHidePanelTimer.suspended = NO;
 }
 
+#pragma mark - 开始/暂停
+
+- (IBAction)onPlayButtonTapped:(UIButton *)button {
+    self.player.paused = self.player.isPlaying;
+}
+
+- (void)ZFPlayer:(ZFPlayerView *)player didChangePauseState:(BOOL)isPaused {
+    self.startPauseButton.selected = !isPaused;
+}
+
+- (void)ZFPlayerWillBeginBuffering:(ZFPlayerView *)player {
+    [self.activity startAnimating];
+}
+
+- (void)ZFPlayerDidEndBuffering:(ZFPlayerView *)player {
+    [self.activity stopAnimating];
+}
+
 #pragma mark - 播放进度控制
 
 - (IBAction)onPlaybackProgressSliderTouchDown:(UISlider *)sender {
@@ -199,9 +207,9 @@ RFInitializingRootForUIView
 }
 
 - (void)setProgressControlEnabled:(BOOL)enabled animated:(BOOL)animated {
-    if (self.playbackProgressSlider.enabled == enabled) return;
+    if (self.playbackProgressSlider.hidden == enabled) return;
 
-    self.playbackProgressSlider.enabled = enabled;
+    self.playbackProgressSlider.hidden = !enabled;
     self.progressContainer.userInteractionEnabled = enabled;
 }
 
@@ -274,7 +282,7 @@ RFInitializingRootForUIView
                         self.horizontalLabel.hidden = YES;
                     });
                     //快进、快退时候把开始播放按钮改为播放状态
-                    self.startBtn.selected = YES;
+                    self.startPauseButton.selected = YES;
                     self.player.paused = NO;
 
                     [self.player seekToTime:self.sumTime completion:^(BOOL finished) {
@@ -354,6 +362,7 @@ RFInitializingRootForUIView
 }
 
 - (void)ZFPlayer:(ZFPlayerView *)player didChangePlayerItem:(AVPlayerItem *)playerItem {
+    self.startPauseButton.enabled = !!playerItem;
     self.loadRangView.item = player.playerItem;
     [self updateProgressUIWithCurrentTime:player.currentTime duration:player.duration skipSlider:NO];
     [self setPanelHidden:NO animated:YES];

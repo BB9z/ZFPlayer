@@ -71,6 +71,10 @@
     self.playerView.videoURL = [NSURL URLWithString:@"http://baobab.wdjcdn.com/1456665467509qingshu.mp4"];
 }
 
+- (IBAction)onStop:(id)sender {
+    [self.playerView stop];
+}
+
 #pragma mark - 屏幕旋转，全屏
 
 - (BOOL)shouldAutorotate {
