@@ -157,6 +157,9 @@ RFInitializingRootForUIView
         [self setPanelHidden:NO animated:YES];
     }
     else {
+        if (self.activity.isAnimating) {
+            [self.activity stopAnimating];
+        }
         [self resetAutoHidePanelTimer];
     }
 }

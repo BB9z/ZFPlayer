@@ -77,6 +77,10 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 视频未加载或正在加载但未获取到时长时为 0
 @property NSTimeInterval duration;
 
+/// 是否处于影响播放的缓冲状态，缓冲但可以正常播放不在此情形中
+/// 正常进入该状态时会停止播放，假如用户继续播放，这个状态不会自动退出
+@property (nonatomic, readonly, getter=isBuffering) BOOL buffering;
+
 #pragma mark - 配置
 
 /// 默认设置 videoURL 或 playerItem 就开始自动播放，置为 YES 必须手动调用 play 方法才开始播放
