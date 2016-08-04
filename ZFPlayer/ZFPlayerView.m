@@ -133,11 +133,10 @@ RFInitializingRootForUIView
         [nc addObserver:self selector:@selector(ZFPlayerView_handelApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
         [nc addObserver:self selector:@selector(ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
         [nc addObserver:self selector:@selector(ZFPlayerView_handelPlaybackStalledNotification:) name:AVPlayerItemPlaybackStalledNotification object:playerItem];
-        @weakify(self);
-        self.ZFPlayerView_bufferEmptyObserver = [playerItem RFAddObserver:self forKeyPath:@keypath(playerItem, isPlaybackBufferEmpty) options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(id observer, NSDictionary *change) {
-            @strongify(self);
-            if (self.playerItem.playbackBufferEmpty) {
-                self.buffering = YES;
+        self.ZFPlayerView_bufferEmptyObserver = [playerItem RFAddObserver:self forKeyPath:@keypath(playerItem, isPlaybackBufferEmpty) options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(ZFPlayerView *observer, NSDictionary *change) {
+            dout_bool(observer.playerItem.playbackBufferEmpty)
+            if (observer.playerItem.playbackBufferEmpty) {
+                observer.buffering = YES;
             }
         }];
 
@@ -203,8 +202,12 @@ RFInitializingRootForUIView
     if (shouldPausePlaybackObserving) {
         self.ZFPlayerView_observingPlaybackTimeChanges = NO;
     }
+    self.buffering = YES;
     CMTime tolerance = CMTimeFromNSTimeInterval(0.3);
+    @weakify(self);
     [self.AVPlayer seekToTime:CMTimeFromNSTimeInterval(time) toleranceBefore:tolerance toleranceAfter:tolerance completionHandler:^(BOOL finished) {
+        @strongify(self);
+        [self ZFPlayerView_tryExitBuffering];
         if (!self.paused
             && !self.playing) {
             // 没有明确暂停，继续播放
@@ -238,7 +241,13 @@ RFInitializingRootForUIView
 }
 
 - (BOOL)isPlaying {
-    return self.AVPlayer.rate != 0;
+    if (self.playerItem.playbackBufferEmpty
+        && !self.playerItem.playbackLikelyToKeepUp) {
+        // 视频刚开始加载时，可能 rate 正常，但没有足够的缓冲
+        // 完全缓冲时，有遇到 empty 为 YES 的情况……
+        return NO;
+    }
+    return (self.AVPlayer.rate != 0);
 }
 
 + (NSSet *)keyPathsForValuesAffectingPlaying {
@@ -281,7 +290,7 @@ RFInitializingRootForUIView
 
 #pragma mark - 缓冲控制
 
-+ (NSSet *)keyPathsForValuesAffectingZFPlayerView_buffering {
++ (NSSet *)keyPathsForValuesAffectingBuffering {
     return [NSSet setWithObjects:
             @keypathClassInstance(ZFPlayerView, AVPlayer.status),
             @keypathClassInstance(ZFPlayerView, playerItem.playbackBufferEmpty),
@@ -304,13 +313,11 @@ RFInitializingRootForUIView
                 // 解决处于缓冲时点播放
                 self.paused = YES;
                 self.ZFPlayerView_currentPauseDueToBuffering = YES;
-                [self ZFPlayerView_noticeBufferingBegin];
             }
         }
         return;
     }
     if (_buffering) {
-        [self ZFPlayerView_noticeBufferingEnd];
         [self.playerItem RFRemoveObserverWithIdentifier:self.ZFPlayerView_loadRangeObserver];
         self.ZFPlayerView_loadRangeObserver = nil;
         if (self.ZFPlayerView_currentPauseDueToBuffering) {
@@ -326,19 +333,21 @@ RFInitializingRootForUIView
         self.paused = YES;
         self.ZFPlayerView_currentPauseDueToBuffering = YES;
 
-        @weakify(self);
-        self.ZFPlayerView_loadRangeObserver = [self.playerItem RFAddObserver:self forKeyPath:@keypath(self.playerItem, loadedTimeRanges) options:NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(id observer, NSDictionary *change) {
-            @strongify(self);
-            // 缓冲够 3s 认为可以继续播放了
-            NSTimeInterval loadedRange = self.ZFPlayerView_maxLoadRang;
-            if (loadedRange > self.currentTime + 3
-                || loadedRange == self.duration) {
-                dout_debug(@"Got enough buffer");
-                self.buffering = NO;
-            }
+        self.ZFPlayerView_loadRangeObserver = [self.playerItem RFAddObserver:self forKeyPath:@keypath(self.playerItem, loadedTimeRanges) options:NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(ZFPlayerView *observer, NSDictionary *change) {
+            [observer ZFPlayerView_tryExitBuffering];
         }];
+    }
+}
 
-        [self ZFPlayerView_noticeBufferingBegin];
+- (void)ZFPlayerView_tryExitBuffering {
+    // 缓冲够 3s 认为可以继续播放了
+    NSTimeInterval loadedRange = self.ZFPlayerView_maxLoadRang;
+    NSTimeInterval current = NSTimeIntervalFromCMTime(self.playerItem.currentTime);
+    NSTimeInterval duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
+    if (loadedRange > current + 3
+        || loadedRange == duration) {
+        dout_debug(@"Got enough buffer");
+        self.buffering = NO;
     }
 }
 
@@ -421,8 +430,6 @@ RFInitializingRootForUIView
 
 ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayerItemChanged, didChangePlayerItem, AVPlayerItem *)
 ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePauseChanged, didChangePauseState, BOOL)
-ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticeBufferingBegin, ZFPlayerWillBeginBuffering);
-ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticeBufferingEnd, ZFPlayerDidEndBuffering);
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlaybackInfoUpdate, ZFPlayerDidUpdatePlaybackInfo);
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlayToEnd, ZFPlayerDidPlayToEnd);
 

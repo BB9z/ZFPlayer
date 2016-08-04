@@ -157,19 +157,9 @@ RFInitializingRootForUIView
         [self setPanelHidden:NO animated:YES];
     }
     else {
-        if (self.activity.isAnimating) {
-            [self.activity stopAnimating];
-        }
         [self resetAutoHidePanelTimer];
     }
-}
-
-- (void)ZFPlayerWillBeginBuffering:(ZFPlayerView *)player {
-    [self.activity startAnimating];
-}
-
-- (void)ZFPlayerDidEndBuffering:(ZFPlayerView *)player {
-    [self.activity stopAnimating];
+    [self updateActivityUI];
 }
 
 #pragma mark - 播放进度控制
@@ -224,6 +214,20 @@ RFInitializingRootForUIView
 
 - (NSString *)durationMSStringWithTimeInterval:(NSTimeInterval)duration {
     return [NSString stringWithFormat:@"%02ld:%02ld", (long)duration/60, (long)duration % 60];
+}
+
+#pragma mark - 加载状态
+
+- (void)updateActivityUI {
+    BOOL shouldShowLoading = self.player.buffering && !self.player.isPlaying;
+    if (shouldShowLoading != self.activity.isAnimating) {
+        if (shouldShowLoading) {
+            [self.activity startAnimating];
+        }
+        else {
+            [self.activity stopAnimating];
+        }
+    }
 }
 
 #pragma mark -
@@ -368,6 +372,7 @@ RFInitializingRootForUIView
         return;
     }
     [self updateProgressUIWithCurrentTime:player.currentTime duration:player.duration skipSlider:NO];
+    [self updateActivityUI];
 }
 
 - (void)ZFPlayer:(ZFPlayerView *)player didChangePlayerItem:(AVPlayerItem *)playerItem {
