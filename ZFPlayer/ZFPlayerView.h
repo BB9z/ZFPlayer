@@ -81,6 +81,9 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 正常进入该状态时会停止播放，假如用户继续播放，这个状态不会自动退出
 @property (nonatomic, readonly, getter=isBuffering) BOOL buffering;
 
+/// 根据当前 view hierarchy 决定是否应处于全屏布局
+- (BOOL)shouldApplyFullscreenLayout;
+
 #pragma mark - 配置
 
 /// 默认设置 videoURL 或 playerItem 就开始自动播放，置为 YES 必须手动调用 play 方法才开始播放

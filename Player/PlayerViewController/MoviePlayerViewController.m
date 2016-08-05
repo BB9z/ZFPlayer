@@ -35,7 +35,7 @@
 @implementation MoviePlayerViewController
 
 - (BOOL)prefersStatusBarHidden {
-    return self.shouldApplyFullscreenLayout;
+    return self.playerView.shouldApplyFullscreenLayout;
 }
 
 - (void)dealloc {
@@ -88,15 +88,9 @@
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
-/// 到底是什么决定视频是否处于全屏？实际并不是设备方向！
-/// 想想分屏、不在主屏幕的情形，旋转设备影响的只是容器的尺寸
-- (BOOL)shouldApplyFullscreenLayout {
-    return self.view.width > self.view.height;
-}
-
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    if (self.shouldApplyFullscreenLayout) {
+    if (self.playerView.shouldApplyFullscreenLayout) {
         self.playerView.frame = self.view.bounds;
         self.hasApplyFullscreenLayout = YES;
     }
@@ -110,12 +104,20 @@
 }
 
 - (IBAction)onEnterFullscreenMode:(UIButton *)sender {
-    sender.selected = !sender.selected;
-    self.lockFullscreen = sender.selected;
-    if (self.lockFullscreen) {
-        // 仍然不知道如何才能避免这个私有方法的调用
-        // 调用 attemptRotationToDeviceOrientation 并没有重新要 supportedInterfaceOrientations 并更新
-        [[UIDevice currentDevice] setOrientation:UIDeviceOrientationLandscapeLeft animated:YES];
+    BOOL shouldEnterFullscreen = !self.playerView.shouldApplyFullscreenLayout;
+    if (shouldEnterFullscreen) {
+        if (!self.lockFullscreen) {
+            self.lockFullscreen = YES;
+            // 仍然不知道如何才能避免这个私有方法的调用
+            // 调用 attemptRotationToDeviceOrientation 并没有重新要 supportedInterfaceOrientations 并更新
+            [[UIDevice currentDevice] setOrientation:UIDeviceOrientationLandscapeLeft animated:YES];
+        }
+    }
+    else {
+        if (self.lockFullscreen) {
+            self.lockFullscreen = NO;
+            [[UIDevice currentDevice] setOrientation:UIDeviceOrientationPortrait animated:YES];
+        }
     }
     [self.class attemptRotationToDeviceOrientation];
 }

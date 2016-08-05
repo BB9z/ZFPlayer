@@ -67,6 +67,11 @@ RFInitializingRootForUIView
     }];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.fullScreenBtn.selected = self.player.shouldApplyFullscreenLayout;
+}
+
 #pragma mark - 面板显隐
 
 - (BOOL)panelHidden {

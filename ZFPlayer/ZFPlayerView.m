@@ -390,6 +390,13 @@ RFInitializingRootForUIView
     }
 }
 
+- (BOOL)shouldApplyFullscreenLayout {
+    // 到底是什么决定视频是否处于全屏？实际并不是设备方向！
+    // 想想分屏、不在主屏幕的情形，旋转设备影响的只是容器的尺寸
+    CGRect windowFrame = self.window.frame;
+    return CGRectGetWidth(windowFrame) > CGRectGetHeight(windowFrame);
+}
+
 #pragma mark - Delegtate 通知
 
 - (NSHashTable<id<ZFPlayerDisplayDelegate>> *)ZFPlayerView_displayers {
