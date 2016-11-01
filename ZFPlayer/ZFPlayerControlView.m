@@ -146,6 +146,7 @@ RFInitializingRootForUIView
     }
     else {
         [self resetAutoHidePanelTimer];
+        self.replayButton.hidden = YES;
     }
     [self updateActivityUI];
 }

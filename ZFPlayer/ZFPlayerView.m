@@ -33,6 +33,7 @@ RFInitializingRootForUIView
 
 - (void)onInit {
     _playbackInfoUpdateInterval = 0.5;
+#if DEBUG
     @weakify(self);
     self.debugTimer = [RFTimer scheduledTimerWithTimeInterval:3 repeats:YES fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
         @strongify(self);
@@ -45,6 +46,7 @@ RFInitializingRootForUIView
         dout_bool(self.playerItem.playbackBufferFull)
         dout_bool(self.playerItem.isPlaybackLikelyToKeepUp)
     }];
+#endif
 }
 
 - (void)afterInit {
@@ -182,10 +184,14 @@ RFInitializingRootForUIView
 }
 
 - (void)setPaused:(BOOL)paused {
+    BOOL shouldNoticeDisplayer = YES;
     if (!self.playerItem) {
         paused = NO;
+        shouldNoticeDisplayer = NO;
     }
-    _paused = paused;
+    if (_paused != paused) {
+        _paused = paused;
+    }
 
     if (paused) {
         self.ZFPlayerView_currentPauseDueToBuffering = NO;
@@ -194,7 +200,9 @@ RFInitializingRootForUIView
     else {
         [self play];
     }
-    [self ZFPlayerView_noticePauseChanged:paused];
+    if (shouldNoticeDisplayer) {
+        [self ZFPlayerView_noticePauseChanged:paused];
+    }
 }
 
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^)(BOOL))completion {
