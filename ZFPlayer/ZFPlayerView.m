@@ -292,12 +292,14 @@ RFInitializingRootForUIView
 }
 
 - (void)ZFPlayerView_updatePlaybackInfo {
-    self.currentTime = NSTimeIntervalFromCMTime(self.playerItem.currentTime);
+    NSTimeInterval currentTime = NSTimeIntervalFromCMTime(self.playerItem.currentTime);
+    self.currentTime = isnan(currentTime)? 0 : currentTime;
     if (CMTIME_IS_INDEFINITE(self.playerItem.duration)) {
         self.duration = 0;
     }
     else {
-        self.duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
+        NSTimeInterval duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
+        self.duration = isnan(duration)? 0 : duration;
     }
     [self ZFPlayerView_noticePlaybackInfoUpdate];
 }
