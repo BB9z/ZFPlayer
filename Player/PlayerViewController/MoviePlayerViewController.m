@@ -24,9 +24,6 @@
 #import "MoviePlayerViewController.h"
 #import "ZFPlayerView.h"
 
-@interface UIDevice (/* Fake */)
-- (void)setOrientation:(UIDeviceOrientation)orientation animated:(BOOL)animated;
-@end
 
 @interface MoviePlayerViewController ()
 @property (nonatomic) BOOL hasApplyFullscreenLayout;
@@ -88,6 +85,10 @@
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
+- (void)setOrientation:(UIDeviceOrientation)orientation {
+    [[UIDevice currentDevice] setValue:@(orientation) forKey:@"orientation"];
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     if (self.playerView.shouldApplyFullscreenLayout) {
@@ -110,13 +111,13 @@
             self.lockFullscreen = YES;
             // 仍然不知道如何才能避免这个私有方法的调用
             // 调用 attemptRotationToDeviceOrientation 并没有重新要 supportedInterfaceOrientations 并更新
-            [[UIDevice currentDevice] setOrientation:UIDeviceOrientationLandscapeLeft animated:YES];
+            [self setOrientation:UIDeviceOrientationLandscapeLeft];
         }
     }
     else {
         if (self.lockFullscreen) {
             self.lockFullscreen = NO;
-            [[UIDevice currentDevice] setOrientation:UIDeviceOrientationPortrait animated:YES];
+            [self setOrientation:UIDeviceOrientationPortrait];
         }
     }
     [self.class attemptRotationToDeviceOrientation];
