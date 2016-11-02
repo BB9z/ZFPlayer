@@ -104,7 +104,6 @@
                                     <color key="minimumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="maximumTrackTintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
-                                        <action selector="onPlaybackProgressSliderTouchCancel:" destination="iN0-l3-epB" eventType="touchUpOutside" id="R1X-lj-M4G"/>
                                         <action selector="onPlaybackProgressSliderTouchCancel:" destination="iN0-l3-epB" eventType="touchCancel" id="UWN-60-0fU"/>
                                         <action selector="onPlaybackProgressSliderTouchDown:" destination="iN0-l3-epB" eventType="touchDown" id="CVJ-rC-jfx"/>
                                         <action selector="onPlaybackProgressSliderTouchMove:" destination="iN0-l3-epB" eventType="touchDragInside" id="zQo-7n-Kc9"/>

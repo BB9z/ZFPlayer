@@ -59,6 +59,9 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 ///
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^__nullable)(BOOL finished))completion;
 
+/// 正在切换的时间点，不在切换时值 -1
+@property NSTimeInterval seekingTime;
+
 /// 停止播放并清理状态
 - (void)stop;
 
@@ -67,7 +70,8 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 视频是否正在播放，处于缓冲状态为 NO
 @property (readonly, getter=isPlaying) BOOL playing;
 
-/// 当前已播放时间，特殊状态下的定义暂不明确
+/// 当前已播放时间，在调整当前播放时间时，UI 可能需要显示 seekingTime
+/// 其他特殊状态下的定义暂不明确
 @property NSTimeInterval currentTime;
 
 /// 当前播放视频的时长

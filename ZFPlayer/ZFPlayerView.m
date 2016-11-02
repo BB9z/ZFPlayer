@@ -32,6 +32,7 @@ RFInitializingRootForUIView
 
 - (void)onInit {
     _playbackInfoUpdateInterval = 0.5;
+    _seekingTime = -1;
 #if DEBUG
     @weakify(self);
     self.debugTimer = [RFTimer scheduledTimerWithTimeInterval:3 repeats:YES fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
@@ -223,10 +224,14 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         self.ZFPlayerView_observingPlaybackTimeChanges = NO;
     }
     self.buffering = YES;
-    CMTime tolerance = CMTimeFromNSTimeInterval(0.3);
+    CMTime tolerance = CMTimeFromNSTimeInterval(0.2);
+    self.seekingTime = time;
     @weakify(self);
     [self.AVPlayer seekToTime:CMTimeFromNSTimeInterval(time) toleranceBefore:tolerance toleranceAfter:tolerance completionHandler:^(BOOL finished) {
         @strongify(self);
+        if (finished) {
+            self.seekingTime = -1;
+        }
         [self ZFPlayerView_tryExitBuffering];
         if (!self.paused
             && !self.playing) {

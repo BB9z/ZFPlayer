@@ -191,6 +191,7 @@ RFInitializingRootForUIView
     NSTimeInterval duration = self.player.duration;
     NSTimeInterval target = sender.value * duration;
     [self updateProgressUIWithCurrentTime:target duration:duration skipSlider:YES];
+    self.autoHidePanelTimer.suspended = YES;
 }
 
 - (IBAction)onPlaybackProgressSliderTouchUp:(UISlider *)sender {
@@ -255,7 +256,7 @@ RFInitializingRootForUIView
         // 正在调解进度，UI 受手势影响
         return;
     }
-    [self updateProgressUIWithCurrentTime:player.currentTime duration:player.duration skipSlider:NO];
+    [self updateProgressUIWithCurrentTime:(player.seekingTime >= 0)? player.seekingTime : player.currentTime duration:player.duration skipSlider:NO];
     [self updateActivityUI];
 }
 
