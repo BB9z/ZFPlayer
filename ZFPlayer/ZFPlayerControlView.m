@@ -141,7 +141,24 @@ RFInitializingRootForUIView
 }
 
 - (void)resetAutoHidePanelTimer {
+    if (!self.autoHidePanelTimer.suspended) {
+        self.autoHidePanelTimer.suspended = YES;
+        self.autoHidePanelTimer.suspended = NO;
+    }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
     self.autoHidePanelTimer.suspended = YES;
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+    self.autoHidePanelTimer.suspended = NO;
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
     self.autoHidePanelTimer.suspended = NO;
 }
 
@@ -174,7 +191,6 @@ RFInitializingRootForUIView
     NSTimeInterval duration = self.player.duration;
     NSTimeInterval target = sender.value * duration;
     [self updateProgressUIWithCurrentTime:target duration:duration skipSlider:YES];
-    self.autoHidePanelTimer.suspended = NO;
 }
 
 - (IBAction)onPlaybackProgressSliderTouchUp:(UISlider *)sender {
@@ -190,6 +206,7 @@ RFInitializingRootForUIView
 - (IBAction)onPlaybackProgressSliderTouchCancel:(id)sender {
     self.seekBeginValue = 0;
     [self ZFPlayerDidUpdatePlaybackInfo:self.player];
+    self.autoHidePanelTimer.suspended = NO;
 }
 
 - (void)updateProgressUIWithCurrentTime:(NSTimeInterval)current duration:(NSTimeInterval)duration skipSlider:(BOOL)skipSlider {
