@@ -30,14 +30,16 @@
 static const CGFloat ZFPlayerControlBarAutoFadeOutTimeInterval = 0.5f;
 
 @interface ZFPlayerControlView ()
-@property (nonatomic, strong) RFTimer *autoHidePanelTimer;
-@property (nonatomic) double seekBeginValue;
+@property (nonatomic) RFTimer *autoHidePanelTimer;
+@property (nonatomic) RFTimer *floatMessageHideTimer;
+@property double seekBeginValue;
 @end
 
 @implementation ZFPlayerControlView
 RFInitializingRootForUIView
 
 - (void)onInit {
+    _seekBeginValue = -1;
 }
 
 - (void)afterInit {
@@ -53,7 +55,7 @@ RFInitializingRootForUIView
 
     [self ZFPlayer:self.player didChangePlayerItem:self.player.playerItem];
     self.replayButton.hidden = YES;
-    self.seekProgressIndicatorContainer.hidden = YES;
+    self.floatMessageContainer.alpha = 0;
 }
 
 - (IBAction)onBackButtonTapped:(id)sender {
@@ -165,7 +167,7 @@ RFInitializingRootForUIView
 #pragma mark - 开始/暂停
 
 - (IBAction)onPlayButtonTapped:(UIButton *)button {
-    self.player.paused = self.player.isPlaying;
+    self.player.paused = !self.player.paused;
 }
 
 - (void)ZFPlayer:(ZFPlayerView *)player didChangePauseState:(BOOL)isPaused {
@@ -183,31 +185,52 @@ RFInitializingRootForUIView
 #pragma mark - 播放进度控制
 
 - (IBAction)onPlaybackProgressSliderTouchDown:(UISlider *)sender {
-    self.seekBeginValue = sender.value;
-    self.autoHidePanelTimer.suspended = YES;
+    [self playbackProgressSeekBegin];
 }
 
 - (IBAction)onPlaybackProgressSliderTouchMove:(UISlider *)sender {
-    NSTimeInterval duration = self.player.duration;
-    NSTimeInterval target = sender.value * duration;
-    [self updateProgressUIWithCurrentTime:target duration:duration skipSlider:YES];
-    self.autoHidePanelTimer.suspended = YES;
+    [self playbackProgressSeekChange];
+}
+
+- (IBAction)onPlaybackProgressSliderDragOutSide:(UISlider *)sender {
+    [self showFloatStatusWithMessage:@"松开取消进退"];
+}
+
+- (IBAction)onPlaybackProgressSliderTouchUpOutSide:(UISlider *)sender {
+    [self playbackProgressSeekEndCancel:YES];
 }
 
 - (IBAction)onPlaybackProgressSliderTouchUp:(UISlider *)sender {
-    NSTimeInterval duration = self.player.duration;
-    NSTimeInterval target = sender.value * duration;
-    [self.player seekToTime:target completion:^(BOOL finished) {
-        self.seekBeginValue = 0;
-    }];
-    [self updateProgressUIWithCurrentTime:target duration:duration skipSlider:YES];
-    self.autoHidePanelTimer.suspended = NO;
+    [self playbackProgressSeekEndCancel:NO];
 }
 
-- (IBAction)onPlaybackProgressSliderTouchCancel:(id)sender {
-    self.seekBeginValue = 0;
-    [self ZFPlayerDidUpdatePlaybackInfo:self.player];
+- (void)playbackProgressSeekBegin {
+    self.seekBeginValue = self.playbackProgressSlider.value;
+    self.autoHidePanelTimer.suspended = YES;
+}
+
+- (void)playbackProgressSeekChange {
+    if (self.seekBeginValue < 0) {
+        self.seekBeginValue = self.playbackProgressSlider.value;
+    }
+    NSTimeInterval duration = self.player.duration;
+    NSTimeInterval target = self.playbackProgressSlider.value * duration;
+    [self updateProgressUIWithCurrentTime:target duration:duration skipSlider:YES];
+    [self showFloatStatusWithMessage:(self.playbackProgressSlider.value > self.seekBeginValue)? @">>" : @"<<"];
+    self.autoHidePanelTimer.suspended = YES;
+}
+
+- (void)playbackProgressSeekEndCancel:(BOOL)cancel {
     self.autoHidePanelTimer.suspended = NO;
+    self.seekBeginValue = -1;
+    if (!cancel) {
+        NSTimeInterval duration = self.player.duration;
+        NSTimeInterval target = self.playbackProgressSlider.value * duration;
+        [self.player seekToTime:target completion:^(BOOL finished) {
+        }];
+    }
+    [self hideFloatStatusAnimated:YES];
+    [self ZFPlayerDidUpdatePlaybackInfo:self.player];
 }
 
 - (void)updateProgressUIWithCurrentTime:(NSTimeInterval)current duration:(NSTimeInterval)duration skipSlider:(BOOL)skipSlider {
@@ -235,7 +258,7 @@ RFInitializingRootForUIView
     return [NSString stringWithFormat:@"%02ld:%02ld", (long)duration/60, (long)duration % 60];
 }
 
-#pragma mark - 加载状态
+#pragma mark - 状态
 
 - (void)updateActivityUI {
     BOOL shouldShowLoading = self.player.buffering && !self.player.isPlaying;
@@ -249,10 +272,50 @@ RFInitializingRootForUIView
     }
 }
 
+- (void)showFloatStatusWithMessage:(NSString *)text {
+    RFTimer *tm = self.floatMessageHideTimer;
+    if (tm) {
+        tm.suspended = YES;
+    }
+    self.floatMessageLabel.text = text;
+    if (self.floatMessageContainer.alpha != 1) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.floatMessageContainer.alpha = 1;
+        }];
+    }
+    if (!tm) {
+        @weakify(self);
+        tm = [RFTimer scheduledTimerWithTimeInterval:3 repeats:NO fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
+            @strongify(self);
+            [self hideFloatStatusAnimated:YES];
+        }];
+        self.floatMessageHideTimer = tm;
+    }
+    else {
+        tm.suspended = NO;
+    }
+}
+
+- (void)hideFloatStatusAnimated:(BOOL)animated {
+    if (self.floatMessageHideTimer) {
+        [self.floatMessageHideTimer invalidate];
+        self.floatMessageHideTimer = nil;
+    }
+    if (animated) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.floatMessageContainer.alpha = 0;
+        } completion:^(BOOL finished) {
+        }];
+    }
+    else {
+        self.floatMessageContainer.alpha = 0;
+    }
+}
+
 #pragma mark -
 
 - (void)ZFPlayerDidUpdatePlaybackInfo:(ZFPlayerView *)player {
-    if (self.seekBeginValue) {
+    if (self.seekBeginValue >= 0) {
         // 正在调解进度，UI 受手势影响
         return;
     }

@@ -104,10 +104,12 @@
                                     <color key="minimumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="maximumTrackTintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
-                                        <action selector="onPlaybackProgressSliderTouchCancel:" destination="iN0-l3-epB" eventType="touchCancel" id="UWN-60-0fU"/>
+                                        <action selector="onPlaybackProgressSliderDragOutSide:" destination="iN0-l3-epB" eventType="touchDragOutside" id="PJm-ih-9vR"/>
                                         <action selector="onPlaybackProgressSliderTouchDown:" destination="iN0-l3-epB" eventType="touchDown" id="CVJ-rC-jfx"/>
                                         <action selector="onPlaybackProgressSliderTouchMove:" destination="iN0-l3-epB" eventType="touchDragInside" id="zQo-7n-Kc9"/>
+                                        <action selector="onPlaybackProgressSliderTouchUp:" destination="iN0-l3-epB" eventType="touchCancel" id="LHA-lq-H8T"/>
                                         <action selector="onPlaybackProgressSliderTouchUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="oGf-lI-fRZ"/>
+                                        <action selector="onPlaybackProgressSliderTouchUpOutSide:" destination="iN0-l3-epB" eventType="touchUpOutside" id="pvI-dG-jdU"/>
                                     </connections>
                                 </slider>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mh-1N-825">
@@ -188,14 +190,14 @@
             <connections>
                 <outlet property="activity" destination="y1P-EE-mR8" id="083-eq-gJi"/>
                 <outlet property="currentTimeLabel" destination="yIE-vF-c8O" id="bdx-Ti-WaH"/>
+                <outlet property="floatMessageContainer" destination="Cd7-Gk-Mfx" id="n1d-3f-VmB"/>
+                <outlet property="floatMessageLabel" destination="vpB-JU-pOE" id="4JZ-OS-rQr"/>
                 <outlet property="fullScreenBtn" destination="AEI-I4-hWP" id="Wnd-p1-skw"/>
-                <outlet property="horizontalLabel" destination="vpB-JU-pOE" id="C7c-ED-lEk"/>
                 <outlet property="loadRangView" destination="XJK-cI-fYm" id="se6-47-zXa"/>
                 <outlet property="navigationBackButton" destination="FsW-K3-1Nq" id="UbE-z3-TLR"/>
                 <outlet property="playbackProgressSlider" destination="nSJ-HO-8mU" id="Bng-si-AK4"/>
                 <outlet property="progressContainer" destination="LXe-Qc-9BR" id="A0s-fT-dLL"/>
                 <outlet property="replayButton" destination="gay-Nd-GMb" id="A2E-hG-Cdk"/>
-                <outlet property="seekProgressIndicatorContainer" destination="Cd7-Gk-Mfx" id="9Ob-BQ-sjy"/>
                 <outlet property="startPauseButton" destination="qIf-aw-BaL" id="UPg-hT-dvn"/>
                 <outlet property="toolBar" destination="yyH-TF-a3R" id="dMj-Xt-uXY"/>
                 <outlet property="totalTimeLabel" destination="3mh-1N-825" id="68R-qh-J84"/>

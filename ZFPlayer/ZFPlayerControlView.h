@@ -56,8 +56,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *fullScreenBtn;
 
 ///
-@property (nonatomic, weak) IBOutlet UIView *seekProgressIndicatorContainer;
-@property (nonatomic, weak) IBOutlet UILabel *horizontalLabel;
+@property (nonatomic, weak) IBOutlet UIView *floatMessageContainer;
+@property (nonatomic, weak) IBOutlet UILabel *floatMessageLabel;
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activity;
 
