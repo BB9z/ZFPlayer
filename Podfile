@@ -3,9 +3,9 @@
 # Uncomment this line if you're using Swift
 # use_frameworks!
 
-target 'Player' do
-pod 'XXNibBridge'
-pod 'SDWebImage'
-pod 'FLEX'
+target 'Test' do
+    # pod 'XXNibBridge'
+    # pod 'SDWebImage'
+    pod 'FLEX'
 end
 
