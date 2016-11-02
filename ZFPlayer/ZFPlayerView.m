@@ -25,7 +25,6 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 @property (nonatomic) BOOL ZFPlayerView_currentPauseDueToBuffering;
 
 @property (nonatomic, strong) RFTimer *debugTimer;
-@property CFAbsoluteTime ZFPlayerView_bufferingStartTime;
 @end
 
 @implementation ZFPlayerView
@@ -350,7 +349,6 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
             self.paused = NO;
             self.ZFPlayerView_currentPauseDueToBuffering = NO;
         }
-        self.ZFPlayerView_bufferingStartTime = 0;
     }
     _buffering = buffering;
     if (buffering) {
@@ -359,7 +357,6 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         dout_debug(@"Pause to buffer");
         self.paused = YES;
         self.ZFPlayerView_currentPauseDueToBuffering = YES;
-        self.ZFPlayerView_bufferingStartTime = CFAbsoluteTimeGetCurrent();
 
         self.ZFPlayerView_loadRangeObserver = [self.playerItem RFAddObserver:self forKeyPath:@keypath(self.playerItem, loadedTimeRanges) options:NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(ZFPlayerView *observer, NSDictionary *change) {
             [observer ZFPlayerView_tryExitBuffering];
@@ -369,7 +366,6 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
 
 - (void)ZFPlayerView_tryExitBuffering {
     NSTimeInterval loadedRange = self.ZFPlayerView_maxLoadRang;
-    NSTimeInterval current = NSTimeIntervalFromCMTime(self.playerItem.currentTime);
     NSTimeInterval duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
     if (duration > 0
         && loadedRange >= duration) {
@@ -377,23 +373,9 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         dout_debug(@"End buffering: reach end");
         self.buffering = NO;
     }
-    else if (loadedRange < current + 3) {
-        // 缓冲样本太小，再等等看
-        return;
-    }
     else if (self.playerItem.isPlaybackLikelyToKeepUp) {
         // 系统认为可以了
         dout_debug(@"End buffering: likely to keep up");
-        self.buffering = NO;
-    }
-    else if (loadedRange - current > CFAbsoluteTimeGetCurrent() - self.ZFPlayerView_bufferingStartTime) {
-        // 加载缓冲速度比播放速度快，继续播放
-        dout_debug(@"End buffering: good network");
-        self.buffering = NO;
-    }
-    else if (loadedRange > current + 30) {
-        // 缓存挺长的了，继续播放吧
-        dout_debug(@"End buffering: has 30s");
         self.buffering = NO;
     }
 }
