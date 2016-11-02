@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 #import "MoviePlayerViewController.h"
-#import "ZFPlayerView.h"
+#import "ZFPlayerControlView.h"
 
 
 @interface MoviePlayerViewController ()
@@ -42,9 +42,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    self.playerView.translatesAutoresizingMaskIntoConstraints = YES;
-    [self.playerView bringToFront];
+    ZFPlayerView *pv = self.playerView;
+    pv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    pv.translatesAutoresizingMaskIntoConstraints = YES;
+    pv.playbackInfoUpdateInterval = 4;
+    [pv bringToFront];
+
+    ZFPlayerControlView *cv = [ZFPlayerControlView loadWithNibName:nil];
+    cv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    cv.frame = pv.bounds;
+    cv.player = pv;
+    [pv addSubview:cv];
 
     if (self.autoPlay) {
         self.playerView.videoURL = self.videoURL;

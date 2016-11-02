@@ -48,9 +48,6 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 正在播放视频的 URL，可能有正在播放仍为空的情形，设置这个属性可以切换视频
 @property (nonatomic, nullable, copy) NSURL *videoURL;
 
-/// 默认控制层，从 nib 里载入若不设置会自动创建一个
-@property (nonatomic, nullable, weak) IBOutlet ZFPlayerControlView *controlView;
-
 #pragma mark - 播放控制
 
 /// 尝试开始播放，如果视频已播放到结尾，再调用会从头开始播放

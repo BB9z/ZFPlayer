@@ -31,7 +31,7 @@
     ZFPlayerDisplayDelegate
 >
 
-@property (nonatomic, weak) ZFPlayerView *player;
+@property (nonatomic, weak) IBOutlet ZFPlayerView *player;
 
 @property (nonatomic) BOOL panelHidden;
 - (void)setPanelHidden:(BOOL)hidden animated:(BOOL)animated;

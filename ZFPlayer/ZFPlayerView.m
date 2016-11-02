@@ -1,6 +1,5 @@
 
 #import "ZFPlayerView.h"
-#import "ZFPlayerControlView.h"
 #import "RFTimer.h"
 #import "RFKVOWrapper.h"
 
@@ -57,18 +56,6 @@ RFInitializingRootForUIView
     ZFPlayerView *pv = [super alloc];
     dout(@"Creat %p", pv);
     return pv;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-
-    if (!self.controlView) {
-        ZFPlayerControlView *cv = [ZFPlayerControlView loadWithNibName:nil];
-        cv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        cv.frame = self.bounds;
-        [self addSubview:cv];
-        self.controlView = cv;
-    }
 }
 
 - (void)dealloc {
@@ -383,22 +370,6 @@ RFInitializingRootForUIView
 }
 
 #pragma mark - UI 逻辑
-
-- (void)setControlView:(ZFPlayerControlView *)controlView {
-    if (_controlView != controlView) {
-        if (_controlView) {
-            [self removeDisplayer:_controlView];
-            if (_controlView.player == self) {
-                _controlView.player = nil;
-            }
-        }
-        _controlView = controlView;
-        if (controlView) {
-            [self addDisplayer:controlView];
-            controlView.player = self;
-        }
-    }
-}
 
 - (BOOL)shouldApplyFullscreenLayout {
     // 到底是什么决定视频是否处于全屏？实际并不是设备方向！

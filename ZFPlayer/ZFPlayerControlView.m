@@ -72,6 +72,18 @@ RFInitializingRootForUIView
     self.fullScreenBtn.selected = self.player.shouldApplyFullscreenLayout;
 }
 
+- (void)setPlayer:(ZFPlayerView *)player {
+    if (_player != player) {
+        if (_player) {
+            [_player removeDisplayer:self];
+        }
+        _player = player;
+        if (player) {
+            [player addDisplayer:self];
+        }
+    }
+}
+
 #pragma mark - 面板显隐
 
 - (BOOL)panelHidden {
