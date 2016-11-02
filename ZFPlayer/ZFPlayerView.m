@@ -37,14 +37,7 @@ RFInitializingRootForUIView
     @weakify(self);
     self.debugTimer = [RFTimer scheduledTimerWithTimeInterval:3 repeats:YES fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
         @strongify(self);
-        douts(@"------")
-        dout_bool(self.playing)
-        dout_bool(self.paused)
-        dout_bool(self.buffering)
-        dout_int(self.playerItem.status)
-        dout_bool(self.playerItem.playbackBufferEmpty)
-        dout_bool(self.playerItem.playbackBufferFull)
-        dout_bool(self.playerItem.isPlaybackLikelyToKeepUp)
+        douts(@"%@", self.debugDescription);
     }];
 #endif
 }
@@ -78,6 +71,29 @@ RFInitializingRootForUIView
         self.paused = YES;
         self.ZFPlayerView_observingPlaybackTimeChanges = NO;
     }
+}
+
+- (NSString *)debugDescription {
+    NSString *playStatus = @"";
+    NSString *playSource = nil;
+    if (self.videoURL) {
+        playSource = [NSString stringWithFormat:@"videoURL = %@", self.videoURL];
+    }
+    else if (self.playerItem) {
+        playSource = [NSString stringWithFormat:@"playerItem = %@", self.playerItem];
+    }
+    if (playSource) {
+        playStatus = [playStatus stringByAppendingFormat:@" \
+rate: %.1f, paused: %@, status: %@, \
+progress: %.1f/%.1f, loadRang: %.1f \
+buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
+                      self.AVPlayer.rate, @(self.paused), @(self.playerItem.status),
+                      self.currentTime, self.duration, self.ZFPlayerView_maxLoadRang,
+                      @(self.buffering), @(self.playerItem.playbackBufferEmpty), @(self.playerItem.playbackBufferFull), @(self.playerItem.isPlaybackLikelyToKeepUp)
+                      ];
+    }
+    return [NSString stringWithFormat:@"<%@: %p, %@%@>", self.class, (void *)self,
+            playSource?: @"no play item", playStatus];
 }
 
 #pragma mark - 播放核心属性
@@ -167,6 +183,7 @@ RFInitializingRootForUIView
         [self ZFPlayerView_noticePlaybackInfoUpdate];
     }
     else {
+        dout_debug(@"AVPlayer play");
         [self.AVPlayer play];
     }
 }
@@ -183,6 +200,7 @@ RFInitializingRootForUIView
 
     if (paused) {
         self.ZFPlayerView_currentPauseDueToBuffering = NO;
+        dout_debug(@"AVPlayer pause");
         [self.AVPlayer pause];
     }
     else {
@@ -194,6 +212,7 @@ RFInitializingRootForUIView
 }
 
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^)(BOOL))completion {
+    dout_debug(@"seek to time: %f", time);
     if (!self.playerItem) {
         if (completion) {
             completion(NO);
@@ -213,6 +232,7 @@ RFInitializingRootForUIView
         if (!self.paused
             && !self.playing) {
             // 没有明确暂停，继续播放
+            dout_debug(@"AVPlayer play");
             [self.AVPlayer play];
         }
         if (completion) {
@@ -225,6 +245,7 @@ RFInitializingRootForUIView
 }
 
 - (void)stop {
+    dout_debug(@"AVPlayer pause");
     [self.AVPlayer pause];  // 为了重置 rate
     self.playerItem = nil;
 }
@@ -325,6 +346,7 @@ RFInitializingRootForUIView
         [self.playerItem RFRemoveObserverWithIdentifier:self.ZFPlayerView_loadRangeObserver];
         self.ZFPlayerView_loadRangeObserver = nil;
         if (self.ZFPlayerView_currentPauseDueToBuffering) {
+            dout_debug(@"End buffering, continue play");
             self.paused = NO;
             self.ZFPlayerView_currentPauseDueToBuffering = NO;
         }
