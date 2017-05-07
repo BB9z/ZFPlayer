@@ -167,6 +167,9 @@ RFInitializingRootForUIView
 #pragma mark - 开始/暂停
 
 - (IBAction)onPlayButtonTapped:(UIButton *)button {
+    if (self.player.playReachEnd) {
+        [self.player seekToTime:0 completion:nil];
+    }
     self.player.paused = !self.player.paused;
 }
 

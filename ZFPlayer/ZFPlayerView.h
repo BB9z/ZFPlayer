@@ -43,7 +43,7 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 @property (nonatomic, nonnull, readonly) AVPlayer *AVPlayer;
 
 /// 正在播放的视频对象，设置这个属性可以切换视频
-@property (nonatomic, nullable, strong) AVPlayerItem *playerItem;
+@property (nonatomic, nullable) AVPlayerItem *playerItem;
 
 /// 正在播放视频的 URL，可能有正在播放仍为空的情形，设置这个属性可以切换视频
 @property (nonatomic, nullable, copy) NSURL *videoURL;
@@ -77,6 +77,9 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 当前播放视频的时长
 /// 视频未加载或正在加载但未获取到时长时为 0
 @property NSTimeInterval duration;
+
+/// 视频播放到末尾
+@property (getter=isPlayReachEnd) BOOL playReachEnd;
 
 /// 是否处于影响播放的缓冲状态，缓冲但可以正常播放不在此情形中
 /// 正常进入该状态时会停止播放，假如用户继续播放，这个状态不会自动退出

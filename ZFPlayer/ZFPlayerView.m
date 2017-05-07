@@ -16,15 +16,15 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 @interface ZFPlayerView ()
 @property (nonatomic, readonly) AVPlayerLayer *ZFPlayerView_playerLayer;
 
-@property (nonatomic, strong) NSHashTable<id<ZFPlayerDisplayDelegate>> *ZFPlayerView_displayers;
+@property (nonatomic) NSHashTable<id<ZFPlayerDisplayDelegate>> *ZFPlayerView_displayers;
 
 @property (nonatomic) BOOL ZFPlayerView_observingPlaybackTimeChanges;
-@property (nullable, strong) id ZFPlayerView_playbackTimeObserver;
-@property (nullable, strong) id ZFPlayerView_bufferEmptyObserver;
-@property (nullable, strong) id ZFPlayerView_loadRangeObserver;
+@property (nullable) id ZFPlayerView_playbackTimeObserver;
+@property (nullable) id ZFPlayerView_bufferEmptyObserver;
+@property (nullable) id ZFPlayerView_loadRangeObserver;
 @property (nonatomic) BOOL ZFPlayerView_currentPauseDueToBuffering;
 
-@property (nonatomic, strong) RFTimer *debugTimer;
+@property RFTimer *debugTimer;
 @end
 
 @implementation ZFPlayerView
@@ -37,7 +37,9 @@ RFInitializingRootForUIView
     @weakify(self);
     self.debugTimer = [RFTimer scheduledTimerWithTimeInterval:3 repeats:YES fireBlock:^(RFTimer *timer, NSUInteger repeatCount) {
         @strongify(self);
-        douts(@"%@", self.debugDescription);
+        if (self.window) {
+            dout_debug(@"%@", self.debugDescription);
+        }
     }];
 #endif
 }
@@ -132,6 +134,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
 
         self.buffering = NO;
         self.currentTime = 0;
+        self.playReachEnd = NO;
         self.duration = 0;
     }
     _playerItem = playerItem;
@@ -140,7 +143,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         [nc addObserver:self selector:@selector(ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
         [nc addObserver:self selector:@selector(ZFPlayerView_handelPlaybackStalledNotification:) name:AVPlayerItemPlaybackStalledNotification object:playerItem];
         self.ZFPlayerView_bufferEmptyObserver = [playerItem RFAddObserver:self forKeyPath:@keypath(playerItem, isPlaybackBufferEmpty) options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(ZFPlayerView *observer, NSDictionary *change) {
-            dout_bool(observer.playerItem.playbackBufferEmpty)
+            _dout_bool(observer.playerItem.playbackBufferEmpty)
             if (observer.playerItem.playbackBufferEmpty) {
                 observer.buffering = YES;
             }
@@ -173,19 +176,8 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         dout_warning(@"Cannot play, no playerItem");
         return;
     }
-
-    if (CMTIME_IS_VALID(self.playerItem.duration)
-        && CMTimeGetSeconds(self.playerItem.currentTime) == CMTimeGetSeconds(self.playerItem.duration)
-        && self.AVPlayer.status == AVPlayerItemStatusReadyToPlay) {
-        // 如果播放到末尾，再 play 重头开始
-        [self seekToTime:0 completion:nil];
-        self.currentTime = 0;
-        [self ZFPlayerView_noticePlaybackInfoUpdate];
-    }
-    else {
-        dout_debug(@"AVPlayer play");
-        [self.AVPlayer play];
-    }
+    dout_debug(@"AVPlayer play");
+    [self.AVPlayer play];
 }
 
 - (void)setPaused:(BOOL)paused {
@@ -226,6 +218,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
     self.buffering = YES;
     CMTime tolerance = CMTimeFromNSTimeInterval(0.2);
     self.seekingTime = time;
+    self.playReachEnd = NO;
     @weakify(self);
     [self.AVPlayer seekToTime:CMTimeFromNSTimeInterval(time) toleranceBefore:tolerance toleranceAfter:tolerance completionHandler:^(BOOL finished) {
         @strongify(self);
@@ -261,6 +254,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
 }
 
 - (void)ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:(NSNotification *)notice {
+    self.playReachEnd = YES;
     dispatch_async_on_main(^{
         [self ZFPlayerView_noticePlayToEnd];
         [self ZFPlayerView_noticePauseChanged:YES];
@@ -304,7 +298,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
     }
 }
 
-- (void)ZFPlayerView_updatePlaybackInfo {
+- (void)ZFPlayerView_updatePlaybackProprties {
     NSTimeInterval currentTime = NSTimeIntervalFromCMTime(self.playerItem.currentTime);
     self.currentTime = isnan(currentTime)? 0 : currentTime;
     if (CMTIME_IS_INDEFINITE(self.playerItem.duration)) {
@@ -314,6 +308,10 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         NSTimeInterval duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
         self.duration = isnan(duration)? 0 : duration;
     }
+}
+
+- (void)ZFPlayerView_updatePlaybackInfo {
+    [self ZFPlayerView_updatePlaybackProprties];
     [self ZFPlayerView_noticePlaybackInfoUpdate];
 }
 
@@ -351,8 +349,8 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         self.ZFPlayerView_loadRangeObserver = nil;
         if (self.ZFPlayerView_currentPauseDueToBuffering) {
             dout_debug(@"End buffering, continue play");
-            self.paused = NO;
             self.ZFPlayerView_currentPauseDueToBuffering = NO;
+            self.paused = NO;
         }
     }
     _buffering = buffering;
