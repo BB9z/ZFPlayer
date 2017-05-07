@@ -130,6 +130,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         [nc removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
         [nc removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:_playerItem];
         [nc removeObserver:self name:AVPlayerItemPlaybackStalledNotification object:_playerItem];
+        [nc removeObserver:self name:AVPlayerItemFailedToPlayToEndTimeNotification object:_playerItem];
         [self RFRemoveObserverWithIdentifier:self.ZFPlayerView_bufferEmptyObserver];
 
         self.buffering = NO;
@@ -142,10 +143,17 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         [nc addObserver:self selector:@selector(ZFPlayerView_handelApplicationWillResignActiveNotification:) name:UIApplicationWillResignActiveNotification object:nil];
         [nc addObserver:self selector:@selector(ZFPlayerView_handelPlayerItemDidPlayToEndTimeNotification:) name:AVPlayerItemDidPlayToEndTimeNotification object:playerItem];
         [nc addObserver:self selector:@selector(ZFPlayerView_handelPlaybackStalledNotification:) name:AVPlayerItemPlaybackStalledNotification object:playerItem];
+        [nc addObserver:self selector:@selector(ZFPlayerView_handelPlayerItemFailedToPlayToEndTimeNotification:) name:AVPlayerItemFailedToPlayToEndTimeNotification object:playerItem];
         self.ZFPlayerView_bufferEmptyObserver = [playerItem RFAddObserver:self forKeyPath:@keypath(playerItem, isPlaybackBufferEmpty) options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew queue:[NSOperationQueue mainQueue] block:^(ZFPlayerView *observer, NSDictionary *change) {
             _dout_bool(observer.playerItem.playbackBufferEmpty)
             if (observer.playerItem.playbackBufferEmpty) {
                 observer.buffering = YES;
+            }
+        }];
+        [playerItem RFAddObserver:self forKeyPath:@keypath(playerItem, status) options:NSKeyValueObservingOptionNew queue:nil block:^(ZFPlayerView *observer, NSDictionary *change) {
+            _dout_int(observer.playerItem.status)
+            if (observer.playerItem.status == AVPlayerStatusFailed) {
+                [observer ZFPlayerView_handlePlayError:observer.playerItem.error];
             }
         }];
 
@@ -261,6 +269,11 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
     });
 }
 
+- (void)ZFPlayerView_handelPlayerItemFailedToPlayToEndTimeNotification:(NSNotification *)notice {
+    NSError *error = notice.userInfo[AVPlayerItemFailedToPlayToEndTimeErrorKey];
+    [self ZFPlayerView_handlePlayError:error];
+}
+
 - (BOOL)isPlaying {
     if (self.playerItem.playbackBufferEmpty
         && !self.playerItem.playbackLikelyToKeepUp) {
@@ -273,6 +286,13 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
 
 + (NSSet *)keyPathsForValuesAffectingPlaying {
     return [NSSet setWithObject:@keypathClassInstance(ZFPlayerView, AVPlayer.rate)];
+}
+
+- (void)ZFPlayerView_handlePlayError:(NSError *)error {
+    self.buffering = NO;
+    dispatch_async_on_main(^{
+        [self ZFPlayerView_noticePlayError:error];
+    });
 }
 
 #pragma mark - Playback info update
@@ -455,6 +475,7 @@ ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayerItemChanged, didChangePl
 ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePauseChanged, didChangePauseState, BOOL)
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlaybackInfoUpdate, ZFPlayerDidUpdatePlaybackInfo);
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlayToEnd, ZFPlayerDidPlayToEnd);
+ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayError, didReciveError, NSError *);
 
 @end
 

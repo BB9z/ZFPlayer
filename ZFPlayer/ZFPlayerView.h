@@ -123,5 +123,8 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 视频播放到末尾时通知
 - (void)ZFPlayerDidPlayToEnd:(nonnull ZFPlayerView *)player;
 
+/// 播放错误
+- (void)ZFPlayer:(nonnull ZFPlayerView *)player didReciveError:(nullable NSError *)error;
+
 
 @end

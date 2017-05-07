@@ -25,7 +25,9 @@
 #import "ZFPlayerControlView.h"
 
 
-@interface MoviePlayerViewController ()
+@interface MoviePlayerViewController () <
+    ZFPlayerDisplayDelegate
+>
 @property (nonatomic) BOOL hasApplyFullscreenLayout;
 @end
 
@@ -46,6 +48,7 @@
     pv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     pv.translatesAutoresizingMaskIntoConstraints = YES;
     pv.playbackInfoUpdateInterval = 4;
+    [pv addDisplayer:self];
     [pv bringToFront];
 
     ZFPlayerControlView *cv = [ZFPlayerControlView loadWithNibName:nil];
@@ -137,6 +140,16 @@
 
     [self setNeedsStatusBarAppearanceUpdate];
     [self.navigationController setNavigationBarHidden:hasApplyFullscreenLayout animated:YES];
+}
+
+#pragma mark - 错误
+
+// 这里演示简单的错误处理。
+// 一般来说，根据具体情况做相应处理放在 vc 逻辑里比较合适；
+// 如果有一致的 UI 逻辑，也可以写在 control view 里。
+
+- (void)ZFPlayer:(ZFPlayerView *)player didReciveError:(NSError *)error {
+    self.errorLabel.text = error.localizedDescription;
 }
 
 @end

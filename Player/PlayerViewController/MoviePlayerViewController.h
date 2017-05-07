@@ -26,13 +26,15 @@
 @class ZFPlayerView;
 
 @interface MoviePlayerViewController : UIViewController
-@property (weak, nonatomic) IBOutlet ZFPlayerView *playerView;
+@property (nonatomic, weak) IBOutlet ZFPlayerView *playerView;
 
-@property (nonatomic, strong) NSURL *videoURL;
-@property (nonatomic) BOOL autoPlay;
+@property NSURL *videoURL;
+@property BOOL autoPlay;
+
+@property (nonatomic, weak) IBOutlet UILabel *errorLabel;
 
 #pragma mark - 全屏模式
 
-@property (nonatomic) BOOL lockFullscreen;
+@property BOOL lockFullscreen;
 
 @end
