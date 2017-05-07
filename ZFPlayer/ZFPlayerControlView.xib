@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sbh-5Q-eUQ" userLabel="Top Bar">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" image="ZFPlayer.gradient_top" translatesAutoresizingMaskIntoConstraints="NO" id="1aH-Q2-nW0">
+                        <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" image="ZFPlayer_gradient_top" translatesAutoresizingMaskIntoConstraints="NO" id="1aH-Q2-nW0">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         </imageView>
                     </subviews>
@@ -35,7 +35,7 @@
                         <constraint firstAttribute="height" constant="50" id="kmV-pH-unX"/>
                         <constraint firstAttribute="width" constant="50" id="wrS-06-Yna"/>
                     </constraints>
-                    <state key="normal" image="ZFPlayer.back"/>
+                    <state key="normal" image="ZFPlayer_back"/>
                     <connections>
                         <action selector="onBackButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="rDv-iQ-07q"/>
                     </connections>
@@ -63,7 +63,7 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gay-Nd-GMb">
                     <rect key="frame" x="167.5" y="75.5" width="40" height="60"/>
-                    <state key="normal" image="ZFPlayer.repeat_video"/>
+                    <state key="normal" image="ZFPlayer_repeat_video"/>
                     <connections>
                         <action selector="onReplayButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="2et-dZ-37r"/>
                     </connections>
@@ -71,7 +71,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyH-TF-a3R">
                     <rect key="frame" x="0.0" y="161" width="375" height="50"/>
                     <subviews>
-                        <imageView alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="40" image="ZFPlayer.gradient_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="ngr-ji-6Se">
+                        <imageView alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="40" image="ZFPlayer_gradient_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="ngr-ji-6Se">
                             <rect key="frame" x="0.0" y="10" width="375" height="40"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIf-aw-BaL">
@@ -79,8 +79,8 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="WmP-pb-3Ej"/>
                             </constraints>
-                            <state key="normal" image="ZFPlayer.play"/>
-                            <state key="selected" image="ZFPlayer.pause"/>
+                            <state key="normal" image="ZFPlayer_play"/>
+                            <state key="selected" image="ZFPlayer_pause"/>
                             <connections>
                                 <action selector="onPlayButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="vch-2G-wtN"/>
                             </connections>
@@ -137,8 +137,8 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="Ccw-m2-NPw"/>
                             </constraints>
-                            <state key="normal" image="ZFPlayer.fullscreen"/>
-                            <state key="selected" image="ZFPlayer.shrinkscreen"/>
+                            <state key="normal" image="ZFPlayer_fullscreen"/>
+                            <state key="selected" image="ZFPlayer_shrinkscreen"/>
                             <connections>
                                 <action selector="onEnterFullscreenMode:" destination="-2" eventType="touchUpInside" id="fJ2-oG-Ulq"/>
                             </connections>
@@ -215,14 +215,14 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="ZFPlayer.back" width="39" height="39"/>
-        <image name="ZFPlayer.fullscreen" width="24" height="24"/>
-        <image name="ZFPlayer.gradient_bottom" width="1" height="1"/>
-        <image name="ZFPlayer.gradient_top" width="1" height="1"/>
-        <image name="ZFPlayer.pause" width="24" height="24"/>
-        <image name="ZFPlayer.play" width="24" height="24"/>
-        <image name="ZFPlayer.repeat_video" width="40" height="60"/>
-        <image name="ZFPlayer.shrinkscreen" width="24" height="24"/>
+        <image name="ZFPlayer_back" width="39" height="39"/>
+        <image name="ZFPlayer_fullscreen" width="24" height="24"/>
+        <image name="ZFPlayer_gradient_bottom" width="1" height="1"/>
+        <image name="ZFPlayer_gradient_top" width="1" height="1"/>
+        <image name="ZFPlayer_pause" width="24" height="24"/>
+        <image name="ZFPlayer_play" width="24" height="24"/>
+        <image name="ZFPlayer_repeat_video" width="40" height="60"/>
+        <image name="ZFPlayer_shrinkscreen" width="24" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

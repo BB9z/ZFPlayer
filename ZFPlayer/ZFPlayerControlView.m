@@ -48,7 +48,7 @@ RFInitializingRootForUIView
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    [self.playbackProgressSlider setThumbImage:[UIImage imageNamed:@"ZFPlayer.slider"] forState:UIControlStateNormal];
+    [self.playbackProgressSlider setThumbImage:[UIImage imageNamed:@"ZFPlayer_slider"] forState:UIControlStateNormal];
     self.playbackProgressSlider.value = 0;
     self.playbackProgressSlider.minimumValue = 0;
     self.playbackProgressSlider.maximumValue = 1;
