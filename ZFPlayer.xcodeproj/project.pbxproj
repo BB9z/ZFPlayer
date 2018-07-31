@@ -11,17 +11,13 @@
 		4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */; };
 		49F272801BF2330700FCC767 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49F2727F1BF2330700FCC767 /* Info.plist */; };
 		B1EDA941054EBD2CB192CDC7 /* libPods-ZFPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F79F4B54FAF9EE25007E13D /* libPods-ZFPlayer.a */; };
-		CC2CC63B1CA24D4B0028BBDD /* ZFBrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */; };
-		CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */; };
 		CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */; };
-		CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */; };
 		CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC48ECD61C8863DB009CF0D0 /* Main.storyboard */; };
 		CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */; };
 		CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */ = {isa = PBXBuildFile; fileRef = CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */; };
 		CC725C321C894D2D00C3EAF2 /* DMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC725C2F1C894D2D00C3EAF2 /* DMMainViewController.m */; };
 		D57186F021105BDD00F76FF8 /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57186EF21105BDD00F76FF8 /* ApplicationDelegate.swift */; };
 		D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */; };
-		D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */; };
 		D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -33,13 +29,7 @@
 		4947F7991BE996AC003093C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4947F79C1BE996AC003093C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49F2727F1BF2330700FCC767 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC2CC6311CA24D4B0028BBDD /* ZFBrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFBrightnessView.h; sourceTree = "<group>"; };
-		CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFBrightnessView.m; sourceTree = "<group>"; };
-		CC2CC6351CA24D4B0028BBDD /* ZFPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerControlView.h; sourceTree = "<group>"; };
-		CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerControlView.m; sourceTree = "<group>"; };
 		CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFPlayerControlView.xib; sourceTree = "<group>"; };
-		CC2CC6381CA24D4B0028BBDD /* ZFPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerView.h; sourceTree = "<group>"; };
-		CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerView.m; sourceTree = "<group>"; };
 		CC48ECD61C8863DB009CF0D0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CC6C7AE31C9BDFE90000AD58 /* MoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayerViewController.h; sourceTree = "<group>"; };
 		CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerViewController.m; sourceTree = "<group>"; };
@@ -50,8 +40,6 @@
 		D57186EF21105BDD00F76FF8 /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNavigationViewController.h; sourceTree = "<group>"; };
 		D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNavigationViewController.m; sourceTree = "<group>"; };
-		D5AF7D1F1D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerLoadedRangeProgressView.h; sourceTree = "<group>"; };
-		D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerLoadedRangeProgressView.m; sourceTree = "<group>"; };
 		D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZFPlayer.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,7 +87,6 @@
 			children = (
 				CC6C7AE21C9BDFBA0000AD58 /* PlayerViewController */,
 				D57186F221106F7900F76FF8 /* Resource */,
-				CC2CC6301CA24D4B0028BBDD /* ZFPlayer */,
 				D57186EF21105BDD00F76FF8 /* ApplicationDelegate.swift */,
 				4947F7991BE996AC003093C8 /* Assets.xcassets */,
 				D57186EE21105BDD00F76FF8 /* Bridging-Header.h */,
@@ -122,23 +109,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CC2CC6301CA24D4B0028BBDD /* ZFPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				CC2CC6311CA24D4B0028BBDD /* ZFBrightnessView.h */,
-				CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */,
-				D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */,
-				CC2CC6351CA24D4B0028BBDD /* ZFPlayerControlView.h */,
-				CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */,
-				CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */,
-				D5AF7D1F1D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.h */,
-				D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */,
-				CC2CC6381CA24D4B0028BBDD /* ZFPlayerView.h */,
-				CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */,
-			);
-			path = ZFPlayer;
-			sourceTree = SOURCE_ROOT;
-		};
 		CC6C7AE21C9BDFBA0000AD58 /* PlayerViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +121,8 @@
 		D57186F221106F7900F76FF8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */,
+				CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */,
 				CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */,
 			);
 			path = Resource;
@@ -259,10 +231,6 @@
 				CC725C321C894D2D00C3EAF2 /* DMMainViewController.m in Sources */,
 				D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */,
 				CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */,
-				CC2CC63B1CA24D4B0028BBDD /* ZFBrightnessView.m in Sources */,
-				CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */,
-				D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */,
-				CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
