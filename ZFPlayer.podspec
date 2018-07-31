@@ -1,19 +1,19 @@
 Pod::Spec.new do |s|
     s.name         = 'ZFPlayer'
-    s.version      = '0.0.4'
-    s.summary      = 'An easy way to user Player'
-    s.homepage     = 'https://github.com/renzifeng/ZFPlayer'
+    s.version      = '1.0.0'
+    s.summary      = 'AVPlayer wrapper.'
+    s.homepage     = 'https://github.com/BB9z/ZFPlayer'
     s.license      = 'MIT'
-    s.authors      = { 'renzifeng' => 'zifeng1300@gmail.com' }
+    s.authors      = [ 'BB9z', 'renzifeng' ]
     s.platform     = :ios, '7.0'
-    s.source       = { :git => 'https://github.com/renzifeng/ZFPlayer.git', :tag => s.version.to_s, :commit => '8bd2245aa7d520d8a240b6cf400a5e1d0d21f0f1'}
+    s.source       = { :git => 'https://github.com/BB9z/ZFPlayer.git' }
     s.source_files = 'ZFPlayer/*.{h,m}'
-    s.resource_bundles = {
-        'MyPodBundle' => ['ZFPlayer/*.{xib}']
-    }
-    s.resource     = 'ZFPlayer/ZFPlayer.bundle'
-    s.framework    = 'UIKit','MediaPlayer'
-    s.dependency 'Masonry', '~> 0.6.4'
-    s.dependency 'XXNibBridge', '~> 2.2.3'
+    s.framework    = 'UIKit', 'MediaPlayer'
     s.requires_arc = true
+
+    s.dependency 'RFKit/Runtime'
+    s.dependency 'RFKit/Category/UIView'
+    s.dependency 'RFInitializing'
+    s.dependency 'RFAlpha/RFKVOWrapper'
+    s.dependency 'RFAlpha/RFTimer'
 end

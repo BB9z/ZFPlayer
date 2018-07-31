@@ -16,14 +16,17 @@ PODS:
     - RFKit/Runtime
   - RFKit/Runtime (2.2.0):
     - RFKit/Foundation
+  - ZFPlayer (1.0.0):
+    - RFAlpha/RFKVOWrapper
+    - RFAlpha/RFTimer
+    - RFInitializing
+    - RFKit/Category/UIView
+    - RFKit/Runtime
 
 DEPENDENCIES:
   - FLEX
-  - RFAlpha/RFKVOWrapper
-  - RFAlpha/RFTimer
-  - RFInitializing
-  - RFKit/Category/UIView
   - "RFKit/Category/UIViewController+RFInterfaceOrientation"
+  - ZFPlayer (from `.`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -32,12 +35,17 @@ SPEC REPOS:
     - RFInitializing
     - RFKit
 
+EXTERNAL SOURCES:
+  ZFPlayer:
+    :path: "."
+
 SPEC CHECKSUMS:
   FLEX: 27b768fcae23a313a1eb115076d429180ca9b472
   RFAlpha: b782937f5f0bb9d02ddca101348536f9e988863b
   RFInitializing: 1ea7f66b2bf97a401a31482c4e2c2c19cdc9d89c
   RFKit: fa795b3b6b4bb835c49af9da064be4b80ea9d17b
+  ZFPlayer: 65161784e86e4ea648e6b55cb1c815ae4b8c18d7
 
-PODFILE CHECKSUM: 9563719a1c1eb6716bb36805fe42725e425cfc04
+PODFILE CHECKSUM: 70fcd6be8b0b86524763c141a8b75ce4b5f785b4
 
 COCOAPODS: 1.5.3
