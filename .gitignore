@@ -1,19 +1,46 @@
-.DS_Store
-.DS_Store?
-build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-!default.xcworkspace
-xcuserdata
-*.moved-aside
-*.mobileprovision
-DerivedData
+
+# Xcode Project
+**/*.xcodeproj/xcuserdata/
+**/*.xcworkspace/xcuserdata/
+**/*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+**/*.xcworkspace/xcshareddata/*.xccheckout
+**/*.xcworkspace/xcshareddata/*.xcscmblueprint
 .idea/
-Pods
-Podfile.lock
+
+# Xcode Injection
+IOSInjectionProject/
+OSXInjectionProject/
+
+# Build
+Scripts/build/
+build/
+DerivedData
+*.ipa
+PreBuild/Output
+PreBuild/Output-Debug
+PreBuild/Output-nibs
+
+# CocoaPods
+Pods/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/sign&cert
+
+# 手动安装的依赖
+/Frameworks/Realm.framework
+
+# CSV
+*.orig
+.svn
+
+# Other
+*~
+.DS_Store
+*.swp
+*.save
+._*
+*.bak

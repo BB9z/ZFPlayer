@@ -1,6 +1,6 @@
 
 #import "ZFPlayerLoadedRangeProgressView.h"
-#import "RFKVOWrapper.h"
+#import <RFAlpha/RFKVOWrapper.h>
 @import AVFoundation;
 
 @interface ZFPlayerLoadedRangeProgressView ()

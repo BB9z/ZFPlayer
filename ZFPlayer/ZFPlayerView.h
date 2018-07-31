@@ -21,7 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "RFUI.h"
+#import <RFInitializing/RFInitializing.h>
+#import <RFKit/RFRuntime.h>
 @import AVFoundation;
 
 typedef void(^ZFPlayerGoBackBlock)(void);

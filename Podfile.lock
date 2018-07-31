@@ -1,0 +1,43 @@
+PODS:
+  - FLEX (2.1.1)
+  - RFAlpha/RFKVOWrapper (0.4.4):
+    - RFKit/Runtime (>= 1.7.1)
+  - RFAlpha/RFTimer (0.4.4)
+  - RFInitializing (1.1.0)
+  - RFKit/Category/UIResponder (2.2.0):
+    - RFKit/Foundation
+  - RFKit/Category/UIView (2.2.0):
+    - RFKit/Category/UIResponder
+    - RFKit/Foundation
+    - RFKit/RFGeometry
+  - "RFKit/Category/UIViewController+RFInterfaceOrientation (2.2.0)"
+  - RFKit/Foundation (2.2.0)
+  - RFKit/RFGeometry (2.2.0):
+    - RFKit/Runtime
+  - RFKit/Runtime (2.2.0):
+    - RFKit/Foundation
+
+DEPENDENCIES:
+  - FLEX
+  - RFAlpha/RFKVOWrapper
+  - RFAlpha/RFTimer
+  - RFInitializing
+  - RFKit/Category/UIView
+  - "RFKit/Category/UIViewController+RFInterfaceOrientation"
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FLEX
+    - RFAlpha
+    - RFInitializing
+    - RFKit
+
+SPEC CHECKSUMS:
+  FLEX: 27b768fcae23a313a1eb115076d429180ca9b472
+  RFAlpha: b782937f5f0bb9d02ddca101348536f9e988863b
+  RFInitializing: 1ea7f66b2bf97a401a31482c4e2c2c19cdc9d89c
+  RFKit: fa795b3b6b4bb835c49af9da064be4b80ea9d17b
+
+PODFILE CHECKSUM: 9563719a1c1eb6716bb36805fe42725e425cfc04
+
+COCOAPODS: 1.5.3

@@ -1,7 +1,7 @@
 
 #import "ZFPlayerView.h"
-#import "RFTimer.h"
-#import "RFKVOWrapper.h"
+#import <RFAlpha/RFTimer.h>
+#import <RFAlpha/RFKVOWrapper.h>
 
 
 static CMTime CMTimeFromNSTimeInterval(NSTimeInterval timeInterval) {
@@ -328,6 +328,14 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         NSTimeInterval duration = NSTimeIntervalFromCMTime(self.playerItem.duration);
         self.duration = isnan(duration)? 0 : duration;
     }
+#if DEBUG
+    if (self.duration) {
+        BOOL reachEnd = (self.currentTime >= self.duration);
+        if (reachEnd != self.playReachEnd) {
+            dout_info(@"playReachEnd 状态的维护不是很确定，应该跟时间判断一致");
+        }
+    }
+#endif
 }
 
 - (void)ZFPlayerView_updatePlaybackInfo {

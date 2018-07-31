@@ -23,6 +23,7 @@
 
 #import "MoviePlayerViewController.h"
 #import "ZFPlayerControlView.h"
+#import <RFKit/UIView+RFKit.h>
 
 
 @interface MoviePlayerViewController () <

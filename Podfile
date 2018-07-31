@@ -4,6 +4,15 @@
 # use_frameworks!
 
 target 'Test' do
+    pod 'RFAlpha', :subspecs => [
+        'RFKVOWrapper',
+        'RFTimer',
+    ]
+    pod 'RFInitializing'
+    pod 'RFKit', :subspecs => [
+        'Category/UIView',
+        'Category/UIViewController+RFInterfaceOrientation',
+    ]
     # pod 'XXNibBridge'
     # pod 'SDWebImage'
     pod 'FLEX'

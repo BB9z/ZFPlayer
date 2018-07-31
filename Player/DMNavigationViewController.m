@@ -1,7 +1,6 @@
 
 #import "DMNavigationViewController.h"
-#import "RFUI.h"
-
+#import <RFKit/UIViewController+RFInterfaceOrientation.h>
 
 @implementation DMNavigationViewController
 RFUIInterfaceOrientationSupportNavigation

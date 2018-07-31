@@ -26,29 +26,9 @@
 		CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */ = {isa = PBXBuildFile; fileRef = CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */; };
 		CC725C2D1C894D2500C3EAF2 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC725C2B1C894D2500C3EAF2 /* SecondViewController.m */; };
 		CC725C321C894D2D00C3EAF2 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC725C2F1C894D2D00C3EAF2 /* FirstViewController.m */; };
-		D5AF7D1B1D50685F0005451A /* UIDevice+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1A1D50685F0005451A /* UIDevice+RFKit.m */; };
 		D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */; };
 		D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */; };
 		D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */; };
-		D5FF10AF1D504D52005A068E /* dout.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10A41D504D52005A068E /* dout.m */; };
-		D5FF10B01D504D52005A068E /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10A81D504D52005A068E /* EXTScope.m */; };
-		D5FF10B11D504D52005A068E /* RFDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10AB1D504D52005A068E /* RFDispatch.m */; };
-		D5FF10B21D504D52005A068E /* RFGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10AD1D504D52005A068E /* RFGeometry.m */; };
-		D5FF10B81D504E43005A068E /* RFUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10B61D504E43005A068E /* RFUI.m */; };
-		D5FF10BF1D504EE6005A068E /* RFKVOWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10BB1D504EE6005A068E /* RFKVOWrapper.m */; };
-		D5FF10C01D504EE6005A068E /* RFTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10BE1D504EE6005A068E /* RFTimer.m */; };
-		D5FF10C31D504FF7005A068E /* RFPerformance.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10C21D504FF7005A068E /* RFPerformance.m */; };
-		D5FF10DD1D5050F1005A068E /* NSArray+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10C71D5050F1005A068E /* NSArray+RFKit.m */; };
-		D5FF10DE1D5050F1005A068E /* NSDate+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10C91D5050F1005A068E /* NSDate+RFKit.m */; };
-		D5FF10DF1D5050F1005A068E /* NSDateFormatter+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10CB1D5050F1005A068E /* NSDateFormatter+RFKit.m */; };
-		D5FF10E01D5050F1005A068E /* NSDictionary+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10CD1D5050F1005A068E /* NSDictionary+RFKit.m */; };
-		D5FF10E11D5050F1005A068E /* NSError+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10CF1D5050F1005A068E /* NSError+RFKit.m */; };
-		D5FF10E21D5050F1005A068E /* NSString+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10D11D5050F1005A068E /* NSString+RFKit.m */; };
-		D5FF10E31D5050F1005A068E /* UINavigationController+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10D41D5050F1005A068E /* UINavigationController+RFKit.m */; };
-		D5FF10E41D5050F1005A068E /* UIResponder+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10D61D5050F1005A068E /* UIResponder+RFKit.m */; };
-		D5FF10E51D5050F1005A068E /* UIView+RFAnimate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10D81D5050F1005A068E /* UIView+RFAnimate.m */; };
-		D5FF10E61D5050F1005A068E /* UIView+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10DA1D5050F1005A068E /* UIView+RFKit.m */; };
-		D5FF10E71D5050F1005A068E /* UIViewController+RFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FF10DC1D5050F1005A068E /* UIViewController+RFKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,57 +82,11 @@
 		CC725C2B1C894D2500C3EAF2 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		CC725C2E1C894D2D00C3EAF2 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		CC725C2F1C894D2D00C3EAF2 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		D5AF7D191D50685F0005451A /* UIDevice+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+RFKit.h"; sourceTree = "<group>"; };
-		D5AF7D1A1D50685F0005451A /* UIDevice+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+RFKit.m"; sourceTree = "<group>"; };
 		D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNavigationViewController.h; sourceTree = "<group>"; };
 		D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNavigationViewController.m; sourceTree = "<group>"; };
 		D5AF7D1F1D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerLoadedRangeProgressView.h; sourceTree = "<group>"; };
 		D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerLoadedRangeProgressView.m; sourceTree = "<group>"; };
 		D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZFPlayer.xcassets; sourceTree = "<group>"; };
-		D5FF10A31D504D52005A068E /* dout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dout.h; sourceTree = "<group>"; };
-		D5FF10A41D504D52005A068E /* dout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dout.m; sourceTree = "<group>"; };
-		D5FF10A61D504D52005A068E /* EXTKeyPathCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTKeyPathCoding.h; sourceTree = "<group>"; };
-		D5FF10A71D504D52005A068E /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
-		D5FF10A81D504D52005A068E /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
-		D5FF10A91D504D52005A068E /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
-		D5FF10AA1D504D52005A068E /* RFDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFDispatch.h; sourceTree = "<group>"; };
-		D5FF10AB1D504D52005A068E /* RFDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFDispatch.m; sourceTree = "<group>"; };
-		D5FF10AC1D504D52005A068E /* RFGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFGeometry.h; sourceTree = "<group>"; };
-		D5FF10AD1D504D52005A068E /* RFGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFGeometry.m; sourceTree = "<group>"; };
-		D5FF10AE1D504D52005A068E /* RFRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFRuntime.h; sourceTree = "<group>"; };
-		D5FF10B31D504D81005A068E /* RFFeatureSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFFeatureSupport.h; sourceTree = "<group>"; };
-		D5FF10B41D504E43005A068E /* RFInitializing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFInitializing.h; sourceTree = "<group>"; };
-		D5FF10B51D504E43005A068E /* RFUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFUI.h; sourceTree = "<group>"; };
-		D5FF10B61D504E43005A068E /* RFUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFUI.m; sourceTree = "<group>"; };
-		D5FF10B71D504E43005A068E /* RFUIInterfaceOrientationSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFUIInterfaceOrientationSupport.h; sourceTree = "<group>"; };
-		D5FF10BA1D504EE6005A068E /* RFKVOWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFKVOWrapper.h; sourceTree = "<group>"; };
-		D5FF10BB1D504EE6005A068E /* RFKVOWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFKVOWrapper.m; sourceTree = "<group>"; };
-		D5FF10BD1D504EE6005A068E /* RFTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTimer.h; sourceTree = "<group>"; };
-		D5FF10BE1D504EE6005A068E /* RFTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTimer.m; sourceTree = "<group>"; };
-		D5FF10C11D504FF7005A068E /* RFPerformance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFPerformance.h; sourceTree = "<group>"; };
-		D5FF10C21D504FF7005A068E /* RFPerformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFPerformance.m; sourceTree = "<group>"; };
-		D5FF10C61D5050F1005A068E /* NSArray+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10C71D5050F1005A068E /* NSArray+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10C81D5050F1005A068E /* NSDate+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10C91D5050F1005A068E /* NSDate+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10CA1D5050F1005A068E /* NSDateFormatter+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10CB1D5050F1005A068E /* NSDateFormatter+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10CC1D5050F1005A068E /* NSDictionary+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10CD1D5050F1005A068E /* NSDictionary+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10CE1D5050F1005A068E /* NSError+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10CF1D5050F1005A068E /* NSError+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10D01D5050F1005A068E /* NSString+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10D11D5050F1005A068E /* NSString+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10D31D5050F1005A068E /* UINavigationController+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10D41D5050F1005A068E /* UINavigationController+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10D51D5050F1005A068E /* UIResponder+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10D61D5050F1005A068E /* UIResponder+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10D71D5050F1005A068E /* UIView+RFAnimate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RFAnimate.h"; sourceTree = "<group>"; };
-		D5FF10D81D5050F1005A068E /* UIView+RFAnimate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RFAnimate.m"; sourceTree = "<group>"; };
-		D5FF10D91D5050F1005A068E /* UIView+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10DA1D5050F1005A068E /* UIView+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RFKit.m"; sourceTree = "<group>"; };
-		D5FF10DB1D5050F1005A068E /* UIViewController+RFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RFKit.h"; sourceTree = "<group>"; };
-		D5FF10DC1D5050F1005A068E /* UIViewController+RFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RFKit.m"; sourceTree = "<group>"; };
 		ED3D98CE1224909AD88B8A0D /* Pods-Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Test/Pods-Test.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -267,7 +201,6 @@
 		77BAA74D466CF5B1952CD7B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D5FF10A21D504D1A005A068E /* RFUI */,
 				7447877BA5FB53EDF3939B3B /* libPods-Test.a */,
 			);
 			name = Frameworks;
@@ -317,107 +250,6 @@
 			path = NetVideo;
 			sourceTree = "<group>";
 		};
-		D5FF10A21D504D1A005A068E /* RFUI */ = {
-			isa = PBXGroup;
-			children = (
-				D5FF10C41D5050F1005A068E /* category */,
-				D5FF10A31D504D52005A068E /* dout.h */,
-				D5FF10A41D504D52005A068E /* dout.m */,
-				D5FF10A51D504D52005A068E /* extobjc */,
-				D5FF10AA1D504D52005A068E /* RFDispatch.h */,
-				D5FF10AB1D504D52005A068E /* RFDispatch.m */,
-				D5FF10B31D504D81005A068E /* RFFeatureSupport.h */,
-				D5FF10AC1D504D52005A068E /* RFGeometry.h */,
-				D5FF10AD1D504D52005A068E /* RFGeometry.m */,
-				D5FF10B41D504E43005A068E /* RFInitializing.h */,
-				D5FF10B91D504EE6005A068E /* RFKVOWrapper */,
-				D5FF10C11D504FF7005A068E /* RFPerformance.h */,
-				D5FF10C21D504FF7005A068E /* RFPerformance.m */,
-				D5FF10AE1D504D52005A068E /* RFRuntime.h */,
-				D5FF10BC1D504EE6005A068E /* RFTimer */,
-				D5FF10B51D504E43005A068E /* RFUI.h */,
-				D5FF10B61D504E43005A068E /* RFUI.m */,
-				D5FF10B71D504E43005A068E /* RFUIInterfaceOrientationSupport.h */,
-			);
-			path = RFUI;
-			sourceTree = "<group>";
-		};
-		D5FF10A51D504D52005A068E /* extobjc */ = {
-			isa = PBXGroup;
-			children = (
-				D5FF10A61D504D52005A068E /* EXTKeyPathCoding.h */,
-				D5FF10A71D504D52005A068E /* EXTScope.h */,
-				D5FF10A81D504D52005A068E /* EXTScope.m */,
-				D5FF10A91D504D52005A068E /* metamacros.h */,
-			);
-			path = extobjc;
-			sourceTree = "<group>";
-		};
-		D5FF10B91D504EE6005A068E /* RFKVOWrapper */ = {
-			isa = PBXGroup;
-			children = (
-				D5FF10BA1D504EE6005A068E /* RFKVOWrapper.h */,
-				D5FF10BB1D504EE6005A068E /* RFKVOWrapper.m */,
-			);
-			path = RFKVOWrapper;
-			sourceTree = "<group>";
-		};
-		D5FF10BC1D504EE6005A068E /* RFTimer */ = {
-			isa = PBXGroup;
-			children = (
-				D5FF10BD1D504EE6005A068E /* RFTimer.h */,
-				D5FF10BE1D504EE6005A068E /* RFTimer.m */,
-			);
-			path = RFTimer;
-			sourceTree = "<group>";
-		};
-		D5FF10C41D5050F1005A068E /* category */ = {
-			isa = PBXGroup;
-			children = (
-				D5FF10C51D5050F1005A068E /* Foundation */,
-				D5FF10D21D5050F1005A068E /* UIKit */,
-			);
-			path = category;
-			sourceTree = "<group>";
-		};
-		D5FF10C51D5050F1005A068E /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				D5FF10C61D5050F1005A068E /* NSArray+RFKit.h */,
-				D5FF10C71D5050F1005A068E /* NSArray+RFKit.m */,
-				D5FF10C81D5050F1005A068E /* NSDate+RFKit.h */,
-				D5FF10C91D5050F1005A068E /* NSDate+RFKit.m */,
-				D5FF10CA1D5050F1005A068E /* NSDateFormatter+RFKit.h */,
-				D5FF10CB1D5050F1005A068E /* NSDateFormatter+RFKit.m */,
-				D5FF10CC1D5050F1005A068E /* NSDictionary+RFKit.h */,
-				D5FF10CD1D5050F1005A068E /* NSDictionary+RFKit.m */,
-				D5FF10CE1D5050F1005A068E /* NSError+RFKit.h */,
-				D5FF10CF1D5050F1005A068E /* NSError+RFKit.m */,
-				D5FF10D01D5050F1005A068E /* NSString+RFKit.h */,
-				D5FF10D11D5050F1005A068E /* NSString+RFKit.m */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		D5FF10D21D5050F1005A068E /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				D5AF7D191D50685F0005451A /* UIDevice+RFKit.h */,
-				D5AF7D1A1D50685F0005451A /* UIDevice+RFKit.m */,
-				D5FF10D31D5050F1005A068E /* UINavigationController+RFKit.h */,
-				D5FF10D41D5050F1005A068E /* UINavigationController+RFKit.m */,
-				D5FF10D51D5050F1005A068E /* UIResponder+RFKit.h */,
-				D5FF10D61D5050F1005A068E /* UIResponder+RFKit.m */,
-				D5FF10D71D5050F1005A068E /* UIView+RFAnimate.h */,
-				D5FF10D81D5050F1005A068E /* UIView+RFAnimate.m */,
-				D5FF10D91D5050F1005A068E /* UIView+RFKit.h */,
-				D5FF10DA1D5050F1005A068E /* UIView+RFKit.m */,
-				D5FF10DB1D5050F1005A068E /* UIViewController+RFKit.h */,
-				D5FF10DC1D5050F1005A068E /* UIViewController+RFKit.m */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -429,8 +261,6 @@
 				4947F7861BE996AC003093C8 /* Sources */,
 				4947F7871BE996AC003093C8 /* Frameworks */,
 				4947F7881BE996AC003093C8 /* Resources */,
-				2705F90153A423D53A8C9C24 /* [CP] Embed Pods Frameworks */,
-				9256DDFF77AEB0FAAD01329C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -554,49 +384,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2705F90153A423D53A8C9C24 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Test/Pods-Test-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9256DDFF77AEB0FAAD01329C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Test/Pods-Test-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A574B553492808CE83219502 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Test-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -606,37 +409,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5FF10B01D504D52005A068E /* EXTScope.m in Sources */,
-				D5FF10E01D5050F1005A068E /* NSDictionary+RFKit.m in Sources */,
-				D5FF10C01D504EE6005A068E /* RFTimer.m in Sources */,
-				D5FF10E21D5050F1005A068E /* NSString+RFKit.m in Sources */,
-				D5AF7D1B1D50685F0005451A /* UIDevice+RFKit.m in Sources */,
 				D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */,
-				D5FF10BF1D504EE6005A068E /* RFKVOWrapper.m in Sources */,
 				CC725C2D1C894D2500C3EAF2 /* SecondViewController.m in Sources */,
-				D5FF10C31D504FF7005A068E /* RFPerformance.m in Sources */,
-				D5FF10E61D5050F1005A068E /* UIView+RFKit.m in Sources */,
 				CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */,
 				4947F7921BE996AC003093C8 /* AppDelegate.m in Sources */,
-				D5FF10E11D5050F1005A068E /* NSError+RFKit.m in Sources */,
-				D5FF10E31D5050F1005A068E /* UINavigationController+RFKit.m in Sources */,
-				D5FF10DD1D5050F1005A068E /* NSArray+RFKit.m in Sources */,
-				D5FF10E51D5050F1005A068E /* UIView+RFAnimate.m in Sources */,
-				D5FF10DF1D5050F1005A068E /* NSDateFormatter+RFKit.m in Sources */,
-				D5FF10B21D504D52005A068E /* RFGeometry.m in Sources */,
-				D5FF10DE1D5050F1005A068E /* NSDate+RFKit.m in Sources */,
-				D5FF10AF1D504D52005A068E /* dout.m in Sources */,
 				CC725C321C894D2D00C3EAF2 /* FirstViewController.m in Sources */,
 				CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */,
 				CC2CC63B1CA24D4B0028BBDD /* ZFBrightnessView.m in Sources */,
 				CC113C0E1C8C4E5D0044FEEB /* MainViewController.m in Sources */,
 				D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */,
 				CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */,
-				D5FF10E41D5050F1005A068E /* UIResponder+RFKit.m in Sources */,
-				D5FF10E71D5050F1005A068E /* UIViewController+RFKit.m in Sources */,
-				D5FF10B81D504E43005A068E /* RFUI.m in Sources */,
 				4947F78F1BE996AC003093C8 /* main.m in Sources */,
-				D5FF10B11D504D52005A068E /* RFDispatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
