@@ -3,20 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		13E826D972D1FDB10E9DCD4A /* libPods-Test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7447877BA5FB53EDF3939B3B /* libPods-Test.a */; };
-		4947F78F1BE996AC003093C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947F78E1BE996AC003093C8 /* main.m */; };
-		4947F7921BE996AC003093C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947F7911BE996AC003093C8 /* AppDelegate.m */; };
 		4947F79A1BE996AC003093C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4947F7991BE996AC003093C8 /* Assets.xcassets */; };
 		4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */; };
-		4947F7A81BE996AC003093C8 /* PlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947F7A71BE996AC003093C8 /* PlayerTests.m */; };
-		4947F7B31BE996AC003093C8 /* PlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947F7B21BE996AC003093C8 /* PlayerUITests.m */; };
-		49CD65D11BF0C4EC0060DB9E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49CD65D01BF0C4EC0060DB9E /* MediaPlayer.framework */; };
 		49F272801BF2330700FCC767 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49F2727F1BF2330700FCC767 /* Info.plist */; };
-		CC113C0E1C8C4E5D0044FEEB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC113C0D1C8C4E5D0044FEEB /* MainViewController.m */; };
 		CC2CC63B1CA24D4B0028BBDD /* ZFBrightnessView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */; };
 		CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */; };
 		CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */; };
@@ -24,49 +18,20 @@
 		CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC48ECD61C8863DB009CF0D0 /* Main.storyboard */; };
 		CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */; };
 		CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */ = {isa = PBXBuildFile; fileRef = CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */; };
-		CC725C2D1C894D2500C3EAF2 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC725C2B1C894D2500C3EAF2 /* SecondViewController.m */; };
 		CC725C321C894D2D00C3EAF2 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC725C2F1C894D2D00C3EAF2 /* FirstViewController.m */; };
+		D57186F021105BDD00F76FF8 /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57186EF21105BDD00F76FF8 /* ApplicationDelegate.swift */; };
 		D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */; };
 		D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */; };
 		D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		4947F7A41BE996AC003093C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4947F7821BE996AC003093C8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4947F7891BE996AC003093C8;
-			remoteInfo = Player;
-		};
-		4947F7AF1BE996AC003093C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4947F7821BE996AC003093C8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4947F7891BE996AC003093C8;
-			remoteInfo = Player;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		04233ECA0513128D754AFBE8 /* Pods-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Test/Pods-Test.release.xcconfig"; sourceTree = "<group>"; };
 		4947F78A1BE996AC003093C8 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4947F78E1BE996AC003093C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4947F7901BE996AC003093C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4947F7911BE996AC003093C8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4947F7991BE996AC003093C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4947F79C1BE996AC003093C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4947F7A31BE996AC003093C8 /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4947F7A71BE996AC003093C8 /* PlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerTests.m; sourceTree = "<group>"; };
-		4947F7A91BE996AC003093C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4947F7AE1BE996AC003093C8 /* Test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4947F7B21BE996AC003093C8 /* PlayerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerUITests.m; sourceTree = "<group>"; };
-		4947F7B41BE996AC003093C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49CD65D01BF0C4EC0060DB9E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		49F2727F1BF2330700FCC767 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7447877BA5FB53EDF3939B3B /* libPods-Test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CC113C0C1C8C4E5D0044FEEB /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		CC113C0D1C8C4E5D0044FEEB /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		CC2CC6311CA24D4B0028BBDD /* ZFBrightnessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFBrightnessView.h; sourceTree = "<group>"; };
 		CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFBrightnessView.m; sourceTree = "<group>"; };
 		CC2CC6351CA24D4B0028BBDD /* ZFPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerControlView.h; sourceTree = "<group>"; };
@@ -78,10 +43,10 @@
 		CC6C7AE31C9BDFE90000AD58 /* MoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayerViewController.h; sourceTree = "<group>"; };
 		CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviePlayerViewController.m; sourceTree = "<group>"; };
 		CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 150511_JiveBike.mov; sourceTree = "<group>"; };
-		CC725C2A1C894D2500C3EAF2 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		CC725C2B1C894D2500C3EAF2 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		CC725C2E1C894D2D00C3EAF2 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		CC725C2F1C894D2D00C3EAF2 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		D57186EE21105BDD00F76FF8 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		D57186EF21105BDD00F76FF8 /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNavigationViewController.h; sourceTree = "<group>"; };
 		D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNavigationViewController.m; sourceTree = "<group>"; };
 		D5AF7D1F1D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerLoadedRangeProgressView.h; sourceTree = "<group>"; };
@@ -95,22 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49CD65D11BF0C4EC0060DB9E /* MediaPlayer.framework in Frameworks */,
 				13E826D972D1FDB10E9DCD4A /* libPods-Test.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4947F7A01BE996AC003093C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4947F7AB1BE996AC003093C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,13 +79,10 @@
 		4947F7811BE996AC003093C8 = {
 			isa = PBXGroup;
 			children = (
-				49CD65D01BF0C4EC0060DB9E /* MediaPlayer.framework */,
-				4947F78C1BE996AC003093C8 /* Player */,
-				4947F7A61BE996AC003093C8 /* PlayerTests */,
-				4947F7B11BE996AC003093C8 /* PlayerUITests */,
-				4947F78B1BE996AC003093C8 /* Products */,
 				77BAA74D466CF5B1952CD7B0 /* Frameworks */,
+				4947F78C1BE996AC003093C8 /* Player */,
 				3FBB6D56BC590B29B7AC91ED /* Pods */,
+				4947F78B1BE996AC003093C8 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,8 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				4947F78A1BE996AC003093C8 /* Test.app */,
-				4947F7A31BE996AC003093C8 /* Test.xctest */,
-				4947F7AE1BE996AC003093C8 /* Test.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,51 +97,22 @@
 		4947F78C1BE996AC003093C8 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				CC2CC6301CA24D4B0028BBDD /* ZFPlayer */,
-				CC725C1D1C894C4A00C3EAF2 /* LocalVideo */,
-				CC725C1E1C894C8100C3EAF2 /* NetVideo */,
 				CC6C7AE21C9BDFBA0000AD58 /* PlayerViewController */,
-				4947F7901BE996AC003093C8 /* AppDelegate.h */,
-				4947F7911BE996AC003093C8 /* AppDelegate.m */,
-				CC113C0C1C8C4E5D0044FEEB /* MainViewController.h */,
-				CC113C0D1C8C4E5D0044FEEB /* MainViewController.m */,
-				CC48ECD61C8863DB009CF0D0 /* Main.storyboard */,
-				4947F7991BE996AC003093C8 /* Assets.xcassets */,
+				CC2CC6301CA24D4B0028BBDD /* ZFPlayer */,
 				CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */,
-				4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */,
-				49F2727F1BF2330700FCC767 /* Info.plist */,
-				4947F78D1BE996AC003093C8 /* Supporting Files */,
+				D57186EF21105BDD00F76FF8 /* ApplicationDelegate.swift */,
+				4947F7991BE996AC003093C8 /* Assets.xcassets */,
+				D57186EE21105BDD00F76FF8 /* Bridging-Header.h */,
 				D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */,
 				D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */,
+				CC725C2E1C894D2D00C3EAF2 /* FirstViewController.h */,
+				CC725C2F1C894D2D00C3EAF2 /* FirstViewController.m */,
+				49F2727F1BF2330700FCC767 /* Info.plist */,
+				4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */,
+				CC48ECD61C8863DB009CF0D0 /* Main.storyboard */,
 			);
 			path = Player;
 			sourceTree = SOURCE_ROOT;
-		};
-		4947F78D1BE996AC003093C8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4947F78E1BE996AC003093C8 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4947F7A61BE996AC003093C8 /* PlayerTests */ = {
-			isa = PBXGroup;
-			children = (
-				4947F7A71BE996AC003093C8 /* PlayerTests.m */,
-				4947F7A91BE996AC003093C8 /* Info.plist */,
-			);
-			path = PlayerTests;
-			sourceTree = "<group>";
-		};
-		4947F7B11BE996AC003093C8 /* PlayerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4947F7B21BE996AC003093C8 /* PlayerUITests.m */,
-				4947F7B41BE996AC003093C8 /* Info.plist */,
-			);
-			path = PlayerUITests;
-			sourceTree = "<group>";
 		};
 		77BAA74D466CF5B1952CD7B0 /* Frameworks */ = {
 			isa = PBXGroup;
@@ -209,16 +125,16 @@
 		CC2CC6301CA24D4B0028BBDD /* ZFPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				CC2CC6381CA24D4B0028BBDD /* ZFPlayerView.h */,
-				CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */,
-				CC2CC6351CA24D4B0028BBDD /* ZFPlayerControlView.h */,
-				CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */,
-				CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */,
 				CC2CC6311CA24D4B0028BBDD /* ZFBrightnessView.h */,
 				CC2CC6321CA24D4B0028BBDD /* ZFBrightnessView.m */,
 				D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */,
+				CC2CC6351CA24D4B0028BBDD /* ZFPlayerControlView.h */,
+				CC2CC6361CA24D4B0028BBDD /* ZFPlayerControlView.m */,
+				CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */,
 				D5AF7D1F1D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.h */,
 				D5AF7D201D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m */,
+				CC2CC6381CA24D4B0028BBDD /* ZFPlayerView.h */,
+				CC2CC6391CA24D4B0028BBDD /* ZFPlayerView.m */,
 			);
 			path = ZFPlayer;
 			sourceTree = SOURCE_ROOT;
@@ -230,24 +146,6 @@
 				CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */,
 			);
 			path = PlayerViewController;
-			sourceTree = "<group>";
-		};
-		CC725C1D1C894C4A00C3EAF2 /* LocalVideo */ = {
-			isa = PBXGroup;
-			children = (
-				CC725C2E1C894D2D00C3EAF2 /* FirstViewController.h */,
-				CC725C2F1C894D2D00C3EAF2 /* FirstViewController.m */,
-			);
-			path = LocalVideo;
-			sourceTree = "<group>";
-		};
-		CC725C1E1C894C8100C3EAF2 /* NetVideo */ = {
-			isa = PBXGroup;
-			children = (
-				CC725C2A1C894D2500C3EAF2 /* SecondViewController.h */,
-				CC725C2B1C894D2500C3EAF2 /* SecondViewController.m */,
-			);
-			path = NetVideo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,42 +169,6 @@
 			productReference = 4947F78A1BE996AC003093C8 /* Test.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4947F7A21BE996AC003093C8 /* TestTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4947F7BA1BE996AC003093C8 /* Build configuration list for PBXNativeTarget "TestTests" */;
-			buildPhases = (
-				4947F79F1BE996AC003093C8 /* Sources */,
-				4947F7A01BE996AC003093C8 /* Frameworks */,
-				4947F7A11BE996AC003093C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4947F7A51BE996AC003093C8 /* PBXTargetDependency */,
-			);
-			name = TestTests;
-			productName = PlayerTests;
-			productReference = 4947F7A31BE996AC003093C8 /* Test.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4947F7AD1BE996AC003093C8 /* TestUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4947F7BD1BE996AC003093C8 /* Build configuration list for PBXNativeTarget "TestUITests" */;
-			buildPhases = (
-				4947F7AA1BE996AC003093C8 /* Sources */,
-				4947F7AB1BE996AC003093C8 /* Frameworks */,
-				4947F7AC1BE996AC003093C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4947F7B01BE996AC003093C8 /* PBXTargetDependency */,
-			);
-			name = TestUITests;
-			productName = PlayerUITests;
-			productReference = 4947F7AE1BE996AC003093C8 /* Test.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -315,25 +177,18 @@
 			attributes = {
 				CLASSPREFIX = ZF;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "";
+				ORGANIZATIONNAME = RFUI;
 				TargetAttributes = {
 					4947F7891BE996AC003093C8 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 68DTEPQG9J;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
-					};
-					4947F7A21BE996AC003093C8 = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 4947F7891BE996AC003093C8;
-					};
-					4947F7AD1BE996AC003093C8 = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 4947F7891BE996AC003093C8;
 					};
 				};
 			};
 			buildConfigurationList = 4947F7851BE996AC003093C8 /* Build configuration list for PBXProject "Test" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -346,8 +201,6 @@
 			projectRoot = "";
 			targets = (
 				4947F7891BE996AC003093C8 /* Test */,
-				4947F7A21BE996AC003093C8 /* TestTests */,
-				4947F7AD1BE996AC003093C8 /* TestUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -357,27 +210,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */,
 				CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */,
-				4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */,
 				4947F79A1BE996AC003093C8 /* Assets.xcassets in Resources */,
 				49F272801BF2330700FCC767 /* Info.plist in Resources */,
+				4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */,
 				CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */,
 				D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4947F7A11BE996AC003093C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4947F7AC1BE996AC003093C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,50 +248,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D57186F021105BDD00F76FF8 /* ApplicationDelegate.swift in Sources */,
 				D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */,
-				CC725C2D1C894D2500C3EAF2 /* SecondViewController.m in Sources */,
-				CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */,
-				4947F7921BE996AC003093C8 /* AppDelegate.m in Sources */,
 				CC725C321C894D2D00C3EAF2 /* FirstViewController.m in Sources */,
-				CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */,
+				CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */,
 				CC2CC63B1CA24D4B0028BBDD /* ZFBrightnessView.m in Sources */,
-				CC113C0E1C8C4E5D0044FEEB /* MainViewController.m in Sources */,
-				D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */,
 				CC2CC63D1CA24D4B0028BBDD /* ZFPlayerControlView.m in Sources */,
-				4947F78F1BE996AC003093C8 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4947F79F1BE996AC003093C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4947F7A81BE996AC003093C8 /* PlayerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4947F7AA1BE996AC003093C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4947F7B31BE996AC003093C8 /* PlayerUITests.m in Sources */,
+				D5AF7D211D50D2A80005451A /* ZFPlayerLoadedRangeProgressView.m in Sources */,
+				CC2CC63F1CA24D4B0028BBDD /* ZFPlayerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4947F7A51BE996AC003093C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4947F7891BE996AC003093C8 /* Test */;
-			targetProxy = 4947F7A41BE996AC003093C8 /* PBXContainerItemProxy */;
-		};
-		4947F7B01BE996AC003093C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4947F7891BE996AC003093C8 /* Test */;
-			targetProxy = 4947F7AF1BE996AC003093C8 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */ = {
@@ -551,6 +358,7 @@
 			baseConfigurationReference = ED3D98CE1224909AD88B8A0D /* Pods-Test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 68DTEPQG9J;
@@ -561,10 +369,16 @@
 				);
 				INFOPLIST_FILE = Player/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.renzifeng.test;
 				PRODUCT_NAME = Test;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Player/Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -573,63 +387,21 @@
 			baseConfigurationReference = 04233ECA0513128D754AFBE8 /* Pods-Test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 68DTEPQG9J;
 				INFOPLIST_FILE = Player/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.renzifeng.test;
 				PRODUCT_NAME = Test;
 				PROVISIONING_PROFILE = "";
-			};
-			name = Release;
-		};
-		4947F7BB1BE996AC003093C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = PlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhaoqingwen.PlayerTests;
-				PRODUCT_NAME = Test;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Test.app/Test";
-			};
-			name = Debug;
-		};
-		4947F7BC1BE996AC003093C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = PlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhaoqingwen.PlayerTests;
-				PRODUCT_NAME = Test;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Test.app/Test";
-			};
-			name = Release;
-		};
-		4947F7BE1BE996AC003093C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = PlayerUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhaoqingwen.PlayerUITests;
-				PRODUCT_NAME = Test;
-				TEST_TARGET_NAME = Player;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		4947F7BF1BE996AC003093C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = PlayerUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhaoqingwen.PlayerUITests;
-				PRODUCT_NAME = Test;
-				TEST_TARGET_NAME = Player;
-				USES_XCTRUNNER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Player/Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -650,24 +422,6 @@
 			buildConfigurations = (
 				4947F7B81BE996AC003093C8 /* Debug */,
 				4947F7B91BE996AC003093C8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4947F7BA1BE996AC003093C8 /* Build configuration list for PBXNativeTarget "TestTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4947F7BB1BE996AC003093C8 /* Debug */,
-				4947F7BC1BE996AC003093C8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4947F7BD1BE996AC003093C8 /* Build configuration list for PBXNativeTarget "TestUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4947F7BE1BE996AC003093C8 /* Debug */,
-				4947F7BF1BE996AC003093C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
