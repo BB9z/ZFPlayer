@@ -97,10 +97,10 @@
             </objects>
             <point key="canvasLocation" x="1080.5" y="343.5"/>
         </scene>
-        <!--本地视频-->
+        <!--Main-->
         <scene sceneID="Por-U2-cMz">
             <objects>
-                <viewController id="tuC-Bt-GHL" customClass="FirstViewController" sceneMemberID="viewController">
+                <viewController title="Main" id="tuC-Bt-GHL" customClass="DMMainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fw9-3d-SkH"/>
                         <viewControllerLayoutGuide type="bottom" id="uMG-uI-4gV"/>
@@ -132,7 +132,7 @@
                             <constraint firstItem="qqW-s2-mPG" firstAttribute="leading" secondItem="pMx-tP-nAh" secondAttribute="leading" id="iFm-eJ-23j"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="本地视频" id="ICO-w0-Zak"/>
+                    <navigationItem key="navigationItem" title="ZFPlayer" id="ICO-w0-Zak"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R7w-8v-nBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
