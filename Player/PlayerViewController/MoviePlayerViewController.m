@@ -73,11 +73,11 @@
 }
 
 - (IBAction)onV2:(id)sender {
-    self.playerView.videoURL = [NSURL URLWithString:@"http://baobab.wdjcdn.com/1456480115661mtl.mp4"];
+    self.playerView.videoURL = [NSURL URLWithString:@"https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8"];
 }
 
 - (IBAction)onV3:(id)sender {
-    self.playerView.videoURL = [NSURL URLWithString:@"http://baobab.wdjcdn.com/1456665467509qingshu.mp4"];
+    self.playerView.videoURL = [NSURL URLWithString:@"https://static.smartisanos.cn/common/video/proud-farmer.mp4"];
 }
 
 - (IBAction)onStop:(id)sender {
