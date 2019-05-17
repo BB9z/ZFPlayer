@@ -1,20 +1,20 @@
 PODS:
   - FLEX (2.1.1)
-  - RFAlpha/RFKVOWrapper (0.4.4):
+  - RFAlpha/RFKVOWrapper (0.5.0):
     - RFKit/Runtime (>= 1.7.1)
-  - RFAlpha/RFTimer (0.4.4)
+  - RFAlpha/RFTimer (0.5.0)
   - RFInitializing (1.1.0)
-  - RFKit/Category/UIResponder (2.2.0):
+  - RFKit/Category/UIResponder (2.3.0):
     - RFKit/Foundation
-  - RFKit/Category/UIView (2.2.0):
+  - RFKit/Category/UIView (2.3.0):
     - RFKit/Category/UIResponder
     - RFKit/Foundation
     - RFKit/RFGeometry
-  - "RFKit/Category/UIViewController+RFInterfaceOrientation (2.2.0)"
-  - RFKit/Foundation (2.2.0)
-  - RFKit/RFGeometry (2.2.0):
+  - "RFKit/Category/UIViewController+RFInterfaceOrientation (2.3.0)"
+  - RFKit/Foundation (2.3.0)
+  - RFKit/RFGeometry (2.3.0):
     - RFKit/Runtime
-  - RFKit/Runtime (2.2.0):
+  - RFKit/Runtime (2.3.0):
     - RFKit/Foundation
   - ZFPlayer (1.0.0):
     - RFAlpha/RFKVOWrapper
@@ -41,11 +41,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FLEX: 27b768fcae23a313a1eb115076d429180ca9b472
-  RFAlpha: b782937f5f0bb9d02ddca101348536f9e988863b
+  RFAlpha: 89439f1138a4212505661d14a24ef4bebd6d6ab9
   RFInitializing: 1ea7f66b2bf97a401a31482c4e2c2c19cdc9d89c
-  RFKit: fa795b3b6b4bb835c49af9da064be4b80ea9d17b
-  ZFPlayer: 65161784e86e4ea648e6b55cb1c815ae4b8c18d7
+  RFKit: 81d15fe229bb5335055336513aea14d898632cf9
+  ZFPlayer: f836ae2064623a00684fa5561b834fc1193dc54a
 
-PODFILE CHECKSUM: 70fcd6be8b0b86524763c141a8b75ce4b5f785b4
+PODFILE CHECKSUM: f83f6e0e02d3734ab8f6787916d740df2b783340
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

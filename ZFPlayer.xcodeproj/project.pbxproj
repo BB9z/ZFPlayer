@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		331B30092D38ED96A38F8421 /* libPods-PlayerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEDAC56B75431A3788059D0 /* libPods-PlayerDemo.a */; };
 		4947F79A1BE996AC003093C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4947F7991BE996AC003093C8 /* Assets.xcassets */; };
 		4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */; };
-		49F272801BF2330700FCC767 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49F2727F1BF2330700FCC767 /* Info.plist */; };
-		B1EDA941054EBD2CB192CDC7 /* libPods-ZFPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F79F4B54FAF9EE25007E13D /* libPods-ZFPlayer.a */; };
 		CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */; };
 		CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC48ECD61C8863DB009CF0D0 /* Main.storyboard */; };
 		CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */; };
@@ -23,12 +22,14 @@
 
 /* Begin PBXFileReference section */
 		0227C3210F5890896BC8644E /* Pods-ZFPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZFPlayer/Pods-ZFPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		1FB2AB0FEBD13A3CC4654912 /* Pods-PlayerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		3F79F4B54FAF9EE25007E13D /* libPods-ZFPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZFPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		486D6738A00825A942C5EBFB /* Pods-ZFPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFPlayer/Pods-ZFPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		4947F78A1BE996AC003093C8 /* ZFPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZFPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4947F7991BE996AC003093C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4947F79C1BE996AC003093C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49F2727F1BF2330700FCC767 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EEDAC56B75431A3788059D0 /* libPods-PlayerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlayerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFPlayerControlView.xib; sourceTree = "<group>"; };
 		CC48ECD61C8863DB009CF0D0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		CC6C7AE31C9BDFE90000AD58 /* MoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviePlayerViewController.h; sourceTree = "<group>"; };
@@ -41,6 +42,7 @@
 		D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNavigationViewController.h; sourceTree = "<group>"; };
 		D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNavigationViewController.m; sourceTree = "<group>"; };
 		D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZFPlayer.xcassets; sourceTree = "<group>"; };
+		FC6427DBBC732781FC8206CE /* Pods-PlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1EDA941054EBD2CB192CDC7 /* libPods-ZFPlayer.a in Frameworks */,
+				331B30092D38ED96A38F8421 /* libPods-PlayerDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +62,8 @@
 			children = (
 				486D6738A00825A942C5EBFB /* Pods-ZFPlayer.debug.xcconfig */,
 				0227C3210F5890896BC8644E /* Pods-ZFPlayer.release.xcconfig */,
+				FC6427DBBC732781FC8206CE /* Pods-PlayerDemo.debug.xcconfig */,
+				1FB2AB0FEBD13A3CC4654912 /* Pods-PlayerDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -105,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				3F79F4B54FAF9EE25007E13D /* libPods-ZFPlayer.a */,
+				9EEDAC56B75431A3788059D0 /* libPods-PlayerDemo.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -131,9 +136,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4947F7891BE996AC003093C8 /* ZFPlayer */ = {
+		4947F7891BE996AC003093C8 /* PlayerDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4947F7B71BE996AC003093C8 /* Build configuration list for PBXNativeTarget "ZFPlayer" */;
+			buildConfigurationList = 4947F7B71BE996AC003093C8 /* Build configuration list for PBXNativeTarget "PlayerDemo" */;
 			buildPhases = (
 				A574B553492808CE83219502 /* [CP] Check Pods Manifest.lock */,
 				4947F7861BE996AC003093C8 /* Sources */,
@@ -144,7 +149,7 @@
 			);
 			dependencies = (
 			);
-			name = ZFPlayer;
+			name = PlayerDemo;
 			productName = Player;
 			productReference = 4947F78A1BE996AC003093C8 /* ZFPlayer.app */;
 			productType = "com.apple.product-type.application";
@@ -171,6 +176,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -179,7 +185,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4947F7891BE996AC003093C8 /* ZFPlayer */,
+				4947F7891BE996AC003093C8 /* PlayerDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -191,7 +197,6 @@
 			files = (
 				CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */,
 				4947F79A1BE996AC003093C8 /* Assets.xcassets in Resources */,
-				49F272801BF2330700FCC767 /* Info.plist in Resources */,
 				4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */,
 				CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */,
 				D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */,
@@ -213,7 +218,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ZFPlayer-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PlayerDemo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -330,7 +335,7 @@
 		};
 		4947F7B81BE996AC003093C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 486D6738A00825A942C5EBFB /* Pods-ZFPlayer.debug.xcconfig */;
+			baseConfigurationReference = FC6427DBBC732781FC8206CE /* Pods-PlayerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -353,13 +358,13 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		4947F7B91BE996AC003093C8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0227C3210F5890896BC8644E /* Pods-ZFPlayer.release.xcconfig */;
+			baseConfigurationReference = 1FB2AB0FEBD13A3CC4654912 /* Pods-PlayerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -376,7 +381,7 @@
 				PRODUCT_NAME = ZFPlayer;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -392,7 +397,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4947F7B71BE996AC003093C8 /* Build configuration list for PBXNativeTarget "ZFPlayer" */ = {
+		4947F7B71BE996AC003093C8 /* Build configuration list for PBXNativeTarget "PlayerDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4947F7B81BE996AC003093C8 /* Debug */,

@@ -26,7 +26,7 @@
     ZFPlayerView *pv = self.playerView;
     pv.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     pv.translatesAutoresizingMaskIntoConstraints = YES;
-    pv.playbackInfoUpdateInterval = 4;
+    pv.playbackInfoUpdateInterval = 0.2;
     [pv addDisplayer:self];
     [pv bringToFront];
 

@@ -3,7 +3,7 @@
 # Uncomment this line if you're using Swift
 # use_frameworks!
 
-target 'ZFPlayer' do
+target 'PlayerDemo' do
     pod 'RFKit', :subspecs => [
         'Category/UIViewController+RFInterfaceOrientation',
     ]
