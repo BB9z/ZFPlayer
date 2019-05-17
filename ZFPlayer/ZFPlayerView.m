@@ -176,7 +176,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
 - (void)setVideoURL:(NSURL *)videoURL {
     if (_videoURL == videoURL) return;
     _videoURL = videoURL;
-    self.playerItem  = [AVPlayerItem playerItemWithURL:videoURL];
+    self.playerItem = [AVPlayerItem playerItemWithURL:videoURL];
 }
 
 - (void)play {
@@ -224,7 +224,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         self.ZFPlayerView_observingPlaybackTimeChanges = NO;
     }
     self.buffering = YES;
-    CMTime tolerance = CMTimeFromNSTimeInterval(0.2);
+    CMTime tolerance = CMTimeFromNSTimeInterval(0.1);
     self.seekingTime = time;
     self.playReachEnd = NO;
     @weakify(self);
