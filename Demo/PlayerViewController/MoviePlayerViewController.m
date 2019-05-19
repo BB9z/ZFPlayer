@@ -40,6 +40,9 @@
     if (self.autoPlay) {
         self.playerView.videoURL = self.videoURL;
     }
+    else {
+        self.playerView.disableAutoPlayWhenSetPlayItem = YES;
+    }
     
     if (!self.prefersNavigationBarHidden) {
         [cv.navigationBackButton removeFromSuperview];
@@ -66,6 +69,10 @@
 
 - (IBAction)onV3:(id)sender {
     self.playerView.videoURL = [NSURL URLWithString:@"https://static.smartisanos.cn/common/video/proud-farmer.mp4"];
+}
+
+- (IBAction)onV4:(id)sender {
+    self.playerView.videoURL = [NSURL URLWithString:@"https://example.com/bad_url"];
 }
 
 - (IBAction)onStop:(id)sender {

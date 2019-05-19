@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="nvg-Vi-F7K">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="nvg-Vi-F7K">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,61 +28,132 @@
                                     <constraint firstAttribute="width" secondItem="CJd-vt-Xpq" secondAttribute="height" multiplier="16:9" priority="750" placeholder="YES" id="lta-DY-OHb"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVj-So-3NX">
-                                <rect key="frame" x="16" y="283" width="343" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0r-gX-g2D">
-                                <rect key="frame" x="47" y="319" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="onV1:" destination="Dif-MC-umB" eventType="touchUpInside" id="vHW-G2-Fhr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMa-fh-zq5">
-                                <rect key="frame" x="143" y="319" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="onV2:" destination="Dif-MC-umB" eventType="touchUpInside" id="MP4-P3-2wu"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fx-5o-sqI">
-                                <rect key="frame" x="241" y="319" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="onV3:" destination="Dif-MC-umB" eventType="touchUpInside" id="PbT-bX-OOS"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5Z-bu-P1r">
-                                <rect key="frame" x="47" y="388" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="back"/>
-                                <connections>
-                                    <action selector="onBack:" destination="Dif-MC-umB" eventType="touchUpInside" id="C72-L7-wx2"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pn-GB-UIK">
-                                <rect key="frame" x="127" y="388" width="31" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="stop"/>
-                                <connections>
-                                    <action selector="onStop:" destination="Dif-MC-umB" eventType="touchUpInside" id="ij9-XY-Y1J"/>
-                                </connections>
-                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIH-gv-qAI">
+                                <rect key="frame" x="16" y="275" width="343" height="392"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pfy-q8-OQ0" userLabel="Content">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="249"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="错误信息会显示在此" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVj-So-3NX">
+                                                <rect key="frame" x="0.0" y="15" width="343" height="16"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频源" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcM-Nr-t8u">
+                                                <rect key="frame" x="0.0" y="51" width="52" height="21"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTx-jw-UiB">
+                                                <rect key="frame" x="0.0" y="80" width="343" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0r-gX-g2D">
+                                                        <rect key="frame" x="0.0" y="0.0" width="85" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <state key="normal" title="本地视频"/>
+                                                        <connections>
+                                                            <action selector="onV1:" destination="Dif-MC-umB" eventType="touchUpInside" id="vHW-G2-Fhr"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMa-fh-zq5">
+                                                        <rect key="frame" x="85" y="0.0" width="85" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <state key="normal" title="流视频"/>
+                                                        <connections>
+                                                            <action selector="onV2:" destination="Dif-MC-umB" eventType="touchUpInside" id="MP4-P3-2wu"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7fx-5o-sqI">
+                                                        <rect key="frame" x="170" y="0.0" width="85" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <state key="normal" title="远程视频"/>
+                                                        <connections>
+                                                            <action selector="onV3:" destination="Dif-MC-umB" eventType="touchUpInside" id="PbT-bX-OOS"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Pd-LO-Uuh">
+                                                        <rect key="frame" x="255" y="0.0" width="85" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <state key="normal" title="无效视频"/>
+                                                        <connections>
+                                                            <action selector="onV3:" destination="Dif-MC-umB" eventType="touchUpInside" id="Lem-qD-g4p"/>
+                                                            <action selector="onV4:" destination="Dif-MC-umB" eventType="touchUpInside" id="LGJ-id-FiK"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="hS2-MY-McU"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频控制" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbb-ar-av0">
+                                                <rect key="frame" x="0.0" y="150" width="69.5" height="21"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wvg-2J-iXl">
+                                                <rect key="frame" x="0.0" y="179" width="343" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pn-GB-UIK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="85" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <state key="normal" title="stop"/>
+                                                        <connections>
+                                                            <action selector="onStop:" destination="Dif-MC-umB" eventType="touchUpInside" id="ij9-XY-Y1J"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="PHW-9N-7N8"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="KcM-Nr-t8u" firstAttribute="top" secondItem="tVj-So-3NX" secondAttribute="bottom" constant="20" id="5gN-Mm-9Na"/>
+                                            <constraint firstItem="KcM-Nr-t8u" firstAttribute="leading" secondItem="Pfy-q8-OQ0" secondAttribute="leading" id="F7y-pf-3xi"/>
+                                            <constraint firstItem="tVj-So-3NX" firstAttribute="top" secondItem="Pfy-q8-OQ0" secondAttribute="top" constant="15" id="MtH-lN-R4h"/>
+                                            <constraint firstItem="Wvg-2J-iXl" firstAttribute="top" secondItem="hbb-ar-av0" secondAttribute="bottom" constant="8" id="NV6-qf-yMK"/>
+                                            <constraint firstAttribute="bottom" secondItem="Wvg-2J-iXl" secondAttribute="bottom" constant="20" id="PnV-Hg-jUH"/>
+                                            <constraint firstItem="tVj-So-3NX" firstAttribute="leading" secondItem="Pfy-q8-OQ0" secondAttribute="leading" id="VM1-Lp-79h"/>
+                                            <constraint firstAttribute="trailing" secondItem="Wvg-2J-iXl" secondAttribute="trailing" id="Vdf-Ha-zym"/>
+                                            <constraint firstItem="dTx-jw-UiB" firstAttribute="leading" secondItem="Pfy-q8-OQ0" secondAttribute="leading" id="YoL-bN-Zec"/>
+                                            <constraint firstItem="hbb-ar-av0" firstAttribute="leading" secondItem="Pfy-q8-OQ0" secondAttribute="leading" id="aml-Zj-1op"/>
+                                            <constraint firstItem="hbb-ar-av0" firstAttribute="top" secondItem="dTx-jw-UiB" secondAttribute="bottom" constant="20" id="dLf-iZ-y00"/>
+                                            <constraint firstItem="Wvg-2J-iXl" firstAttribute="leading" secondItem="Pfy-q8-OQ0" secondAttribute="leading" id="gJD-Om-ZxV"/>
+                                            <constraint firstAttribute="trailing" secondItem="dTx-jw-UiB" secondAttribute="trailing" id="ptb-Bq-l5E"/>
+                                            <constraint firstItem="dTx-jw-UiB" firstAttribute="top" secondItem="KcM-Nr-t8u" secondAttribute="bottom" constant="8" id="rIJ-wD-ayE"/>
+                                            <constraint firstAttribute="trailing" secondItem="tVj-So-3NX" secondAttribute="trailing" id="ylQ-kS-zSB"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Pfy-q8-OQ0" firstAttribute="top" secondItem="aIH-gv-qAI" secondAttribute="top" id="Bv4-6q-Yc1"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pfy-q8-OQ0" secondAttribute="trailing" id="Ebl-7h-s0m"/>
+                                    <constraint firstItem="Pfy-q8-OQ0" firstAttribute="width" secondItem="aIH-gv-qAI" secondAttribute="width" id="TMa-eG-aJM"/>
+                                    <constraint firstItem="Pfy-q8-OQ0" firstAttribute="leading" secondItem="aIH-gv-qAI" secondAttribute="leading" id="duA-wy-Q2k"/>
+                                    <constraint firstAttribute="bottom" secondItem="Pfy-q8-OQ0" secondAttribute="bottom" id="vHF-cn-Udf"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tVj-So-3NX" firstAttribute="leading" secondItem="Fed-wT-5xN" secondAttribute="leading" constant="16" id="ClK-JT-0t1"/>
-                            <constraint firstItem="tVj-So-3NX" firstAttribute="top" secondItem="CJd-vt-Xpq" secondAttribute="bottom" constant="8" id="GNa-QW-CGU"/>
+                            <constraint firstItem="Rk7-0X-Sdh" firstAttribute="top" secondItem="aIH-gv-qAI" secondAttribute="bottom" id="1ns-2R-sab"/>
                             <constraint firstAttribute="trailing" secondItem="CJd-vt-Xpq" secondAttribute="trailing" placeholder="YES" id="KYu-uX-7oq"/>
-                            <constraint firstAttribute="trailing" secondItem="tVj-So-3NX" secondAttribute="trailing" constant="16" id="UDW-5R-ftb"/>
+                            <constraint firstItem="aIH-gv-qAI" firstAttribute="leading" secondItem="Fed-wT-5xN" secondAttribute="leadingMargin" id="Quf-sU-6Hg"/>
                             <constraint firstItem="CJd-vt-Xpq" firstAttribute="top" secondItem="5Zz-RQ-Ug6" secondAttribute="bottom" placeholder="YES" id="bS7-7v-6Ui"/>
+                            <constraint firstItem="aIH-gv-qAI" firstAttribute="top" secondItem="CJd-vt-Xpq" secondAttribute="bottom" id="gbk-wC-DKI"/>
                             <constraint firstItem="CJd-vt-Xpq" firstAttribute="leading" secondItem="Fed-wT-5xN" secondAttribute="leading" placeholder="YES" id="keh-Vz-KSI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aIH-gv-qAI" secondAttribute="trailing" id="wa5-dA-mLB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Qks-Jk-elf"/>
@@ -95,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Htv-Kw-f6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1080.5" y="343.5"/>
+            <point key="canvasLocation" x="1565.9420289855075" y="230.02232142857142"/>
         </scene>
         <!--Main-->
         <scene sceneID="Por-U2-cMz">
@@ -137,7 +207,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R7w-8v-nBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="583" y="344"/>
+            <point key="canvasLocation" x="844.92753623188412" y="230.35714285714283"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="nyB-jO-6PS">
@@ -153,7 +223,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="epG-RS-Umo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="80" y="344"/>
+            <point key="canvasLocation" x="115.94202898550725" y="230.35714285714283"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
