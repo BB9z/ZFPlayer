@@ -137,6 +137,8 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
         self.currentTime = 0;
         self.playReachEnd = NO;
         self.duration = 0;
+        // 强制重设，否则如果之前出错不能正常播放
+        [self.AVPlayer replaceCurrentItemWithPlayerItem:nil];
     }
     _playerItem = playerItem;
     if (playerItem) {
@@ -383,6 +385,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
             [observer ZFPlayerView_tryExitBuffering];
         }];
     }
+    [self ZFPlayerView_noticeBufferingChanged:buffering];
 }
 
 - (void)ZFPlayerView_tryExitBuffering {
@@ -468,6 +471,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
     }
 
 ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayerItemChanged, didChangePlayerItem, AVPlayerItem *)
+ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticeBufferingChanged, buffering, BOOL)
 ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePauseChanged, didChangePauseState, BOOL)
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlaybackInfoUpdate, ZFPlayerDidUpdatePlaybackInfo);
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlayToEnd, ZFPlayerDidPlayToEnd);

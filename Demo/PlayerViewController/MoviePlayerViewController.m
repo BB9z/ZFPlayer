@@ -79,6 +79,10 @@
     [self.playerView stop];
 }
 
+- (IBAction)onLog:(id)sender {
+    NSLog(@"%@", self.playerView.debugDescription);
+}
+
 #pragma mark - 屏幕旋转，全屏
 
 - (BOOL)shouldAutorotate {

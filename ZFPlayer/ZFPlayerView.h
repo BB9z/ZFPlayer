@@ -105,6 +105,8 @@ typedef void(^ZFPlayerGoBackBlock)(void);
 /// 播放开始/暂停时通知，因缓冲不足停止播放不会调用
 - (void)ZFPlayer:(nonnull ZFPlayerView *)player didChangePauseState:(BOOL)isPaused;
 
+- (void)ZFPlayer:(nonnull ZFPlayerView *)player buffering:(BOOL)isBuffering;
+
 /// 视频播放时，会周期性调用通知刷新播放进度
 - (void)ZFPlayerDidUpdatePlaybackInfo:(nonnull ZFPlayerView *)player;
 

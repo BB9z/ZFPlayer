@@ -110,6 +110,15 @@
                                                             <action selector="onStop:" destination="Dif-MC-umB" eventType="touchUpInside" id="ij9-XY-Y1J"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4q-t1-vJB">
+                                                        <rect key="frame" x="85" y="0.0" width="85" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <state key="normal" title="打印状态"/>
+                                                        <connections>
+                                                            <action selector="onLog:" destination="Dif-MC-umB" eventType="touchUpInside" id="9FU-Mp-AhV"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>

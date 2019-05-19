@@ -292,6 +292,10 @@ RFInitializingRootForUIView
 
 #pragma mark -
 
+- (void)ZFPlayer:(ZFPlayerView *)player buffering:(BOOL)isBuffering {
+    [self updateActivityUI];
+}
+
 - (void)ZFPlayerDidUpdatePlaybackInfo:(ZFPlayerView *)player {
     if (self.seekBeginValue >= 0) {
         // 正在调解进度，UI 受手势影响
