@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		331B30092D38ED96A38F8421 /* libPods-PlayerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EEDAC56B75431A3788059D0 /* libPods-PlayerDemo.a */; };
 		4947F79A1BE996AC003093C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4947F7991BE996AC003093C8 /* Assets.xcassets */; };
-		4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */; };
 		CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */; };
 		CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC48ECD61C8863DB009CF0D0 /* Main.storyboard */; };
 		CC6C7AE51C9BDFE90000AD58 /* MoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6C7AE41C9BDFE90000AD58 /* MoviePlayerViewController.m */; };
@@ -17,6 +16,7 @@
 		CC725C321C894D2D00C3EAF2 /* DMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC725C2F1C894D2D00C3EAF2 /* DMMainViewController.m */; };
 		D57186F021105BDD00F76FF8 /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57186EF21105BDD00F76FF8 /* ApplicationDelegate.swift */; };
 		D5AF7D1E1D50BEA90005451A /* DMNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */; };
+		D5B8A8DE229112620084619D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5B8A8DD229112610084619D /* LaunchScreen.storyboard */; };
 		D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +27,6 @@
 		486D6738A00825A942C5EBFB /* Pods-ZFPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZFPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZFPlayer/Pods-ZFPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		4947F78A1BE996AC003093C8 /* ZFPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZFPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4947F7991BE996AC003093C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4947F79C1BE996AC003093C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49F2727F1BF2330700FCC767 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EEDAC56B75431A3788059D0 /* libPods-PlayerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlayerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZFPlayerControlView.xib; sourceTree = "<group>"; };
@@ -41,6 +40,7 @@
 		D57186EF21105BDD00F76FF8 /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNavigationViewController.h; sourceTree = "<group>"; };
 		D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNavigationViewController.m; sourceTree = "<group>"; };
+		D5B8A8DD229112610084619D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ZFPlayer.xcassets; sourceTree = "<group>"; };
 		FC6427DBBC732781FC8206CE /* Pods-PlayerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlayerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlayerDemo/Pods-PlayerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,10 +60,10 @@
 		3FBB6D56BC590B29B7AC91ED /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				486D6738A00825A942C5EBFB /* Pods-ZFPlayer.debug.xcconfig */,
-				0227C3210F5890896BC8644E /* Pods-ZFPlayer.release.xcconfig */,
 				FC6427DBBC732781FC8206CE /* Pods-PlayerDemo.debug.xcconfig */,
 				1FB2AB0FEBD13A3CC4654912 /* Pods-PlayerDemo.release.xcconfig */,
+				486D6738A00825A942C5EBFB /* Pods-ZFPlayer.debug.xcconfig */,
+				0227C3210F5890896BC8644E /* Pods-ZFPlayer.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -99,7 +99,7 @@
 				D5AF7D1C1D50BEA90005451A /* DMNavigationViewController.h */,
 				D5AF7D1D1D50BEA90005451A /* DMNavigationViewController.m */,
 				49F2727F1BF2330700FCC767 /* Info.plist */,
-				4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */,
+				D5B8A8DD229112610084619D /* LaunchScreen.storyboard */,
 				CC48ECD61C8863DB009CF0D0 /* Main.storyboard */,
 			);
 			path = Demo;
@@ -108,8 +108,8 @@
 		77BAA74D466CF5B1952CD7B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3F79F4B54FAF9EE25007E13D /* libPods-ZFPlayer.a */,
 				9EEDAC56B75431A3788059D0 /* libPods-PlayerDemo.a */,
+				3F79F4B54FAF9EE25007E13D /* libPods-ZFPlayer.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -126,9 +126,9 @@
 		D57186F221106F7900F76FF8 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */,
 				D5E9036C1CA6A43D00D7970B /* ZFPlayer.xcassets */,
 				CC2CC6371CA24D4B0028BBDD /* ZFPlayerControlView.xib */,
-				CC725C171C893F8400C3EAF2 /* 150511_JiveBike.mov */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -161,23 +161,21 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ZF;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = RFUI;
 				TargetAttributes = {
 					4947F7891BE996AC003093C8 = {
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 0940;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 4947F7851BE996AC003093C8 /* Build configuration list for PBXProject "ZFPlayer" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
-				en,
 				Base,
 			);
 			mainGroup = 4947F7811BE996AC003093C8;
@@ -197,7 +195,7 @@
 			files = (
 				CC725C181C893F8400C3EAF2 /* 150511_JiveBike.mov in Resources */,
 				4947F79A1BE996AC003093C8 /* Assets.xcassets in Resources */,
-				4947F79D1BE996AC003093C8 /* LaunchScreen.storyboard in Resources */,
+				D5B8A8DE229112620084619D /* LaunchScreen.storyboard in Resources */,
 				CC48ECD71C8863DB009CF0D0 /* Main.storyboard in Resources */,
 				D5E9036D1CA6A43D00D7970B /* ZFPlayer.xcassets in Resources */,
 				CC2CC63E1CA24D4B0028BBDD /* ZFPlayerControlView.xib in Resources */,
@@ -241,17 +239,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		4947F79B1BE996AC003093C8 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4947F79C1BE996AC003093C8 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		4947F7B51BE996AC003093C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -261,13 +248,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -289,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -304,13 +301,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -326,9 +333,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -340,15 +348,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = Y85RFN6NXZ;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 					"RFDebugLevel=5",
 				);
 				INFOPLIST_FILE = Demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -356,9 +363,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.bb9z.zfplayer.demo;
 				PRODUCT_NAME = ZFPlayer;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -369,10 +378,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = Y85RFN6NXZ;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -380,8 +388,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.bb9z.zfplayer.demo;
 				PRODUCT_NAME = ZFPlayer;
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Demo/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

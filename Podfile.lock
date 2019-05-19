@@ -1,5 +1,5 @@
 PODS:
-  - FLEX (2.1.1)
+  - FLEX (3.0.0)
   - RFAlpha/RFKVOWrapper (0.5.0):
     - RFKit/Runtime (>= 1.7.1)
   - RFAlpha/RFTimer (0.5.0)
@@ -16,7 +16,7 @@ PODS:
     - RFKit/Runtime
   - RFKit/Runtime (2.3.0):
     - RFKit/Foundation
-  - ZFPlayer (1.0.0):
+  - ZFPlayer (1.1.0):
     - RFAlpha/RFKVOWrapper
     - RFAlpha/RFTimer
     - RFInitializing
@@ -40,11 +40,11 @@ EXTERNAL SOURCES:
     :path: "."
 
 SPEC CHECKSUMS:
-  FLEX: 27b768fcae23a313a1eb115076d429180ca9b472
+  FLEX: d66c759bce0f6ebbbf472c742380874d846f2883
   RFAlpha: 89439f1138a4212505661d14a24ef4bebd6d6ab9
   RFInitializing: 1ea7f66b2bf97a401a31482c4e2c2c19cdc9d89c
   RFKit: 81d15fe229bb5335055336513aea14d898632cf9
-  ZFPlayer: f836ae2064623a00684fa5561b834fc1193dc54a
+  ZFPlayer: 273b17410337cf1b73858900f2827e1235c5469d
 
 PODFILE CHECKSUM: f83f6e0e02d3734ab8f6787916d740df2b783340
 
