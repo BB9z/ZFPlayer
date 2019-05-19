@@ -1,5 +1,6 @@
 
 #import "MoviePlayerViewController.h"
+#import "DMNavigationViewController.h"
 #import "ZFPlayerControlView.h"
 #import <RFKit/UIView+RFKit.h>
 
@@ -39,10 +40,19 @@
     if (self.autoPlay) {
         self.playerView.videoURL = self.videoURL;
     }
+    
+    if (!self.prefersNavigationBarHidden) {
+        [cv.navigationBackButton removeFromSuperview];
+    }
 }
 
 - (IBAction)onBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.hasApplyFullscreenLayout) {
+        [self onEnterFullscreenMode:nil];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (IBAction)onV1:(id)sender {
@@ -118,7 +128,7 @@
     _hasApplyFullscreenLayout = hasApplyFullscreenLayout;
 
     [self setNeedsStatusBarAppearanceUpdate];
-    [self.navigationController setNavigationBarHidden:hasApplyFullscreenLayout animated:YES];
+    [self.navigationController setNavigationBarHidden:hasApplyFullscreenLayout || self.prefersNavigationBarHidden animated:YES];
 }
 
 #pragma mark - 错误

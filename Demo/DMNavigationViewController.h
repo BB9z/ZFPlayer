@@ -8,4 +8,11 @@
 
 @interface DMNavigationViewController : UINavigationController
 
+- (void)updateCurrentNavigationAppearanceAnimated:(BOOL)animated;
+@end
+
+@interface UIViewController (NavigationAppearance)
+
+///
+@property IBInspectable BOOL prefersNavigationBarHidden;
 @end

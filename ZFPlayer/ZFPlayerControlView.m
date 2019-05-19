@@ -37,10 +37,6 @@ RFInitializingRootForUIView
     self.floatMessageContainer.alpha = 0;
 }
 
-- (IBAction)onBackButtonTapped:(id)sender {
-    self.player.paused = YES;
-}
-
 - (IBAction)onReplayButtonTapped:(id)sender {
     self.replayButton.hidden = YES;
     [self.player seekToTime:0 completion:^(BOOL finished) {

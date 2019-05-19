@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -37,7 +37,7 @@
                     </constraints>
                     <state key="normal" image="ZFPlayer_back"/>
                     <connections>
-                        <action selector="onBackButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="rDv-iQ-07q"/>
+                        <action selector="onBack:" destination="-2" eventType="touchUpInside" id="nne-kU-G6H"/>
                     </connections>
                 </button>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="y1P-EE-mR8">
@@ -100,7 +100,7 @@
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.29999999999999999" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="nSJ-HO-8mU">
-                                    <rect key="frame" x="39.5" y="9.5" width="196" height="31"/>
+                                    <rect key="frame" x="39.5" y="10" width="196" height="31"/>
                                     <color key="minimumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="maximumTrackTintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
@@ -206,7 +206,7 @@
                 <outletCollection property="panelElementViews" destination="FsW-K3-1Nq" id="I5f-J7-cRz"/>
                 <outletCollection property="panelElementViews" destination="Sbh-5Q-eUQ" id="DBR-ja-o5s"/>
             </connections>
-            <point key="canvasLocation" x="224.5" y="213.5"/>
+            <point key="canvasLocation" x="324" y="142.57871064467767"/>
         </view>
         <tapGestureRecognizer id="PiX-SB-Soh" userLabel="单击控制面板显隐">
             <connections>
@@ -217,16 +217,11 @@
     <resources>
         <image name="ZFPlayer_back" width="39" height="39"/>
         <image name="ZFPlayer_fullscreen" width="24" height="24"/>
-        <image name="ZFPlayer_gradient_bottom" width="1" height="1"/>
-        <image name="ZFPlayer_gradient_top" width="1" height="1"/>
+        <image name="ZFPlayer_gradient_bottom" width="0.5" height="64"/>
+        <image name="ZFPlayer_gradient_top" width="0.5" height="64"/>
         <image name="ZFPlayer_pause" width="24" height="24"/>
         <image name="ZFPlayer_play" width="24" height="24"/>
         <image name="ZFPlayer_repeat_video" width="40" height="60"/>
         <image name="ZFPlayer_shrinkscreen" width="24" height="24"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

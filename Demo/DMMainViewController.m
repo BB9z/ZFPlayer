@@ -1,5 +1,6 @@
 
 #import "DMMainViewController.h"
+#import "DMNavigationViewController.h"
 #import "MoviePlayerViewController.h"
 
 @interface DMMainViewController ()
@@ -14,6 +15,7 @@
         NSURL *videoURL = [[NSBundle mainBundle] URLForResource:@"150511_JiveBike" withExtension:@"mov"];
         movie.videoURL = videoURL;
         movie.autoPlay = YES;
+        movie.prefersNavigationBarHidden = YES;
     }
     else if ([segue.identifier isEqualToString:@"S2"]) {
 
