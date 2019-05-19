@@ -1,21 +1,19 @@
 /*!
  ZFPlayerView
  
- Copyright © 2016, 2018 BB9z.
+ Copyright © 2016, 2018-2019 BB9z.
  Copyright © 2016 任子丰 http://github.com/renzifeng
  https://github.com/BB9z/ZFPlayer
  
  The MIT License (MIT)
  http://www.opensource.org/licenses/mit-license.php
  */
+#import <AVFoundation/AVFoundation.h>
 #import <RFInitializing/RFInitializing.h>
 #import <RFKit/RFRuntime.h>
-@import AVFoundation;
 
-typedef void(^ZFPlayerGoBackBlock)(void);
 
 @protocol ZFPlayerDisplayDelegate;
-@class ZFPlayerControlView;
 
 /**
  对 AVPlayer，AVPlayerLayer 做封装，只提供好播放功能本身。
