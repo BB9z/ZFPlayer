@@ -152,6 +152,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
             }
         }];
         [playerItem RFAddObserver:self forKeyPath:@keypath(playerItem, status) options:NSKeyValueObservingOptionNew queue:nil block:^(ZFPlayerView *observer, NSDictionary *change) {
+            [observer invalidateIntrinsicContentSize];
             if (observer.playerItem.status == AVPlayerStatusFailed) {
                 [observer ZFPlayerView_handlePlayError:observer.playerItem.error];
             }
@@ -424,6 +425,16 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
     // 想想分屏、不在主屏幕的情形，旋转设备影响的只是容器的尺寸
     CGRect windowFrame = self.window.frame;
     return CGRectGetWidth(windowFrame) > CGRectGetHeight(windowFrame);
+}
+
+- (CGSize)intrinsicContentSize {
+    CGSize videoSize = self.ZFPlayerView_playerLayer.videoRect.size;
+    if (!videoSize.width) {
+        return super.intrinsicContentSize;
+    }
+    CGSize size = self.bounds.size;
+    size.height = size.width / videoSize.width * videoSize.height;
+    return size;
 }
 
 #pragma mark - Delegtate 通知
