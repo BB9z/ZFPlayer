@@ -192,7 +192,7 @@
                 <outlet property="currentTimeLabel" destination="yIE-vF-c8O" id="bdx-Ti-WaH"/>
                 <outlet property="floatMessageContainer" destination="Cd7-Gk-Mfx" id="n1d-3f-VmB"/>
                 <outlet property="floatMessageLabel" destination="vpB-JU-pOE" id="4JZ-OS-rQr"/>
-                <outlet property="fullScreenBtn" destination="AEI-I4-hWP" id="Wnd-p1-skw"/>
+                <outlet property="fullScreenButton" destination="AEI-I4-hWP" id="Wnd-p1-skw"/>
                 <outlet property="loadRangView" destination="XJK-cI-fYm" id="se6-47-zXa"/>
                 <outlet property="navigationBackButton" destination="FsW-K3-1Nq" id="UbE-z3-TLR"/>
                 <outlet property="playbackProgressSlider" destination="nSJ-HO-8mU" id="Bng-si-AK4"/>

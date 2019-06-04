@@ -46,7 +46,7 @@ RFInitializingRootForUIView
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.fullScreenBtn.selected = self.player.shouldApplyFullscreenLayout;
+    self.fullScreenButton.selected = self.player.shouldApplyFullscreenLayout;
 }
 
 - (void)setPlayer:(ZFPlayerView *)player {

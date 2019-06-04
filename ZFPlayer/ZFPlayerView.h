@@ -41,7 +41,7 @@
 /// 设置暂停，如果没有视频在播放总是 NO
 @property (nonatomic, getter=isPaused) BOOL paused;
 
-///
+/// @bug: 目前暂停时调节进度会退出暂停状态，计划 1.2 修正
 - (void)seekToTime:(NSTimeInterval)time completion:(void (^__nullable)(BOOL finished))completion;
 
 /// 正在切换的时间点，不在切换时值 -1
@@ -102,6 +102,7 @@
 /// 播放开始/暂停时通知，因缓冲不足停止播放不会调用
 - (void)ZFPlayer:(nonnull ZFPlayerView *)player didChangePauseState:(BOOL)isPaused;
 
+/// buffering 状态变化时调用
 - (void)ZFPlayer:(nonnull ZFPlayerView *)player buffering:(BOOL)isBuffering;
 
 /// 视频播放时，会周期性调用通知刷新播放进度
@@ -113,6 +114,7 @@
 /// 播放错误
 - (void)ZFPlayer:(nonnull ZFPlayerView *)player didReciveError:(nullable NSError *)error;
 
+/// 即将调节进度时调用
 - (void)ZFPlayer:(nonnull ZFPlayerView *)player willBeginSeek:(NSTimeInterval)time;
 
 @end
