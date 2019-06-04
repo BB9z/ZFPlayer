@@ -317,4 +317,8 @@ RFInitializingRootForUIView
     self.replayButton.hidden = NO;
 }
 
+- (void)ZFPlayer:(ZFPlayerView *)player didReciveError:(NSError *)error {
+    [self showFloatStatusWithMessage:error.localizedDescription];
+}
+
 @end
