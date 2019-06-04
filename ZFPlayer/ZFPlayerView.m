@@ -27,7 +27,7 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 @property (nullable) id ZFPlayerView_playbackTimeObserver;
 @property (nullable) id ZFPlayerView_bufferEmptyObserver;
 @property (nullable) id ZFPlayerView_loadRangeObserver;
-@property (nonatomic) BOOL ZFPlayerView_currentPauseDueToBuffering;
+@property BOOL ZFPlayerView_currentPauseDueToBuffering;
 #if ZFPlayerDebug
 @property RFTimer *debugTimer;
 #endif
@@ -225,6 +225,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
     CMTime tolerance = CMTimeFromNSTimeInterval(0.1);
     self.seekingTime = time;
     self.playReachEnd = NO;
+    [self ZFPlayerView_noticeSeekBegin:time];
     @weakify(self);
     [self.AVPlayer seekToTime:CMTimeFromNSTimeInterval(time) toleranceBefore:tolerance toleranceAfter:tolerance completionHandler:^(BOOL finished) {
         @strongify(self);
@@ -487,6 +488,7 @@ ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePauseChanged, didChangePauseSt
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlaybackInfoUpdate, ZFPlayerDidUpdatePlaybackInfo);
 ZFPlayerDisplayerNoticeMethod(ZFPlayerView_noticePlayToEnd, ZFPlayerDidPlayToEnd);
 ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticePlayError, didReciveError, NSError *);
+ZFPlayerDisplayerNoticeMethod2(ZFPlayerView_noticeSeekBegin, willBeginSeek, NSTimeInterval);
 
 @end
 

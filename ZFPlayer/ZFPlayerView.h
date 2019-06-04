@@ -12,7 +12,6 @@
 #import <RFInitializing/RFInitializing.h>
 #import <RFKit/RFRuntime.h>
 
-
 @protocol ZFPlayerDisplayDelegate;
 
 /**
@@ -114,5 +113,6 @@
 /// 播放错误
 - (void)ZFPlayer:(nonnull ZFPlayerView *)player didReciveError:(nullable NSError *)error;
 
+- (void)ZFPlayer:(nonnull ZFPlayerView *)player willBeginSeek:(NSTimeInterval)time;
 
 @end
