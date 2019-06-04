@@ -174,9 +174,9 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
 }
 
 - (void)setVideoURL:(NSURL *)videoURL {
-    if (_videoURL == videoURL) return;
+    if ([_videoURL isEqual:videoURL]) return;
     _videoURL = videoURL;
-    self.playerItem = [AVPlayerItem playerItemWithURL:videoURL];
+    self.playerItem = videoURL ? [AVPlayerItem playerItemWithURL:videoURL] : nil;
 }
 
 - (void)play {
@@ -247,7 +247,7 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
 
 - (void)stop {
     [self.AVPlayer pause];  // 为了重置 rate
-    self.playerItem = nil;
+    self.videoURL = nil;
 }
 
 #pragma mark 事件
