@@ -23,7 +23,10 @@
 @property NSURL *videoURL;
 @property BOOL autoPlay;
 
-@property (nonatomic, weak) IBOutlet UILabel *errorLabel;
+@property (weak) IBOutlet UILabel *errorLabel;
+
+@property (weak) IBOutlet UIView *screenshotContainer;
+@property (weak) IBOutlet UIImageView *screenshotImageView;
 
 #pragma mark - 全屏模式
 

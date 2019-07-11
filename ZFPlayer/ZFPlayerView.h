@@ -73,6 +73,10 @@
 /// 根据当前 view hierarchy 决定是否应处于全屏布局
 - (BOOL)shouldApplyFullscreenLayout;
 
+/// 对当前视频截图
+/// @note 当前实现支持流视频，但调用时视频会卡顿一下
+- (void)takeScreenShot:(nonnull void (^)(UIImage *__nullable))complation;
+
 #pragma mark - 配置
 
 /// 默认设置 videoURL 或 playerItem 就开始自动播放，置为 YES 必须手动调用 play 方法才开始播放

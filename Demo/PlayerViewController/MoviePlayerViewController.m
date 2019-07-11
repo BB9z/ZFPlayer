@@ -83,6 +83,19 @@
     NSLog(@"%@", self.playerView.debugDescription);
 }
 
+- (IBAction)onScreenShot:(id)sender {
+    @weakify(self)
+    [self.playerView takeScreenShot:^(UIImage *image) {
+        @strongify(self)
+        self.screenshotContainer.hidden = NO;
+        self.screenshotImageView.image = image;
+    }];
+}
+
+- (IBAction)onScreenShotResultClose:(id)sender {
+    self.screenshotContainer.hidden = YES;
+}
+
 #pragma mark - 屏幕旋转，全屏
 
 - (BOOL)shouldAutorotate {

@@ -4,6 +4,7 @@
 #if __has_include("RFTimer.h")
 #import <RFAlpha/RFTimer.h>
 #endif
+#import <CoreImage/CoreImage.h>
 
 #ifndef ZFPlayerDebug
 #define ZFPlayerDebug 0
@@ -18,7 +19,9 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
     return CMTimeGetSeconds(time);
 }
 
-@interface ZFPlayerView ()
+@interface ZFPlayerView () <
+    AVPlayerItemOutputPullDelegate
+>
 @property (nonatomic, readonly) AVPlayerLayer *ZFPlayerView_playerLayer;
 
 @property (nonatomic) NSHashTable<id<ZFPlayerDisplayDelegate>> *ZFPlayerView_displayers;
@@ -28,6 +31,8 @@ static NSTimeInterval NSTimeIntervalFromCMTime(CMTime time) {
 @property (nullable) id ZFPlayerView_bufferEmptyObserver;
 @property (nullable) id ZFPlayerView_loadRangeObserver;
 @property BOOL ZFPlayerView_currentPauseDueToBuffering;
+@property AVPlayerItemVideoOutput *ZFPlayerView_screenshotOutput;
+@property (nullable) void (^ZFPlayerView_screenshotCallback)(UIImage *);
 #if ZFPlayerDebug
 @property RFTimer *debugTimer;
 #endif
@@ -436,6 +441,77 @@ buffering: %@, empty?: %@, full?:%@, likelyToKeepUp?: %@",
     CGSize size = self.bounds.size;
     size.height = size.width / videoSize.width * videoSize.height;
     return size;
+}
+
+#pragma mark -
+
+- (void)takeScreenShot:(void (^)(UIImage * _Nullable))complation {
+    AVPlayerItem *item = self.playerItem;
+    if (!item) {
+        if (complation) {
+            complation(nil);
+        }
+        return;
+    }
+    AVPlayerItemOutput *old = self.ZFPlayerView_screenshotOutput;
+    if (old) {
+        [item removeOutput:old];
+    }
+    NSDictionary *settings = @{ (id)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA) };
+    AVPlayerItemVideoOutput *output = [AVPlayerItemVideoOutput.alloc initWithPixelBufferAttributes:settings];
+    [output setDelegate:self queue:nil];
+    [self.playerItem addOutput:output];
+    self.ZFPlayerView_screenshotOutput = output;
+    self.ZFPlayerView_screenshotCallback = complation;
+}
+
+- (void)outputSequenceWasFlushed:(AVPlayerItemOutput *)output {
+    if (output != self.ZFPlayerView_screenshotOutput) return;
+    
+    AVPlayerItemVideoOutput *op = self.ZFPlayerView_screenshotOutput;
+    CVPixelBufferRef buffer = [op copyPixelBufferForItemTime:self.playerItem.currentTime itemTimeForDisplay:nil];
+    if (!buffer) {
+        dout_warning(@"PixelBuffer get failed.");
+        [self ZFPlayerView_endScreenshotImage:nil];
+        return;
+    }
+    
+    size_t width = CVPixelBufferGetWidth(buffer);
+    size_t height = CVPixelBufferGetHeight(buffer);
+    if (width <= 0 || height <= 0) {
+        dout_warning(@"PixelBuffer size invaild.");
+        [self ZFPlayerView_endScreenshotImage:nil];
+        return;
+    }
+    
+    //  https://stackoverflow.com/q/8072208/945906
+    CIImage *ciImage = [CIImage imageWithCVPixelBuffer:buffer];
+    if (!ciImage) {
+        dout_warning(@"Cannot cover PixelBuffer into CIImage");
+        [self ZFPlayerView_endScreenshotImage:nil];
+        return;
+    }
+    
+    CIContext *temporaryContext = [CIContext contextWithOptions:nil];
+    CGImageRef videoImage = [temporaryContext createCGImage:ciImage fromRect:CGRectMake(0, 0, width, height)];
+    UIImage *uiImage = [UIImage imageWithCGImage:videoImage];
+    CGImageRelease(videoImage);
+    CVPixelBufferRelease(buffer);
+    [self ZFPlayerView_endScreenshotImage:uiImage];
+}
+
+- (void)ZFPlayerView_endScreenshotImage:(UIImage *)image {
+    AVPlayerItemVideoOutput *op = self.ZFPlayerView_screenshotOutput;
+    if (!op) return;
+    self.ZFPlayerView_screenshotOutput = nil;
+    [self.playerItem removeOutput:op];
+    void (^cb)(UIImage *) = self.ZFPlayerView_screenshotCallback;
+    if (cb) {
+        self.ZFPlayerView_screenshotCallback = nil;
+        dispatch_async_on_main(^{
+            cb(image);
+        });
+    }
 }
 
 #pragma mark - Delegtate 通知
